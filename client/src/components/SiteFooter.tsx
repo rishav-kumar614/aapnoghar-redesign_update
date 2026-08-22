@@ -23,50 +23,65 @@ export function SiteFooter() {
 
           {/* Col 2: Quick Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#F68734] mb-4">Quick Navigation</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#F68734] mb-4">Explore Resort</h4>
             <div className="flex flex-col gap-2 text-xs text-white/80">
               <button type="button" onClick={() => setLocation("/")} className="text-left hover:text-white">
                 Home
               </button>
-              <button type="button" onClick={() => setLocation("/#experiences")} className="text-left hover:text-white">
-                Water &amp; Amusement Park
+              <button type="button" onClick={() => setLocation("/rooms")} className="text-left hover:text-white">
+                Resort Rooms &amp; Suites
               </button>
-              <button type="button" onClick={() => setLocation("/#celebrate")} className="text-left hover:text-white">
-                Weddings &amp; Event Lawns
+              <button type="button" onClick={() => setLocation("/stay-packages")} className="text-left hover:text-white">
+                Staycation Packages
               </button>
-              <button type="button" onClick={() => setLocation("/#pricing")} className="text-left hover:text-white">
-                Day Passes &amp; Packages
+              <button type="button" onClick={() => setLocation("/water-park")} className="text-left hover:text-white">
+                Water Park (21 Slides)
               </button>
-              <button type="button" onClick={() => setLocation("/#estimator")} className="text-left hover:text-white">
-                Cost Estimator
+              <button type="button" onClick={() => setLocation("/amusement-park")} className="text-left hover:text-white">
+                Amusement Joyrides
+              </button>
+              <button type="button" onClick={() => setLocation("/adventure-park")} className="text-left hover:text-white">
+                Adventure &amp; Rope Park
+              </button>
+              <button type="button" onClick={() => setLocation("/abhipriti-restaurant")} className="text-left hover:text-white">
+                Abhipriti Restaurant
+              </button>
+              <button type="button" onClick={() => setLocation("/packages-offers")} className="text-left hover:text-white">
+                Packages &amp; Offers
               </button>
             </div>
           </div>
 
-          {/* Col 3: Accommodations & Venues */}
+          {/* Col 3: Events & Company */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#F68734] mb-4">Venues &amp; Rooms</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-[#F68734] mb-4">Events &amp; Info</h4>
             <div className="flex flex-col gap-2 text-xs text-white/80">
-              <button type="button" onClick={() => setLocation("/presidential-suite-room-1")} className="text-left hover:text-white">
-                Presidential Suite (Gurgaon)
+              <button type="button" onClick={() => setLocation("/weddings-banquets")} className="text-left hover:text-white">
+                Weddings &amp; Banquets
               </button>
-              <button type="button" onClick={() => setLocation("/presidential-suite-room-2")} className="text-left hover:text-white">
-                Presidential Suite (Delhi NCR)
+              <button type="button" onClick={() => setLocation("/corporate-events")} className="text-left hover:text-white">
+                Corporate Events &amp; Offsites
               </button>
-              <button type="button" onClick={() => setLocation("/suite-room")} className="text-left hover:text-white">
-                Suite Room (₹7,200/night)
+              <button type="button" onClick={() => setLocation("/school-picnic-group-packages")} className="text-left hover:text-white">
+                School &amp; Group Picnics
               </button>
-              <button type="button" onClick={() => setLocation("/luxury-room")} className="text-left hover:text-white">
-                Luxury Room
+              <button type="button" onClick={() => setLocation("/gallery")} className="text-left hover:text-white">
+                Photo &amp; Video Gallery
               </button>
-              <button type="button" onClick={() => setLocation("/luxury-room-2")} className="text-left hover:text-white">
-                Luxury Room 2
+              <button type="button" onClick={() => setLocation("/about-us")} className="text-left hover:text-white">
+                About Us
               </button>
-              <button type="button" onClick={() => setLocation("/luxury-room-shower-glass")} className="text-left hover:text-white">
-                Luxury Room (Shower Glass)
+              <button type="button" onClick={() => setLocation("/contact-us")} className="text-left hover:text-white">
+                Contact Us &amp; Map
               </button>
-              <button type="button" onClick={() => setLocation("/deluxe-room")} className="text-left hover:text-white">
-                Deluxe Room
+              <button type="button" onClick={() => setLocation("/blog")} className="text-left hover:text-white">
+                Travel Blog &amp; Guides
+              </button>
+              <button type="button" onClick={() => setLocation("/faqs")} className="text-left hover:text-white">
+                FAQs &amp; Guidelines
+              </button>
+              <button type="button" onClick={() => setLocation("/careers")} className="text-left hover:text-white">
+                Careers / Job Vacancies
               </button>
             </div>
           </div>
