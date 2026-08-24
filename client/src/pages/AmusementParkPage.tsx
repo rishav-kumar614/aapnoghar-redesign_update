@@ -40,41 +40,78 @@ export default function AmusementParkPage() {
       <SiteHeader onOpenBooking={handleOpenBooking} />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-[#D97706] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-30 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center filter blur-xs" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#B45309]/90 via-[#D97706]/90 to-[#D97706]" />
+      <section className="relative pt-36 pb-24 bg-[#061A33] text-white overflow-hidden">
+        {/* Ambient background */}
+        <div className="absolute inset-0 z-0 opacity-15 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center" />
+
+        {/* Radial glow layers */}
+        <div className="absolute top-0 right-1/3 w-[500px] h-[500px] rounded-full bg-[#D97706]/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-[#F59E0B]/10 blur-[80px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061A33]/50 via-[#061A33]/80 to-[#061A33]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#FDE68A] mb-4">
-            <Link href="/" className="hover:underline">Home</Link>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#FDE68A]/70 mb-6">
+            <Link href="/" className="hover:text-[#FDE68A] transition-colors">Home</Link>
             <ChevronRight size={12} />
-            <span>Amusement Park</span>
+            <span className="text-white/50">Amusement Park</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white mb-6">
-            Joyrides &amp; Amusement Park
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#D97706]/40 bg-[#D97706]/10 text-[#FDE68A] text-xs font-bold uppercase tracking-widest">
+            <Zap size={12} className="text-[#FFA96B]" />
+            20+ Mechanical Rides · All Ages · Unlimited Access
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-tight mb-6 max-w-4xl">
+            Joyrides &amp;{" "}
+            <span className="italic bg-gradient-to-r from-[#FDE68A] via-[#F59E0B] to-[#FFA96B] bg-clip-text text-transparent">
+              Amusement Park
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-amber-100 max-w-3xl leading-relaxed mb-8">
-            Experience non-stop fun with 20+ exciting mechanical rides, family coasters, bumper cars, and kids play zone.
+
+          {/* Description */}
+          <p className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed mb-10">
+            Experience non-stop fun with 20+ exciting mechanical rides, family coasters, bumper cars, and kids play zone — all included in your ticket!
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center">
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FDE68A]">20+</div>
-              <div className="text-xs text-amber-100">Joyrides &amp; Attractions</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FDE68A]">All Ages</div>
-              <div className="text-xs text-amber-100">Kids, Teens &amp; Adults</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FDE68A]">100%</div>
-              <div className="text-xs text-amber-100">Safety Standard Certified</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FDE68A]">Unlimited</div>
-              <div className="text-xs text-amber-100">Rides Included in Ticket</div>
-            </div>
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mb-14">
+            <button
+              onClick={() => handleOpenBooking("Amusement Park Pass")}
+              className="px-6 py-3.5 rounded-xl bg-[#D97706] hover:bg-[#B45309] text-white font-bold text-sm shadow-lg shadow-[#D97706]/30 flex items-center gap-2 transition-all hover:-translate-y-0.5"
+            >
+              <Ticket size={16} />
+              <span>Book Park Pass</span>
+            </button>
+            <button
+              onClick={() => handleOpenBooking("Amusement Park Combo")}
+              className="px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm flex items-center gap-2 transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            >
+              <Sparkles size={16} />
+              <span>View All Rides</span>
+            </button>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap gap-6 sm:gap-10 border-t border-white/10 pt-8">
+            {[
+              { icon: <Zap size={16} className="text-[#FDE68A]" />, value: "20+", label: "Joyrides & Attractions" },
+              { icon: <Smile size={16} className="text-[#FFA96B]" />, value: "All Ages", label: "Kids, Teens & Adults" },
+              { icon: <ShieldCheck size={16} className="text-[#A3E635]" />, value: "100%", label: "Safety Certified" },
+              { icon: <Flame size={16} className="text-[#F472B6]" />, value: "Unlimited", label: "Rides in Ticket" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center shrink-0">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-xl font-extrabold text-white leading-none">{stat.value}</div>
+                  <div className="text-xs text-white/50 mt-0.5">{stat.label}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

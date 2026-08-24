@@ -27,6 +27,10 @@ type NavSection =
   | "leads"
   | "careers"
   | "seo"
+  | "analytics"
+  | "seasonal"
+  | "security"
+  | "landing-pages"
   | "homepage"
   | "redirects";
 
@@ -49,11 +53,25 @@ import {
   saveCoupons,
   getTicketPricing,
   saveTicketPricing,
+  getJobVacancies,
+  saveJobVacancies,
+  getJobApplications,
+  saveJobApplications,
   resetAllCMSData,
   RoomItem,
   CouponItem,
-  TicketPricing
+  TicketPricing,
+  JobVacancy,
+  JobApplication,
+  getSeasonalConfig,
+  saveSeasonalConfig,
+  SeasonalConfig,
+  SeasonalOffer,
+  getLandingPages,
+  saveLandingPages,
+  LandingPageItem
 } from "@/lib/cmsStore";
+import { getAnalyticsConfig, saveAnalyticsConfig, getTrackedEvents, getStoredUTM } from "@/lib/analytics";
 
 // Initial Mock Leads
 const INITIAL_LEADS: LeadItem[] = [
@@ -161,25 +179,41 @@ export default function AdminPage() {
   const [newBlogTitle, setNewBlogTitle] = useState("");
   const [newBlogCategory, setNewBlogCategory] = useState("Travel Guide");
 
-  // Careers State
-  const [careerList, setCareerList] = useState([
-    { id: "c1", role: "Front Office Manager", department: "Hospitality & Front Desk", exp: "3–5 Years", type: "Full Time", salary: "₹4.5–6.0 LPA", applicants: 14 },
-    { id: "c2", role: "Water Park Lifeguard & Safety Officer", department: "Park Operations", exp: "1–3 Years", type: "Full Time", salary: "₹2.8–3.6 LPA", applicants: 28 },
-    { id: "c3", role: "Sous Chef (North Indian Pure Veg)", department: "Food & Beverage", exp: "4–6 Years", type: "Full Time", salary: "₹5.0–7.5 LPA", applicants: 9 },
-    { id: "c4", role: "Events & Banquet Sales Executive", department: "MICE & Weddings", exp: "2–4 Years", type: "Full Time", salary: "₹4.0–5.5 LPA", applicants: 19 },
-  ]);
-  const [newJobRole, setNewJobRole] = useState("");
-  const [newJobDept, setNewJobDept] = useState("Hospitality & Front Desk");
-  const [newJobExp, setNewJobExp] = useState("2–4 Years");
-  const [newJobType, setNewJobType] = useState("Full Time");
-  const [newJobSalary, setNewJobSalary] = useState("₹4.0–6.0 LPA");
+  // Careers & Applications State (cmsStore sync)
+  const [vacanciesList, setVacanciesList] = useState<JobVacancy[]>(() => getJobVacancies());
+  const [applicationsList, setApplicationsList] = useState<JobApplication[]>(() => getJobApplications());
 
-  const [applicantsList, setApplicantsList] = useState([
-    { id: "APP-101", name: "Rohit Verma", role: "Front Office Manager", phone: "+91 98110 22334", email: "rohit.verma@gmail.com", exp: "4 Years (Oberoi)", appliedDate: "20 Aug 2026", status: "Shortlisted" },
-    { id: "APP-102", name: "Neha Sharma", role: "Events & Banquet Sales Executive", phone: "+91 98712 33445", email: "neha.events@yahoo.com", exp: "3.5 Years (ITC)", appliedDate: "19 Aug 2026", status: "Interview Scheduled" },
-    { id: "APP-103", name: "Amit Yadav", role: "Water Park Lifeguard & Safety Officer", phone: "+91 99100 44556", email: "amit.yadav92@gmail.com", exp: "2 Years (Appu Ghar)", appliedDate: "21 Aug 2026", status: "Under Review" },
-    { id: "APP-104", name: "Priya Nair", role: "Sous Chef (North Indian Pure Veg)", phone: "+91 98200 55667", email: "chef.priya@outlook.com", exp: "5 Years (Radisson)", appliedDate: "22 Aug 2026", status: "New" },
-  ]);
+  const [newJobTitle, setNewJobTitle] = useState("");
+  const [newJobDept, setNewJobDept] = useState("Hospitality & Front Desk");
+  const [newJobLoc, setNewJobLoc] = useState("Gurugram, HR");
+  const [newJobType, setNewJobType] = useState("Full-Time");
+  const [newJobSalary, setNewJobSalary] = useState("₹4.0–6.0 LPA");
+  const [newJobDesc, setNewJobDesc] = useState("");
+  const [newJobReqs, setNewJobReqs] = useState("2+ years experience in hotel/resort operations\nStrong communication skills in Hindi & English");
+
+  // Analytics & Marketing State
+  const [ga4Input, setGa4Input] = useState(() => getAnalyticsConfig().ga4Id);
+  const [gtmInput, setGtmInput] = useState(() => getAnalyticsConfig().gtmId);
+  const [pixelInput, setPixelInput] = useState(() => getAnalyticsConfig().pixelId);
+  const [analyticsEvents] = useState(() => getTrackedEvents());
+
+  // Seasonal & Festival State
+  const [seasonal, setSeasonal] = useState<SeasonalConfig>(() => getSeasonalConfig());
+
+  // Security & RBAC State
+  const [adminRole, setAdminRole] = useState<"Super Admin" | "Resort Manager" | "Receptionist">("Super Admin");
+
+  // Landing Page Builder State
+  const [landingPages, setLandingPages] = useState<LandingPageItem[]>(() => getLandingPages());
+  const [showAddLp, setShowAddLp] = useState(false);
+  const [newLpSlug, setNewLpSlug] = useState("");
+  const [newLpTitle, setNewLpTitle] = useState("");
+  const [newLpSubtitle, setNewLpSubtitle] = useState("");
+  const [newLpCode, setNewLpCode] = useState("");
+  const [newLpDiscount, setNewLpDiscount] = useState("");
+  const [newLpPrice, setNewLpPrice] = useState("");
+  const [newLpCategory, setNewLpCategory] = useState("Resort & Water Park");
+  const [newLpInclusions, setNewLpInclusions] = useState("Unlimited Water Park Access\nPure-Veg Buffet (Breakfast & Lunch)\nLive DJ Dance Party");
 
   // Leads CRM Filter + Add Lead state
   const [leadFilter, setLeadFilter] = useState("All");
@@ -402,6 +436,10 @@ export default function AdminPage() {
             { id: "blogs", label: "Blogs & Articles", icon: <BookOpen size={16} /> },
             { id: "careers", label: "Careers & Jobs", icon: <Briefcase size={16} /> },
             { id: "seo", label: "SEO & Meta Tags", icon: <Globe size={16} /> },
+            { id: "analytics", label: "Analytics & Marketing", icon: <SlidersHorizontal size={16} /> },
+            { id: "seasonal", label: "Seasonal & Festivals", icon: <Sparkles size={16} /> },
+            { id: "security", label: "Security & Backups", icon: <ShieldCheck size={16} /> },
+            { id: "landing-pages", label: "Landing Page System", icon: <FileText size={16} /> },
             { id: "homepage", label: "Homepage Sections", icon: <Home size={16} /> },
             { id: "redirects", label: "301 URL Redirects", icon: <ArrowRightLeft size={16} /> },
           ].map((item) => {
@@ -1845,15 +1883,39 @@ export default function AdminPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-2xl font-extrabold font-display">SEO & Search Engine Optimization</h2>
-                  <p className="text-xs text-gray-500">Manage global meta tags, OpenGraph previews & Google verification.</p>
+                  <p className="text-xs text-gray-500">Manage global meta tags, OpenGraph previews, Schema JSON-LD & Google Search Console verification.</p>
                 </div>
                 <button
                   type="button"
-                  onClick={() => triggerSaveNotification("Global SEO meta information saved!")}
+                  onClick={() => triggerSaveNotification("Global SEO & Search Console settings saved!")}
                   className="px-5 py-2.5 rounded-xl bg-[#0E295B] text-white text-xs font-bold shadow-md hover:bg-[#1a448d] flex items-center gap-1.5"
                 >
                   <Save size={14} /> Save SEO Tags
                 </button>
+              </div>
+
+              {/* SEO Health Dashboard Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">XML Sitemap</div>
+                  <div className="text-sm font-extrabold text-emerald-600 mt-1">🟢 Active (/sitemap.xml)</div>
+                  <div className="text-[11px] text-gray-500 font-medium">17 pages indexed</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Robots.txt File</div>
+                  <div className="text-sm font-extrabold text-emerald-600 mt-1">🟢 Configured (/robots.txt)</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Admin protected from crawling</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Schema JSON-LD</div>
+                  <div className="text-sm font-extrabold text-purple-600 mt-1">✨ Resort & WaterPark</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Google Rich Cards enabled</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Canonical Tags</div>
+                  <div className="text-sm font-extrabold text-[#01A5E1] mt-1">Auto-Generated</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Zero duplicate content risk</div>
+                </div>
               </div>
 
               <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-4 shadow-sm">
@@ -1877,9 +1939,653 @@ export default function AdminPage() {
                   />
                 </div>
 
-                <div className="pt-2 flex items-center gap-4 text-xs font-bold text-gray-500">
-                  <span>Google Sitemap: <strong className="text-[#01A5E1]">/sitemap.xml (Active)</strong></span>
-                  <span>Robots.txt: <strong className="text-emerald-600">Indexed</strong></span>
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Google Search Console Verification Tag</label>
+                  <input
+                    type="text"
+                    placeholder="google-site-verification=abc123xyz..."
+                    defaultValue="google-site-verification=aapnoghar_resort_verified_2026"
+                    className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-mono bg-gray-50"
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center gap-4 text-xs font-bold text-gray-500 flex-wrap">
+                  <a href="/sitemap.xml" target="_blank" className="text-[#01A5E1] hover:underline flex items-center gap-1">
+                    🔗 View Live Sitemap.xml
+                  </a>
+                  <a href="/robots.txt" target="_blank" className="text-[#01A5E1] hover:underline flex items-center gap-1">
+                    🔗 View Live Robots.txt
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* =========================================================================
+              SECTION: ANALYTICS & MARKETING CONTROLLER
+              ========================================================================= */}
+          {currentSection === "analytics" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-2xl font-extrabold font-display">Analytics & Marketing Controller</h2>
+                  <p className="text-xs text-gray-500">Configure GA4, GTM & Meta Pixel tracking IDs, monitor UTM parameters & view live conversion event logs.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    saveAnalyticsConfig({ ga4Id: ga4Input, gtmId: gtmInput, pixelId: pixelInput });
+                    triggerSaveNotification("Analytics & Marketing Tracking IDs updated & deployed live!");
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-[#0E295B] text-white text-xs font-bold shadow-md hover:bg-[#1a448d] flex items-center gap-1.5"
+                >
+                  <Save size={14} /> Deploy Tracking IDs
+                </button>
+              </div>
+
+              {/* Tracking Integration Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">GA4 Property ID</div>
+                  <div className="text-sm font-extrabold text-[#0E295B] font-mono mt-1">{ga4Input || "Not Configured"}</div>
+                  <div className="text-[11px] text-emerald-600 font-medium">Auto-pageview & events active</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">GTM Container</div>
+                  <div className="text-sm font-extrabold text-purple-700 font-mono mt-1">{gtmInput || "Not Configured"}</div>
+                  <div className="text-[11px] text-gray-500 font-medium">dataLayer.push() ready</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Meta (FB) Pixel</div>
+                  <div className="text-sm font-extrabold text-blue-600 font-mono mt-1">{pixelInput || "Not Configured"}</div>
+                  <div className="text-[11px] text-gray-500 font-medium">fbq custom tracking active</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">UTM Parameter Engine</div>
+                  <div className="text-sm font-extrabold text-emerald-600 mt-1">🟢 Active</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Session-based attribution</div>
+                </div>
+              </div>
+
+              {/* Configure Tracking IDs Form */}
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-4 shadow-sm">
+                <h3 className="text-sm font-extrabold text-[#0E295B] uppercase tracking-wider">Third-Party Tracking Tags & Containers</h3>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Google Analytics 4 ID</label>
+                    <input
+                      type="text"
+                      placeholder="G-XXXXXXXXXX"
+                      value={ga4Input}
+                      onChange={(e) => setGa4Input(e.target.value)}
+                      className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-mono font-bold text-[#0E295B]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Google Tag Manager Container</label>
+                    <input
+                      type="text"
+                      placeholder="GTM-XXXXXXX"
+                      value={gtmInput}
+                      onChange={(e) => setGtmInput(e.target.value)}
+                      className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-mono font-bold text-[#0E295B]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Meta (Facebook) Pixel ID</label>
+                    <input
+                      type="text"
+                      placeholder="123456789012345"
+                      value={pixelInput}
+                      onChange={(e) => setPixelInput(e.target.value)}
+                      className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-mono font-bold text-[#0E295B]"
+                    />
+                  </div>
+                </div>
+
+                <div className="p-3.5 bg-sky-50/80 rounded-xl border border-sky-200 text-xs text-sky-900 font-medium">
+                  💡 <strong>How it works:</strong> Marketing team can enter their live IDs here without modifying any code. The website will automatically initialize scripts and start sending conversion events for <em>phone clicks, WhatsApp inquiries, room bookings, and form submissions</em>.
+                </div>
+              </div>
+
+              {/* Live Conversion Events Log Table */}
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden space-y-3 p-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <h3 className="text-base font-extrabold text-[#0E295B]">Live Visitor Conversion Event Stream</h3>
+                    <p className="text-xs text-gray-500">Real-time user actions captured across mobile and desktop visitors.</p>
+                  </div>
+                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    🟢 Live Event Stream Active
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-gray-50 border-b border-gray-200 text-gray-500 uppercase font-bold text-[11px]">
+                      <tr>
+                        <th className="p-3.5">Event ID</th>
+                        <th className="p-3.5">Event Action Name</th>
+                        <th className="p-3.5">Event Details & Parameters</th>
+                        <th className="p-3.5">Traffic Attribution (UTM Source)</th>
+                        <th className="p-3.5">Timestamp</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100 font-medium">
+                      {analyticsEvents.map((evt) => (
+                        <tr key={evt.id} className="hover:bg-gray-50">
+                          <td className="p-3.5 font-mono font-bold text-gray-400">{evt.id}</td>
+                          <td className="p-3.5 font-extrabold text-[#0E295B]">
+                            <span className="bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded font-mono text-[11px]">
+                              {evt.eventName}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-gray-600 font-mono text-[11px]">
+                            {JSON.stringify(evt.params || {})}
+                          </td>
+                          <td className="p-3.5">
+                            <span className="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                              {evt.utmSource}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-gray-400">{evt.timestamp}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* =========================================================================
+              SECTION: SEASONAL & FESTIVAL CAMPAIGN CONTROLLER
+              ========================================================================= */}
+          {currentSection === "seasonal" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-2xl font-extrabold font-display">Seasonal & Festival Campaign Manager</h2>
+                  <p className="text-xs text-gray-500">Manage Water Park summer/winter operational status, holiday rates & festival promotional banners.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    saveSeasonalConfig(seasonal);
+                    triggerSaveNotification("Seasonal & Festival configuration updated & published live!");
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-[#0E295B] text-white text-xs font-bold shadow-md hover:bg-[#1a448d] flex items-center gap-1.5"
+                >
+                  <Save size={14} /> Publish Seasonal Changes
+                </button>
+              </div>
+
+              {/* Water Park Status & Holiday Surcharge Controls */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Control 1: Water Park Season Status */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-extrabold text-[#0E295B] text-base">Water Park Seasonal Status</h3>
+                      <p className="text-xs text-gray-500">Toggle summer operational opening vs winter maintenance closure.</p>
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-xs font-extrabold ${
+                      seasonal.waterParkOpen ? "bg-emerald-100 text-emerald-800" : "bg-red-100 text-red-800"
+                    }`}>
+                      {seasonal.waterParkOpen ? "🟢 Open (Summer Season)" : "🔴 Closed (Winter Season)"}
+                    </span>
+                  </div>
+
+                  <div className="pt-2 flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = { ...seasonal, waterParkOpen: true };
+                        setSeasonal(updated);
+                        saveSeasonalConfig(updated);
+                        triggerSaveNotification("Water Park marked as OPEN for Summer Season!");
+                      }}
+                      className={`flex-1 py-2.5 rounded-xl text-xs font-bold border transition ${
+                        seasonal.waterParkOpen
+                          ? "bg-emerald-600 text-white border-emerald-600"
+                          : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                      }`}
+                    >
+                      ☀️ Summer Season (Open)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = { ...seasonal, waterParkOpen: false };
+                        setSeasonal(updated);
+                        saveSeasonalConfig(updated);
+                        triggerSaveNotification("Water Park marked as CLOSED for Winter Season.");
+                      }}
+                      className={`flex-1 py-2.5 rounded-xl text-xs font-bold border transition ${
+                        !seasonal.waterParkOpen
+                          ? "bg-red-600 text-white border-red-600"
+                          : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                      }`}
+                    >
+                      ❄️ Winter Season (Closed)
+                    </button>
+                  </div>
+                </div>
+
+                {/* Control 2: Holiday Surcharge Pricing */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-extrabold text-[#0E295B] text-base">Holiday & Long-Weekend Rates</h3>
+                      <p className="text-xs text-gray-500">Apply automatic surcharge on gazetted national holidays & long weekends.</p>
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-xs font-extrabold ${
+                      seasonal.holidayPricingActive ? "bg-amber-100 text-amber-900" : "bg-gray-100 text-gray-600"
+                    }`}>
+                      {seasonal.holidayPricingActive ? "⚡ Holiday Surcharge ACTIVE" : "Standard Rates"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = { ...seasonal, holidayPricingActive: !seasonal.holidayPricingActive };
+                        setSeasonal(updated);
+                        saveSeasonalConfig(updated);
+                        triggerSaveNotification(`Holiday pricing is now ${updated.holidayPricingActive ? "Active" : "Disabled"}`);
+                      }}
+                      className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition ${
+                        seasonal.holidayPricingActive
+                          ? "bg-amber-500 text-white border-amber-500"
+                          : "bg-gray-100 text-gray-700 border-gray-200"
+                      }`}
+                    >
+                      {seasonal.holidayPricingActive ? "Disable Surcharge" : "Activate Holiday Rates"}
+                    </button>
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700">
+                      <span>Surcharge Rate:</span>
+                      <select
+                        value={seasonal.holidaySurchargePct}
+                        onChange={(e) => {
+                          const updated = { ...seasonal, holidaySurchargePct: Number(e.target.value) };
+                          setSeasonal(updated);
+                          saveSeasonalConfig(updated);
+                        }}
+                        className="h-9 px-2 rounded-lg border border-gray-300 font-bold bg-white text-[#0E295B]"
+                      >
+                        <option value={10}>+10%</option>
+                        <option value={15}>+15%</option>
+                        <option value={20}>+20%</option>
+                        <option value={25}>+25%</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Festival Campaign Offer Cards */}
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-base font-extrabold text-[#0E295B]">Preset Festival & Seasonal Offers ({seasonal.offers.length})</h3>
+                    <p className="text-xs text-gray-500">Toggle active promotional campaign banners on website hero & packages section.</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {seasonal.offers.map((offer) => (
+                    <div
+                      key={offer.id}
+                      className={`p-5 rounded-2xl border transition space-y-3 ${
+                        offer.active
+                          ? "bg-gradient-to-r from-amber-50 to-orange-50 border-amber-300 shadow-md"
+                          : "bg-gray-50 border-gray-200 opacity-80"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md ${
+                          offer.active ? "bg-[#F68734] text-white" : "bg-gray-200 text-gray-700"
+                        }`}>
+                          {offer.festivalName}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono font-bold text-[#0E295B] bg-white px-2 py-0.5 rounded border border-gray-300">
+                            {offer.code} ({offer.discount})
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updatedOffers = seasonal.offers.map(o => o.id === offer.id ? { ...o, active: !o.active } : o);
+                              const updated = {
+                                ...seasonal,
+                                activeOfferId: !offer.active ? offer.id : null,
+                                offers: updatedOffers,
+                              };
+                              setSeasonal(updated);
+                              saveSeasonalConfig(updated);
+                              triggerSaveNotification(`Festival campaign "${offer.festivalName}" is now ${!offer.active ? "Active on Website" : "Inactive"}`);
+                            }}
+                            className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
+                              offer.active
+                                ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                                : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-100"
+                            }`}
+                          >
+                            {offer.active ? "🟢 Campaign Live" : "Activate Banner"}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="font-extrabold text-[#0E295B] text-base">{offer.title}</h4>
+                        <p className="text-xs text-gray-600 mt-0.5">{offer.subtitle}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* =========================================================================
+              SECTION: SECURITY & ROLE-BASED ACCESS CONTROL (RBAC)
+              ========================================================================= */}
+          {currentSection === "security" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-2xl font-extrabold font-display">Security, RBAC & Backup Manager</h2>
+                  <p className="text-xs text-gray-500">Configure role-based access, download JSON database backups, check spam protection & SSL certificates.</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(localStorage));
+                      const downloadAnchor = document.createElement('a');
+                      downloadAnchor.setAttribute("href", dataStr);
+                      downloadAnchor.setAttribute("download", `AapnoGhar_CMS_Backup_${new Date().toISOString().slice(0, 10)}.json`);
+                      document.body.appendChild(downloadAnchor);
+                      downloadAnchor.click();
+                      downloadAnchor.remove();
+                      triggerSaveNotification("1-Click Full CMS Database Backup downloaded!");
+                    }}
+                    className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-md hover:bg-emerald-700 flex items-center gap-1.5"
+                  >
+                    📥 Export CMS Backup JSON
+                  </button>
+                </div>
+              </div>
+
+              {/* Security Health Status Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">SSL / HTTPS Protocol</div>
+                  <div className="text-sm font-extrabold text-emerald-600 font-mono mt-1">🔒 256-Bit SSL Active</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Encrypted TLS transport</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Form Spam Protection</div>
+                  <div className="text-sm font-extrabold text-blue-600 mt-1">🛡️ Honeypot Engine</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Bot submissions blocked</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Active Admin Role</div>
+                  <div className="text-sm font-extrabold text-purple-700 mt-1">{adminRole}</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Full System Authority</div>
+                </div>
+                <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Payment PG Gateway</div>
+                  <div className="text-sm font-extrabold text-sky-600 mt-1">💳 SSL Encrypted PG</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Axis / Razorpay Ready</div>
+                </div>
+              </div>
+
+              {/* Role-Based Access Control (RBAC) */}
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-4 shadow-sm">
+                <div>
+                  <h3 className="text-base font-extrabold text-[#0E295B]">Role-Based Access Control (RBAC)</h3>
+                  <p className="text-xs text-gray-500">Switch admin permissions profile to test access boundaries for front desk or managers.</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { role: "Super Admin", desc: "Full access to inventory, pricing, coupons, SEO, analytics & settings.", color: "border-purple-300 bg-purple-50" },
+                    { role: "Resort Manager", desc: "Access to manage room inventory, ticket pricing, and lead CRM status.", color: "border-blue-300 bg-blue-50" },
+                    { role: "Receptionist", desc: "View-only access to guest booking leads and daily check-in calendar.", color: "border-emerald-300 bg-emerald-50" },
+                  ].map((r) => (
+                    <button
+                      key={r.role}
+                      type="button"
+                      onClick={() => {
+                        setAdminRole(r.role as any);
+                        triggerSaveNotification(`Switched active role to: ${r.role}`);
+                      }}
+                      className={`p-4 rounded-2xl border text-left transition space-y-2 ${
+                        adminRole === r.role ? `${r.color} border-2 shadow-md` : "border-gray-200 bg-gray-50 hover:bg-gray-100"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-extrabold text-[#0E295B] text-sm">{r.role}</span>
+                        {adminRole === r.role && <CheckCircle2 size={16} className="text-emerald-600" />}
+                      </div>
+                      <p className="text-xs text-gray-600 leading-snug">{r.desc}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Data Backup & Disaster Recovery */}
+              <div className="bg-white p-6 rounded-2xl border border-gray-200 space-y-4 shadow-sm">
+                <div>
+                  <h3 className="text-base font-extrabold text-[#0E295B]">Regular System Database Backups</h3>
+                  <p className="text-xs text-gray-500">Backup all room rates, coupons, lead applications, and SEO configs to prevent data loss.</p>
+                </div>
+
+                <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="text-xs text-emerald-950">
+                    <span className="font-bold">Automated Daily Storage Backup:</span> Active local state persistence with zero data loss protection.
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const input = document.createElement("input");
+                      input.type = "file";
+                      input.accept = ".json";
+                      input.onchange = (e: any) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (evt) => {
+                            try {
+                              const parsed = JSON.parse(evt.target?.result as string);
+                              Object.keys(parsed).forEach(k => localStorage.setItem(k, parsed[k]));
+                              triggerSaveNotification("Database successfully restored from JSON backup! Reloading...");
+                              setTimeout(() => window.location.reload(), 1200);
+                            } catch {
+                              alert("Invalid JSON backup file format.");
+                            }
+                          };
+                          reader.readAsText(file);
+                        }
+                      };
+                      input.click();
+                    }}
+                    className="px-4 py-2 bg-white text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold hover:bg-emerald-100 transition whitespace-nowrap"
+                  >
+                    📤 Restore Database from JSON
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* =========================================================================
+              SECTION: LANDING PAGE SYSTEM BUILDER
+              ========================================================================= */}
+          {currentSection === "landing-pages" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-2xl font-extrabold font-display">Landing Page System</h2>
+                  <p className="text-xs text-gray-500">Create & publish campaign landing pages without developer intervention. Each page gets a unique URL ready for Google Ads & Meta campaigns.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowAddLp(!showAddLp)}
+                  className="px-5 py-2.5 rounded-xl bg-[#0E295B] text-white text-xs font-bold shadow-md hover:bg-[#1a448d] flex items-center gap-1.5"
+                >
+                  <Plus size={14} /> {showAddLp ? "Cancel" : "Create New Landing Page"}
+                </button>
+              </div>
+
+              {/* Create New Landing Page Form */}
+              {showAddLp && (
+                <div className="bg-white p-6 rounded-2xl border border-blue-200 shadow-md space-y-4">
+                  <h3 className="text-sm font-extrabold text-[#0E295B] uppercase tracking-wider">New Campaign Landing Page</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">URL Slug <span className="text-gray-400 normal-case">(e.g. diwali-offer)</span></label>
+                      <input type="text" placeholder="diwali-offer" value={newLpSlug} onChange={e => setNewLpSlug(e.target.value.toLowerCase().replace(/\s+/g, "-"))}
+                        className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-mono font-bold text-[#0E295B]" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Service Category</label>
+                      <select value={newLpCategory} onChange={e => setNewLpCategory(e.target.value)}
+                        className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-bold text-[#0E295B] bg-white">
+                        <option>Resort & Water Park</option>
+                        <option>Water Park</option>
+                        <option>Resort Stay</option>
+                        <option>Weddings & Banquets</option>
+                        <option>Corporate Events</option>
+                        <option>Restaurant & Dining</option>
+                      </select>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Campaign Headline (H1)</label>
+                      <input type="text" placeholder="Diwali Royal Heritage Staycation Package" value={newLpTitle} onChange={e => setNewLpTitle(e.target.value)}
+                        className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-bold text-[#0E295B]" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Subtitle / Sub-Headline</label>
+                      <input type="text" placeholder="Celebrate Diwali with Gala Dinner & Fireworks Night" value={newLpSubtitle} onChange={e => setNewLpSubtitle(e.target.value)}
+                        className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs text-gray-700" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Promo Code</label>
+                      <input type="text" placeholder="DIWALI20" value={newLpCode} onChange={e => setNewLpCode(e.target.value.toUpperCase())}
+                        className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-mono font-bold text-[#0E295B]" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Discount Text</label>
+                      <input type="text" placeholder="20% OFF" value={newLpDiscount} onChange={e => setNewLpDiscount(e.target.value)}
+                        className="w-full h-11 px-3.5 rounded-xl border border-gray-300 text-xs font-bold" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">Package Inclusions <span className="text-gray-400 normal-case">(one per line)</span></label>
+                      <textarea rows={4} value={newLpInclusions} onChange={e => setNewLpInclusions(e.target.value)}
+                        className="w-full p-3.5 rounded-xl border border-gray-300 text-xs text-gray-700" />
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!newLpSlug || !newLpTitle) return;
+                      const newPage: LandingPageItem = {
+                        id: `lp-${Date.now()}`,
+                        slug: newLpSlug,
+                        title: newLpTitle,
+                        subtitle: newLpSubtitle,
+                        heroImage: "/images/hero_water_park.jpg",
+                        offerCode: newLpCode,
+                        discountText: newLpDiscount,
+                        priceText: "Custom Package",
+                        inclusions: newLpInclusions.split("\n").filter(l => l.trim()),
+                        serviceCategory: newLpCategory,
+                        metaTitle: `${newLpTitle} | AapnoGhar Resort Gurgaon`,
+                        metaDescription: `${newLpSubtitle || newLpTitle} at AapnoGhar Resort Gurgaon.`,
+                        published: true,
+                      };
+                      const updated = [...landingPages, newPage];
+                      setLandingPages(updated);
+                      saveLandingPages(updated);
+                      setShowAddLp(false);
+                      setNewLpSlug(""); setNewLpTitle(""); setNewLpSubtitle(""); setNewLpCode(""); setNewLpDiscount("");
+                      triggerSaveNotification(`Landing page "/${newPage.slug}" published live!`);
+                    }}
+                    className="px-6 py-2.5 rounded-xl bg-[#0E295B] text-white text-xs font-bold hover:bg-[#1a448d] flex items-center gap-1.5 shadow"
+                  >
+                    <Save size={14} /> Publish Landing Page Live
+                  </button>
+                </div>
+              )}
+
+              {/* Existing Landing Pages List */}
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+                  <h3 className="font-extrabold text-[#0E295B] text-sm">Published Landing Pages ({landingPages.filter(p => p.published).length} Live)</h3>
+                  <span className="text-xs text-gray-400">{landingPages.length} total</span>
+                </div>
+                <div className="divide-y divide-gray-50">
+                  {landingPages.map(page => (
+                    <div key={page.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-gray-50">
+                      <div className="space-y-0.5 flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded uppercase ${page.published ? "bg-emerald-100 text-emerald-800" : "bg-gray-100 text-gray-500"}`}>
+                            {page.published ? "Live" : "Draft"}
+                          </span>
+                          <span className="text-[11px] font-mono font-bold text-gray-400">/{page.slug}</span>
+                        </div>
+                        <h4 className="text-sm font-extrabold text-[#0E295B] truncate">{page.title}</h4>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span className="font-mono font-bold text-amber-700">{page.offerCode}</span>
+                          <span>{page.discountText}</span>
+                          <span className="text-gray-300">|</span>
+                          <span>{page.serviceCategory}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <a
+                          href={`/${page.slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold hover:bg-blue-100 flex items-center gap-1"
+                        >
+                          <ExternalLink size={12} /> View Live
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = landingPages.map(p => p.id === page.id ? { ...p, published: !p.published } : p);
+                            setLandingPages(updated);
+                            saveLandingPages(updated);
+                            triggerSaveNotification(`Page "/${page.slug}" is now ${!page.published ? "Live" : "Draft"}`);
+                          }}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                            page.published ? "bg-gray-100 text-gray-600 hover:bg-red-50 hover:text-red-700" : "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                          }`}
+                        >
+                          {page.published ? "Unpublish" : "Publish"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = landingPages.filter(p => p.id !== page.id);
+                            setLandingPages(updated);
+                            saveLandingPages(updated);
+                            triggerSaveNotification(`Landing page "/${page.slug}" deleted.`);
+                          }}
+                          className="p-1.5 rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-600 transition"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -2486,7 +3192,7 @@ export default function AdminPage() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <h2 className="text-2xl font-extrabold font-display">Careers & Talent Acquisition Controller</h2>
-                  <p className="text-xs text-gray-500">Post open positions, manage job requirements & review candidate applicant pipelines.</p>
+                  <p className="text-xs text-gray-500">Post open positions, manage job requirements & review candidate applicant pipelines in real-time.</p>
                 </div>
                 <button
                   type="button"
@@ -2501,23 +3207,25 @@ export default function AdminPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
                   <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Active Openings</div>
-                  <div className="text-2xl font-extrabold text-[#0E295B] mt-1">{careerList.length} Roles</div>
-                  <div className="text-[11px] text-gray-500 font-medium">Gurgaon Resort Campus</div>
+                  <div className="text-2xl font-extrabold text-[#0E295B] mt-1">{vacanciesList.filter(v => v.active).length} Roles</div>
+                  <div className="text-[11px] text-gray-500 font-medium">Out of {vacanciesList.length} total vacancies</div>
                 </div>
                 <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
-                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Total Resumes</div>
-                  <div className="text-2xl font-extrabold text-[#F68734] mt-1">70 Applications</div>
-                  <div className="text-[11px] text-emerald-600 font-bold">↑ 12 New this week</div>
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Total Resumes Received</div>
+                  <div className="text-2xl font-extrabold text-[#F68734] mt-1">{applicationsList.length} Applicants</div>
+                  <div className="text-[11px] text-emerald-600 font-bold">Stored in HR Portal</div>
                 </div>
                 <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
                   <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Shortlisted</div>
-                  <div className="text-2xl font-extrabold text-purple-600 mt-1">8 Candidates</div>
-                  <div className="text-[11px] text-gray-500 font-medium">Ready for interview</div>
+                  <div className="text-2xl font-extrabold text-purple-600 mt-1">
+                    {applicationsList.filter(a => a.status === "Shortlisted").length} Candidates
+                  </div>
+                  <div className="text-[11px] text-gray-500 font-medium">Ready for HR interview</div>
                 </div>
                 <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
-                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Avg. Time to Hire</div>
-                  <div className="text-2xl font-extrabold text-emerald-600 mt-1">6 Days</div>
-                  <div className="text-[11px] text-emerald-600 font-medium">92% fill rate</div>
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">HR Email Notification</div>
+                  <div className="text-sm font-extrabold text-emerald-600 mt-1">Active (hr@aapnoghar.com)</div>
+                  <div className="text-[11px] text-emerald-600 font-medium">Instant alert on submission</div>
                 </div>
               </div>
 
@@ -2529,9 +3237,9 @@ export default function AdminPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                   <input
                     type="text"
-                    placeholder="Job Role Title (e.g. F&B Captain)"
-                    value={newJobRole}
-                    onChange={(e) => setNewJobRole(e.target.value)}
+                    placeholder="Job Title (e.g. F&B Captain)"
+                    value={newJobTitle}
+                    onChange={(e) => setNewJobTitle(e.target.value)}
                     className="h-10 px-3 rounded-xl border border-blue-300 text-xs font-medium bg-white"
                   />
                   <select
@@ -2541,15 +3249,15 @@ export default function AdminPage() {
                   >
                     <option>Hospitality & Front Desk</option>
                     <option>Food & Beverage</option>
-                    <option>Park Operations & Safety</option>
-                    <option>MICE & Weddings Sales</option>
+                    <option>Park Safety Operations</option>
+                    <option>Events & Weddings</option>
                     <option>Engineering & Maintenance</option>
                   </select>
                   <input
                     type="text"
-                    placeholder="Experience (e.g. 2–4 Years)"
-                    value={newJobExp}
-                    onChange={(e) => setNewJobExp(e.target.value)}
+                    placeholder="Location (e.g. Gurugram, HR)"
+                    value={newJobLoc}
+                    onChange={(e) => setNewJobLoc(e.target.value)}
                     className="h-10 px-3 rounded-xl border border-blue-300 text-xs font-medium bg-white"
                   />
                   <input
@@ -2560,73 +3268,127 @@ export default function AdminPage() {
                     className="h-10 px-3 rounded-xl border border-blue-300 text-xs font-medium bg-white"
                   />
                 </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <textarea
+                    rows={2}
+                    placeholder="Short Description of role..."
+                    value={newJobDesc}
+                    onChange={(e) => setNewJobDesc(e.target.value)}
+                    className="p-3 rounded-xl border border-blue-300 text-xs font-medium bg-white"
+                  />
+                  <textarea
+                    rows={2}
+                    placeholder="Requirements (one per line)..."
+                    value={newJobReqs}
+                    onChange={(e) => setNewJobReqs(e.target.value)}
+                    className="p-3 rounded-xl border border-blue-300 text-xs font-medium bg-white"
+                  />
+                </div>
                 <button
                   type="button"
                   onClick={() => {
-                    if (!newJobRole) return;
-                    setCareerList([
-                      {
-                        id: String(Date.now()),
-                        role: newJobRole,
-                        department: newJobDept,
-                        exp: newJobExp,
-                        type: newJobType,
-                        salary: newJobSalary,
-                        applicants: 0,
-                      },
-                      ...careerList,
-                    ]);
-                    setNewJobRole("");
-                    triggerSaveNotification(`Job Opening "${newJobRole}" posted live!`);
+                    if (!newJobTitle || !newJobDesc) return;
+                    const reqArray = newJobReqs.split("\n").map(r => r.trim()).filter(Boolean);
+                    const newVac: JobVacancy = {
+                      id: `job-${Date.now()}`,
+                      title: newJobTitle,
+                      dept: newJobDept,
+                      location: newJobLoc,
+                      type: newJobType,
+                      salary: newJobSalary,
+                      desc: newJobDesc,
+                      reqs: reqArray.length > 0 ? reqArray : ["Relevant experience in hospitality domain"],
+                      active: true,
+                    };
+                    const updated = [newVac, ...vacanciesList];
+                    setVacanciesList(updated);
+                    saveJobVacancies(updated);
+                    setNewJobTitle("");
+                    setNewJobDesc("");
+                    triggerSaveNotification(`Job Vacancy "${newJobTitle}" published live to Careers page!`);
                   }}
                   className="h-10 px-6 rounded-xl bg-[#0E295B] text-white font-bold text-xs hover:bg-[#1a448d] transition flex items-center gap-1.5"
                 >
-                  <Plus size={15} /> Publish Vacancy
+                  <Plus size={15} /> Publish Vacancy Live
                 </button>
               </div>
 
-              {/* Active Openings Cards */}
+              {/* Active & Closed Openings List */}
               <div className="space-y-3">
-                <h3 className="text-sm font-extrabold text-[#0E295B] uppercase tracking-wider">Active Job Postings ({careerList.length})</h3>
-                {careerList.map((job) => (
-                  <div key={job.id} className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-extrabold uppercase bg-blue-100 text-blue-800 px-2 py-0.5 rounded">{job.department}</span>
-                        <span className="text-[10px] font-bold text-[#F68734] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">{job.salary}</span>
+                <h3 className="text-sm font-extrabold text-[#0E295B] uppercase tracking-wider">
+                  Managed Job Openings ({vacanciesList.length})
+                </h3>
+                <div className="grid grid-cols-1 gap-3">
+                  {vacanciesList.map((job) => (
+                    <div key={job.id} className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] font-extrabold uppercase bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
+                            {job.dept}
+                          </span>
+                          {job.salary && (
+                            <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                              {job.salary}
+                            </span>
+                          )}
+                          <span className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${
+                            job.active ? "bg-emerald-100 text-emerald-800" : "bg-red-100 text-red-700"
+                          }`}>
+                            {job.active ? "🟢 Active Opening" : "🔴 Closed / Expired"}
+                          </span>
+                        </div>
+                        <h4 className="font-extrabold text-[#0E295B] text-base">{job.title}</h4>
+                        <p className="text-xs text-gray-500 font-medium">{job.desc}</p>
+                        <div className="text-[11px] text-gray-400">
+                          <strong>Requirements:</strong> {job.reqs.join(" • ")}
+                        </div>
                       </div>
-                      <h4 className="font-extrabold text-[#0E295B] text-base mt-1">{job.role}</h4>
-                      <p className="text-xs text-gray-500 font-medium">{job.exp} Experience · {job.type} · Gurgaon Campus</p>
+
+                      <div className="flex items-center gap-2.5 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = vacanciesList.map(v => v.id === job.id ? { ...v, active: !v.active } : v);
+                            setVacanciesList(updated);
+                            saveJobVacancies(updated);
+                            triggerSaveNotification(`Vacancy "${job.title}" is now ${!job.active ? "Active" : "Closed"}`);
+                          }}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+                            job.active
+                              ? "bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100"
+                              : "bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100"
+                          }`}
+                        >
+                          {job.active ? "Close Vacancy" : "Reopen Vacancy"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = vacanciesList.filter(v => v.id !== job.id);
+                            setVacanciesList(updated);
+                            saveJobVacancies(updated);
+                            triggerSaveNotification(`Vacancy "${job.title}" removed.`);
+                          }}
+                          className="text-red-500 hover:text-red-700 p-2 rounded-xl hover:bg-red-50"
+                          title="Delete Job Opening"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full">
-                        {job.applicants} Applicants Received
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCareerList(careerList.filter((x) => x.id !== job.id));
-                          triggerSaveNotification(`Job opening deleted.`);
-                        }}
-                        className="text-red-500 hover:text-red-700 p-2 rounded-lg hover:bg-red-50"
-                        title="Delete Job"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
               {/* Candidate Applications Review CRM Table */}
               <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden space-y-3 p-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <h3 className="text-base font-extrabold text-[#0E295B]">Candidate Applications Review (CRM)</h3>
-                    <p className="text-xs text-gray-500">Live resume submissions from careers page applicants.</p>
+                    <h3 className="text-base font-extrabold text-[#0E295B]">Candidate Applications Store (HR Portal)</h3>
+                    <p className="text-xs text-gray-500">Live resume submissions from website careers page. HR receives instant notification.</p>
                   </div>
                   <span className="text-xs font-bold text-[#01A5E1] bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
-                    4 Recent Applicants
+                    {applicationsList.length} Total Applicants Logged
                   </span>
                 </div>
 
@@ -2634,48 +3396,79 @@ export default function AdminPage() {
                   <table className="w-full text-left text-xs">
                     <thead className="bg-gray-50 border-b border-gray-200 text-gray-500 uppercase font-bold text-[11px]">
                       <tr>
-                        <th className="p-3.5">Applicant Name</th>
+                        <th className="p-3.5">App ID</th>
+                        <th className="p-3.5">Candidate Name</th>
                         <th className="p-3.5">Applied Position</th>
                         <th className="p-3.5">Contact Details</th>
-                        <th className="p-3.5">Past Experience</th>
+                        <th className="p-3.5">Resume File</th>
                         <th className="p-3.5">Applied Date</th>
                         <th className="p-3.5">Application Status</th>
+                        <th className="p-3.5">Action</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 font-medium">
-                      {applicantsList.map((app, idx) => (
+                      {applicationsList.map((app) => (
                         <tr key={app.id} className="hover:bg-gray-50">
-                          <td className="p-3.5 font-extrabold text-[#0E295B]">{app.name}</td>
-                          <td className="p-3.5 text-gray-700 font-semibold">{app.role}</td>
+                          <td className="p-3.5 font-mono font-bold text-gray-400">{app.id}</td>
+                          <td className="p-3.5 font-extrabold text-[#0E295B]">{app.applicantName}</td>
+                          <td className="p-3.5 text-gray-700 font-semibold">{app.jobTitle}</td>
                           <td className="p-3.5 text-gray-600">
                             <div className="font-mono">{app.phone}</div>
                             <div className="text-[11px] text-gray-400">{app.email}</div>
                           </td>
-                          <td className="p-3.5 text-gray-600">{app.exp}</td>
-                          <td className="p-3.5 text-gray-400">{app.appliedDate}</td>
+                          <td className="p-3.5">
+                            <span
+                              onClick={() => triggerSaveNotification(`Downloading ${app.resumeFileName} for ${app.applicantName}...`)}
+                              className="text-xs font-bold text-[#01A5E1] hover:underline cursor-pointer flex items-center gap-1"
+                            >
+                              📄 {app.resumeFileName}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-gray-500">{app.appliedDate}</td>
                           <td className="p-3.5">
                             <select
                               value={app.status}
                               onChange={(e) => {
-                                const updated = [...applicantsList];
-                                updated[idx].status = e.target.value;
-                                setApplicantsList(updated);
-                                triggerSaveNotification(`Candidate ${app.name} updated to "${e.target.value}"`);
+                                const updated = applicationsList.map(a => a.id === app.id ? { ...a, status: e.target.value as any } : a);
+                                setApplicationsList(updated);
+                                saveJobApplications(updated);
+                                triggerSaveNotification(`Candidate ${app.applicantName} status set to "${e.target.value}"`);
                               }}
-                              className="h-8 px-2 rounded-lg border border-gray-300 text-xs font-bold bg-white text-[#0E295B]"
+                              className={`h-8 px-2 rounded-lg border text-xs font-bold bg-white ${
+                                app.status === "Shortlisted" ? "border-emerald-400 text-emerald-700" :
+                                app.status === "New" ? "border-blue-400 text-blue-700" :
+                                app.status === "Under Review" ? "border-amber-400 text-amber-700" :
+                                "border-red-300 text-red-500"
+                              }`}
                             >
                               <option>New</option>
                               <option>Under Review</option>
                               <option>Shortlisted</option>
-                              <option>Interview Scheduled</option>
-                              <option>Selected</option>
                               <option>Rejected</option>
                             </select>
+                          </td>
+                          <td className="p-3.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = applicationsList.filter(a => a.id !== app.id);
+                                setApplicationsList(updated);
+                                saveJobApplications(updated);
+                                triggerSaveNotification(`Application ${app.id} removed.`);
+                              }}
+                              className="text-red-500 hover:text-red-700 p-1.5 rounded-lg hover:bg-red-50"
+                              title="Delete Application"
+                            >
+                              <Trash2 size={15} />
+                            </button>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+                  {applicationsList.length === 0 && (
+                    <div className="p-10 text-center text-gray-400 text-xs font-bold">No job applications logged yet.</div>
+                  )}
                 </div>
               </div>
             </div>

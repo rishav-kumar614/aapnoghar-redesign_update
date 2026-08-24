@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { trackEvent, initAnalyticsScripts } from "@/lib/analytics";
 import {
   ChevronDown,
+  ChevronRight,
   Phone,
   MessageCircle,
   Menu,
@@ -11,7 +12,21 @@ import {
   Film,
   CalendarDays,
   User,
-  LogOut
+  LogOut,
+  Waves,
+  BedDouble,
+  Sparkles,
+  Utensils,
+  Tag,
+  Image as ImageIcon,
+  Info,
+  MapPin,
+  BookOpen,
+  HelpCircle,
+  Briefcase,
+  Compass,
+  PartyPopper,
+  Users
 } from "lucide-react";
 
 export type SiteHeaderProps = {
@@ -82,8 +97,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
     }
   };
 
-  const isHome = location === "/";
-  const shouldBeSolid = !isHome || isScrolled;
+  const shouldBeSolid = isScrolled;
 
   return (
     <>
@@ -247,13 +261,6 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
 
         {/* Header Right Actions */}
         <div className="header-actions">
-          <a
-            className="phone-link"
-            href="tel:+917666779997"
-            onClick={() => trackEvent("phone_click", { number: "+917666779997", location: "header" })}
-          >
-            <Phone size={15} /> <span>+91 7666 779 997</span>
-          </a>
           {agUser ? (
             <button
               type="button"
@@ -302,293 +309,322 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
         </div>
       </header>
 
-      {/* Drawer Backdrop Overlay — outside <header> to avoid stacking context clipping */}
+      {/* Drawer Backdrop Overlay */}
       {isMenuOpen && (
-        <div className="drawer-overlay" onClick={() => setIsMenuOpen(false)} aria-hidden="true" />
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 transition-opacity"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        />
       )}
 
-        {/* Mobile Navigation Drawer */}
-        <div className={`mobile-nav ${isMenuOpen ? "mobile-nav--open" : ""}`}>
-          <div className="drawer-header">
-            <span className="text-lg font-bold text-[#0E295B]">AapnoGhar Menu</span>
-            <button type="button" onClick={() => setIsMenuOpen(false)} aria-label="Close menu">
-              <X size={24} />
-            </button>
+      {/* Luxury Mobile Navigation Drawer */}
+      <div
+        className={`fixed top-0 right-0 bottom-0 w-[90vw] max-w-[380px] bg-[#061A33] text-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-out border-l border-white/10 ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#0A1E29]/80 backdrop-blur-md">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FFA96B] to-[#F68734] flex items-center justify-center text-[#061A33] font-black text-base shadow">
+              AG
+            </div>
+            <div>
+              <span className="text-base font-serif font-bold text-white tracking-wide">AapnoGhar</span>
+              <span className="block text-[10px] uppercase tracking-widest text-[#FFA96B] font-extrabold">Resort &amp; Parks</span>
+            </div>
           </div>
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Close menu"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer"
+          >
+            <X size={18} />
+          </button>
+        </div>
 
-          <div className="drawer-accordion-list">
+        {/* Drawer Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          
+          {/* Quick Home Link */}
+          <button
+            type="button"
+            onClick={() => { setIsMenuOpen(false); setLocation("/"); }}
+            className={`w-full flex items-center justify-between p-3 rounded-xl transition text-sm font-bold ${
+              location === "/" ? "bg-[#FFA96B]/20 text-[#FFA96B] border border-[#FFA96B]/30" : "bg-white/5 hover:bg-white/10 text-white/90"
+            }`}
+          >
+            <span>🏰 Resort Home</span>
+            <ChevronRight size={16} className="text-white/40" />
+          </button>
 
-            {/* Experiences Accordion */}
-            <div className="drawer-acc-item">
-              <button
-                type="button"
-                className="drawer-acc-header"
-                onClick={() => setOpenDrawerAcc(openDrawerAcc === "experiences" ? null : "experiences")}
-              >
-                <span>Experiences</span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${openDrawerAcc === "experiences" ? "rotate-180" : ""}`}
-                />
-              </button>
-              {openDrawerAcc === "experiences" && (
-                <div className="drawer-acc-body">
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/water-park"); }}>
-                    🌊 Water Park (21+ Slides)
-                  </button>
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/amusement-park"); }}>
-                    🎢 Amusement Joyrides
-                  </button>
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/adventure-park"); }}>
-                    🧗 Adventure &amp; Activity Park
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Stay Accordion */}
-            <div className="drawer-acc-item">
-              <button
-                type="button"
-                className="drawer-acc-header"
-                onClick={() => setOpenDrawerAcc(openDrawerAcc === "stay" ? null : "stay")}
-              >
-                <span>Stay &amp; Accommodations</span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${openDrawerAcc === "stay" ? "rotate-180" : ""}`}
-                />
-              </button>
-              {openDrawerAcc === "stay" && (
-                <div className="drawer-acc-body">
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/rooms"); }}>
-                    ✨ All Rooms &amp; Suites
-                  </button>
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/stay-packages"); }}>
-                    🎁 Staycation &amp; Daycation Packages
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/presidential-suite-room-1") {
-                        setLocation("/presidential-suite-room-1");
-                      }
-                    }}
-                  >
-                    Luxury Presidential Suite — Gurgaon
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/presidential-suite-room-2") {
-                        setLocation("/presidential-suite-room-2");
-                      }
-                    }}
-                  >
-                    Presidential Suite — Delhi NCR
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/suite-room") setLocation("/suite-room");
-                    }}
-                  >
-                    Executive Suite Room
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/luxury-room") setLocation("/luxury-room");
-                    }}
-                  >
-                    Luxury Room
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/luxury-room-2") setLocation("/luxury-room-2");
-                    }}
-                  >
-                    Luxury Room 2
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/Luxury-Room-with-Shower-Glass-Partition") {
-                        setLocation("/Luxury-Room-with-Shower-Glass-Partition");
-                      }
-                    }}
-                  >
-                    Luxury Room (Shower Glass)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      if (location !== "/deluxe-room") setLocation("/deluxe-room");
-                    }}
-                  >
-                    Deluxe Room
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Weddings & Events Accordion */}
-            <div className="drawer-acc-item">
-              <button
-                type="button"
-                className="drawer-acc-header"
-                onClick={() => setOpenDrawerAcc(openDrawerAcc === "venues" ? null : "venues")}
-              >
-                <span>Weddings &amp; Events</span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${openDrawerAcc === "venues" ? "rotate-180" : ""}`}
-                />
-              </button>
-              {openDrawerAcc === "venues" && (
-                <div className="drawer-acc-body">
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/weddings-banquets"); }}>
-                    💒 Weddings &amp; Banquets
-                  </button>
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/corporate-events"); }}>
-                    💼 Corporate Events &amp; Offsites
-                  </button>
-                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/school-picnic-group-packages"); }}>
-                    🚌 School Picnics &amp; Group Packages
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Single Links */}
+          {/* Experiences Accordion */}
+          <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
             <button
               type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/abhipriti-restaurant"); }}
+              className="w-full flex items-center justify-between p-3.5 text-left text-sm font-bold text-white hover:bg-white/5 transition"
+              onClick={() => setOpenDrawerAcc(openDrawerAcc === "experiences" ? null : "experiences")}
             >
-              <span>🍽️ Abhipriti Restaurant</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/packages-offers"); }}
-            >
-              <span>🏷️ Packages &amp; Offers</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/gallery"); }}
-            >
-              <span>🖼️ Gallery</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/about-us"); }}
-            >
-              <span>ℹ️ About Us</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/contact-us"); }}
-            >
-              <span>📍 Contact Us</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/blog"); }}
-            >
-              <span>📝 Blog &amp; Travel Guides</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/faqs"); }}
-            >
-              <span>❓ FAQs &amp; Park Rules</span>
-            </button>
-
-            <button
-              type="button"
-              className="drawer-link-item"
-              onClick={() => { setIsMenuOpen(false); setLocation("/careers"); }}
-            >
-              <span>💼 Careers &amp; Job Openings</span>
-            </button>
-
-          </div>
-
-          <div className="drawer-footer">
-            <a href="tel:+917666779997" className="drawer-phone">
-              <Phone size={18} />
-              <span>+91 7666 779 997</span>
-            </a>
-            {agUser ? (
-              <div className="space-y-2">
-                <div className="flex items-center gap-3 px-1 py-2">
-                  <div className="w-9 h-9 rounded-full bg-[#0E295B] flex items-center justify-center text-white font-extrabold text-sm">
-                    {agUser.name.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <div className="text-sm font-extrabold text-[#0E295B]">{agUser.name}</div>
-                    <div className="text-xs text-gray-500">{agUser.email}</div>
-                  </div>
-                </div>
-
-                {(agUser.email === "admin@aapnoghar.com" || agUser.name.toLowerCase().includes("admin")) && (
-                  <button
-                    type="button"
-                    onClick={() => { setIsMenuOpen(false); setLocation("/admin"); }}
-                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#0E295B] text-white font-extrabold text-sm hover:bg-[#1a448d] transition shadow-md shadow-[#0E295B]/15"
-                  >
-                    ⚡ Open CMS Admin Dashboard
-                  </button>
-                )}
-
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 font-extrabold text-sm hover:bg-red-100 transition"
-                >
-                  <LogOut size={16} /> Logout
-                </button>
+              <div className="flex items-center gap-2.5">
+                <Waves size={16} className="text-[#01A5E1]" />
+                <span>Experiences &amp; Parks</span>
               </div>
-            ) : (
-              <div className="space-y-2">
+              <ChevronDown
+                size={16}
+                className={`text-white/50 transition-transform duration-200 ${
+                  openDrawerAcc === "experiences" ? "rotate-180 text-[#FFA96B]" : ""
+                }`}
+              />
+            </button>
+            {openDrawerAcc === "experiences" && (
+              <div className="p-2 space-y-1 bg-black/20 border-t border-white/10 text-xs">
                 <button
                   type="button"
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-300 text-gray-700 font-bold text-sm hover:bg-gray-50 transition"
-                  onClick={() => { setIsMenuOpen(false); setLocation("/login"); }}
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/water-park"); }}
                 >
-                  <User size={16} /> Login / Sign Up
+                  <Waves size={14} className="text-[#01A5E1]" />
+                  <span>Water Park (21+ Thrill Slides)</span>
                 </button>
                 <button
                   type="button"
-                  className="button button--coral w-full"
-                  onClick={() => { setIsMenuOpen(false); setLocation("/booking"); }}
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/amusement-park"); }}
                 >
-                  Book Now / Enquire
+                  <Sparkles size={14} className="text-[#FFA96B]" />
+                  <span>Amusement Joyrides (20+ Rides)</span>
+                </button>
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/adventure-park"); }}
+                >
+                  <Compass size={14} className="text-emerald-400" />
+                  <span>Adventure &amp; Rope Obstacle Zone</span>
                 </button>
               </div>
             )}
           </div>
+
+          {/* Stay & Rooms Accordion */}
+          <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
+            <button
+              type="button"
+              className="w-full flex items-center justify-between p-3.5 text-left text-sm font-bold text-white hover:bg-white/5 transition"
+              onClick={() => setOpenDrawerAcc(openDrawerAcc === "stay" ? null : "stay")}
+            >
+              <div className="flex items-center gap-2.5">
+                <BedDouble size={16} className="text-[#FFA96B]" />
+                <span>Stay &amp; Accommodations</span>
+              </div>
+              <ChevronDown
+                size={16}
+                className={`text-white/50 transition-transform duration-200 ${
+                  openDrawerAcc === "stay" ? "rotate-180 text-[#FFA96B]" : ""
+                }`}
+              />
+            </button>
+            {openDrawerAcc === "stay" && (
+              <div className="p-2 space-y-1 bg-black/20 border-t border-white/10 text-xs">
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left font-bold"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/rooms"); }}
+                >
+                  <Sparkles size={14} className="text-[#FFA96B]" />
+                  <span>All Rooms &amp; Suites Overview</span>
+                </button>
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left font-bold"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/stay-packages"); }}
+                >
+                  <Tag size={14} className="text-[#01A5E1]" />
+                  <span>Staycation &amp; Daycation Bundles</span>
+                </button>
+                <div className="pt-1.5 pb-1 px-2.5 text-[10px] font-extrabold uppercase tracking-widest text-white/40">
+                  Individual Suites
+                </div>
+                <button
+                  type="button"
+                  className="w-full p-2 pl-4 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/presidential-suite-room-1"); }}
+                >
+                  👑 Presidential Suite — Gurgaon
+                </button>
+                <button
+                  type="button"
+                  className="w-full p-2 pl-4 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/presidential-suite-room-2"); }}
+                >
+                  👑 Presidential Suite — Delhi NCR
+                </button>
+                <button
+                  type="button"
+                  className="w-full p-2 pl-4 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/suite-room"); }}
+                >
+                  ✨ Executive Suite Room
+                </button>
+                <button
+                  type="button"
+                  className="w-full p-2 pl-4 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/luxury-room"); }}
+                >
+                  🌿 Luxury Room
+                </button>
+                <button
+                  type="button"
+                  className="w-full p-2 pl-4 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/deluxe-room"); }}
+                >
+                  🛏️ Deluxe Room
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Weddings & Events Accordion */}
+          <div className="rounded-xl border border-white/10 bg-white/5 overflow-hidden">
+            <button
+              type="button"
+              className="w-full flex items-center justify-between p-3.5 text-left text-sm font-bold text-white hover:bg-white/5 transition"
+              onClick={() => setOpenDrawerAcc(openDrawerAcc === "venues" ? null : "venues")}
+            >
+              <div className="flex items-center gap-2.5">
+                <PartyPopper size={16} className="text-pink-400" />
+                <span>Weddings &amp; Celebrations</span>
+              </div>
+              <ChevronDown
+                size={16}
+                className={`text-white/50 transition-transform duration-200 ${
+                  openDrawerAcc === "venues" ? "rotate-180 text-[#FFA96B]" : ""
+                }`}
+              />
+            </button>
+            {openDrawerAcc === "venues" && (
+              <div className="p-2 space-y-1 bg-black/20 border-t border-white/10 text-xs">
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/weddings-banquets"); }}
+                >
+                  <PartyPopper size={14} className="text-pink-400" />
+                  <span>Weddings &amp; Banquets (4 Venues)</span>
+                </button>
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/corporate-events"); }}
+                >
+                  <Briefcase size={14} className="text-sky-400" />
+                  <span>Corporate Offsites &amp; Summits</span>
+                </button>
+                <button
+                  type="button"
+                  className="w-full flex items-center gap-2 p-2.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition text-left"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/school-picnic-group-packages"); }}
+                >
+                  <Users size={14} className="text-amber-400" />
+                  <span>School &amp; College Excursions</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Quick Links Grid */}
+          <div className="grid grid-cols-2 gap-2 pt-2">
+            {[
+              { label: "Dining & Buffet", href: "/abhipriti-restaurant", icon: <Utensils size={14} className="text-[#FFA96B]" /> },
+              { label: "Offers & Deals", href: "/packages-offers", icon: <Tag size={14} className="text-[#01A5E1]" /> },
+              { label: "Media Gallery", href: "/gallery", icon: <ImageIcon size={14} className="text-emerald-400" /> },
+              { label: "About Resort", href: "/about-us", icon: <Info size={14} className="text-amber-300" /> },
+              { label: "Contact Us", href: "/contact-us", icon: <MapPin size={14} className="text-rose-400" /> },
+              { label: "Travel Blog", href: "/blog", icon: <BookOpen size={14} className="text-purple-400" /> },
+              { label: "FAQs & Rules", href: "/faqs", icon: <HelpCircle size={14} className="text-sky-400" /> },
+              { label: "Careers", href: "/careers", icon: <Briefcase size={14} className="text-teal-400" /> },
+            ].map((item, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => { setIsMenuOpen(false); setLocation(item.href); }}
+                className="flex items-center gap-2 p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition text-left text-xs font-semibold text-white/80 hover:text-white"
+              >
+                {item.icon}
+                <span className="truncate">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Drawer Action Deck Footer */}
+        <div className="p-4 border-t border-white/10 bg-[#0A1E29]/90 backdrop-blur-md space-y-3">
+          <a
+            href="tel:+917666779997"
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white font-bold text-xs transition"
+          >
+            <Phone size={14} className="text-[#FFA96B]" />
+            <span>+91 7666 779 997 (24/7 Desk)</span>
+          </a>
+
+          {agUser ? (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between p-2 rounded-xl bg-white/5 border border-white/10">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[#F68734] text-white flex items-center justify-center font-extrabold text-xs">
+                    {agUser.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white">{agUser.name}</div>
+                    <div className="text-[10px] text-white/50">{agUser.email}</div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="p-1.5 rounded-lg text-red-400 hover:bg-red-500/10 transition"
+                  title="Logout"
+                >
+                  <LogOut size={15} />
+                </button>
+              </div>
+
+              {(agUser.email === "admin@aapnoghar.com" || agUser.name.toLowerCase().includes("admin")) && (
+                <button
+                  type="button"
+                  onClick={() => { setIsMenuOpen(false); setLocation("/admin"); }}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-amber-400 text-[#061A33] font-extrabold text-xs hover:bg-amber-300 transition shadow"
+                >
+                  ⚡ Open Admin CMS
+                </button>
+              )}
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => { setIsMenuOpen(false); setLocation("/login"); }}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-xs transition cursor-pointer"
+            >
+              <User size={14} />
+              <span>Login to Account</span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => {
+              setIsMenuOpen(false);
+              trackEvent("book_now_click", { location: "mobile_drawer_cta" });
+              setLocation("/booking");
+            }}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#FFA96B] to-[#F68734] hover:from-[#F68734] hover:to-[#D84A22] text-[#061A33] hover:text-white font-extrabold text-sm shadow-lg shadow-[#F68734]/30 transition-all cursor-pointer"
+          >
+            <CalendarDays size={16} />
+            <span>Book Now / Check Availability →</span>
+          </button>
+        </div>
       </div>
     </>
   );

@@ -142,34 +142,34 @@ export function SiteFooter() {
               </button>
             </div>
 
-            <div className="flex items-center gap-[8px] md:gap-[10px] p-[6px_10px] md:p-[8px_12px] border border-black/10 rounded-[10px] w-fit bg-black/5 backdrop-blur-[10px]">
+            <div className="flex items-center gap-2 p-1 border border-white/20 rounded-sm bg-white/5 backdrop-blur-md">
               <a
                 href="https://play.fabulousmedia.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="FabulousMedia"
-                className="flex items-center justify-center bg-[#fff] p-[4px] rounded-[6px] opacity-60 transition-all duration-300 ease-out hover:opacity-100 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(253,181,20,0.5)]"
+                aria-label="Fabulous Media"
+                className="inline-flex items-center justify-center bg-white px-2 py-1 rounded-sm opacity-90 hover:opacity-100 transition-all shadow-xs"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/fabulousmedia.svg"
-                  alt="FabulousMedia"
-                  className="h-[10px] md:h-[12px] w-auto block"
+                  alt="Fabulous Media"
+                  style={{ height: "13px", maxHeight: "13px", width: "auto", objectFit: "contain" }}
                 />
               </a>
 
-              <div className="w-[1px] h-[12px] bg-black/10"></div>
+              <span className="text-white/30 text-[10px]">•</span>
 
               <a
                 href="https://gocommercially.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GoCommercially"
-                className="flex items-center justify-center bg-[#fff] p-[4px] rounded-[6px] opacity-60 transition-all duration-300 ease-out hover:opacity-100 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(253,181,20,0.5)]"
+                className="inline-flex items-center justify-center bg-white px-2 py-1 rounded-sm opacity-90 hover:opacity-100 transition-all shadow-xs"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/gocommercially.svg"
                   alt="GoCommercially"
-                  className="h-[10px] md:h-[12px] w-auto block"
+                  style={{ height: "13px", maxHeight: "13px", width: "auto", objectFit: "contain" }}
                 />
               </a>
             </div>

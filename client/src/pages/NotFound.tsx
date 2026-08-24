@@ -1,52 +1,62 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle, Home } from "lucide-react";
-import { useLocation } from "wouter";
+import React from "react";
+import { Link, useLocation } from "wouter";
+import { AlertCircle, Home, Waves, BedDouble, Phone } from "lucide-react";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export default function NotFound() {
   const [, setLocation] = useLocation();
 
-  const handleGoHome = () => {
-    setLocation("/");
-  };
-
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
-      <Card className="w-full max-w-lg mx-4 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-        <CardContent className="pt-8 pb-8 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="absolute inset-0 bg-red-100 rounded-full animate-pulse" />
-              <AlertCircle className="relative h-16 w-16 text-red-500" />
-            </div>
+    <div className="min-h-screen bg-[#0A1E29] text-white font-sans antialiased flex flex-col justify-between">
+      <SiteHeader />
+
+      <main className="flex-1 flex items-center justify-center p-6 pt-32 pb-16">
+        <div className="max-w-xl w-full bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12 text-center backdrop-blur-md shadow-2xl space-y-6">
+          <div className="w-20 h-20 rounded-3xl bg-[#FFA96B]/10 border border-[#FFA96B]/20 text-[#FFA96B] flex items-center justify-center mx-auto shadow-lg">
+            <AlertCircle size={40} />
           </div>
 
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">404</h1>
+          <div>
+            <span className="text-xs font-mono font-bold tracking-widest text-[#FFA96B] uppercase bg-[#FFA96B]/10 px-3 py-1 rounded-md">
+              404 Page Not Found
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-serif font-bold text-white mt-3">
+              Lost in the Resort?
+            </h1>
+            <p className="text-sm text-slate-300 mt-3 leading-relaxed">
+              The page or resource you requested cannot be found. It may have been moved, renamed, or is temporarily unavailable.
+            </p>
+          </div>
 
-          <h2 className="text-xl font-semibold text-slate-700 mb-4">
-            Page Not Found
-          </h2>
-
-          <p className="text-slate-600 mb-8 leading-relaxed">
-            Sorry, the page you are looking for doesn't exist.
-            <br />
-            It may have been moved or deleted.
-          </p>
-
-          <div
-            id="not-found-button-group"
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-          >
-            <Button
-              onClick={handleGoHome}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => setLocation("/")}
+              className="py-3 px-4 rounded-xl bg-[#FFA96B] text-[#0A1E29] font-bold text-xs hover:bg-[#ff964d] flex items-center justify-center gap-1.5 shadow"
             >
-              <Home className="w-4 h-4 mr-2" />
-              Go Home
-            </Button>
+              <Home size={14} /> Back to Home
+            </button>
+            <button
+              type="button"
+              onClick={() => setLocation("/water-park")}
+              className="py-3 px-4 rounded-xl bg-sky-500/20 text-sky-200 border border-sky-400/30 font-bold text-xs hover:bg-sky-500/30 flex items-center justify-center gap-1.5"
+            >
+              <Waves size={14} /> Water Park
+            </button>
+            <button
+              type="button"
+              onClick={() => setLocation("/rooms")}
+              className="py-3 px-4 rounded-xl bg-amber-500/20 text-amber-200 border border-amber-400/30 font-bold text-xs hover:bg-amber-500/30 flex items-center justify-center gap-1.5"
+            >
+              <BedDouble size={14} /> Resort Rooms
+            </button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }
+

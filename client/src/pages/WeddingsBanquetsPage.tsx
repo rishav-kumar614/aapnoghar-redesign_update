@@ -60,32 +60,75 @@ export default function WeddingsBanquetsPage() {
       <SiteHeader onOpenBooking={handleOpenBooking} />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-[#4A1525] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-40 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center filter blur-xs" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#320D18]/90 via-[#4A1525]/90 to-[#4A1525]" />
+      <section className="relative pt-36 pb-24 bg-[#061A33] text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-15 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center" />
+        <div className="absolute top-0 right-1/4 w-[550px] h-[550px] rounded-full bg-[#9F1239]/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full bg-[#FCD34D]/8 blur-[100px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061A33]/50 via-[#061A33]/80 to-[#061A33]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#FCD34D] mb-4">
-            <Link href="/" className="hover:underline">Home</Link>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#FCD34D]/70 mb-6">
+            <Link href="/" className="hover:text-[#FCD34D] transition-colors">Home</Link>
             <ChevronRight size={12} />
-            <span>Weddings &amp; Banquets</span>
+            <span className="text-white/50">Weddings &amp; Banquets</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white mb-6">
-            Destination Weddings &amp; Celebrations
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#9F1239]/40 bg-[#9F1239]/10 text-[#FDA4AF] text-xs font-bold uppercase tracking-widest">
+            <Sparkles size={12} className="text-[#FCD34D]" />
+            4 Venues · 2,500 Guest Capacity · Custom Decor
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-tight mb-6 max-w-4xl">
+            Destination Weddings{" "}
+            <span className="italic bg-gradient-to-r from-[#FDA4AF] via-[#FCD34D] to-[#FFA96B] bg-clip-text text-transparent">
+              &amp; Celebrations
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-amber-100 max-w-3xl leading-relaxed mb-8">
+
+          {/* Description */}
+          <p className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed mb-10">
             Create unforgettable memories across 9 acres of manicured lawns, luxurious banquet halls, custom decor, and authentic catering services in Gurugram.
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mb-14">
             <button
               onClick={() => handleOpenBooking("Wedding Venue Reservation")}
-              className="px-6 py-3.5 rounded-xl bg-[#FCD34D] hover:bg-[#fbbf24] text-[#320D18] font-bold text-sm shadow-xl flex items-center gap-2 transition"
+              className="px-6 py-3.5 rounded-xl bg-[#9F1239] hover:bg-[#881337] text-white font-bold text-sm shadow-lg shadow-[#9F1239]/30 flex items-center gap-2 transition-all hover:-translate-y-0.5"
             >
-              <Heart size={16} className="text-[#320D18]" />
+              <Heart size={16} />
               <span>Inquire Wedding Dates</span>
             </button>
+            <button
+              onClick={() => handleOpenBooking("Banquet Hall Tour")}
+              className="px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm flex items-center gap-2 transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            >
+              <MapPin size={16} />
+              <span>View Venue Details</span>
+            </button>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap gap-6 sm:gap-10 border-t border-white/10 pt-8">
+            {[
+              { icon: <Users size={16} className="text-[#FDA4AF]" />, value: "2,500", label: "Guest Capacity" },
+              { icon: <MapPin size={16} className="text-[#FCD34D]" />, value: "4", label: "Unique Venues" },
+              { icon: <Sparkles size={16} className="text-[#A3E635]" />, value: "9 Acres", label: "Lush Lawns" },
+              { icon: <Calendar size={16} className="text-[#F472B6]" />, value: "365", label: "Days Available" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center shrink-0">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-xl font-extrabold text-white leading-none">{stat.value}</div>
+                  <div className="text-xs text-white/50 mt-0.5">{stat.label}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

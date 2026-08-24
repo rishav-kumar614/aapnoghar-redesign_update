@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "wouter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { SEOHead, WATERPARK_SCHEMA } from "@/components/SEOHead";
 import { BookingModal } from "@/components/BookingModal";
 import {
   Waves,
@@ -14,7 +15,8 @@ import {
   ChevronRight,
   Info,
   Droplets,
-  Sun
+  Sun,
+  Users
 } from "lucide-react";
 
 const WATER_SLIDES = [
@@ -37,44 +39,87 @@ export default function WaterParkPage() {
 
   return (
     <div className="min-h-screen bg-[#F0F9FF] text-[#0F172A] font-sans antialiased">
+      <SEOHead
+        title="21 Thrill Water Slides & Wave Pool Arena | AapnoGhar Gurgaon"
+        description="Experience 21 thrilling water slides, huge family wave pool, rain dance & aqua play fortresses at AapnoGhar Water Park, Sector 77, Gurgaon."
+        canonicalPath="/water-park"
+        schemaRaw={WATERPARK_SCHEMA}
+      />
       <SiteHeader onOpenBooking={handleOpenBooking} />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-[#0284C7] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-40 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center filter blur-xs" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0369A1]/90 via-[#0284C7]/90 to-[#0284C7]" />
+      <section className="relative pt-36 pb-24 bg-[#061A33] text-white overflow-hidden">
+        {/* Ambient background */}
+        <div className="absolute inset-0 z-0 opacity-15 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center" />
+
+        {/* Radial glow layers */}
+        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-[#0284C7]/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-[#01A5E1]/10 blur-[80px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061A33]/50 via-[#061A33]/80 to-[#061A33]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#7DD3FC] mb-4">
-            <Link href="/" className="hover:underline">Home</Link>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#7DD3FC]/70 mb-6">
+            <Link href="/" className="hover:text-[#7DD3FC] transition-colors">Home</Link>
             <ChevronRight size={12} />
-            <span>Water Park</span>
+            <span className="text-white/50">Water Park</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white mb-6">
-            Thrilling Water Park &amp; Wave Pool
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#0284C7]/40 bg-[#0284C7]/10 text-[#7DD3FC] text-xs font-bold uppercase tracking-widest">
+            <Waves size={12} className="text-[#FFA96B]" />
+            21 Thrilling Slides · Wave Pool · Rain Dance
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-tight mb-6 max-w-4xl">
+            Thrilling Water Park{" "}
+            <span className="italic bg-gradient-to-r from-[#7DD3FC] via-[#0284C7] to-[#FFA96B] bg-clip-text text-transparent">
+              &amp; Wave Pool
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-sky-100 max-w-3xl leading-relaxed mb-8">
+
+          {/* Description */}
+          <p className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed mb-10">
             Beat the heat with 21+ exhilarating water slides, giant wave pool, rain dance floor with live DJ music, and shallow kids splash zones.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center">
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">21+</div>
-              <div className="text-xs text-sky-100">Water Slides</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">10:30 AM</div>
-              <div className="text-xs text-sky-100">Park Opening</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">100%</div>
-              <div className="text-xs text-sky-100">Filtered Water</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">Certified</div>
-              <div className="text-xs text-sky-100">Lifeguard Supervision</div>
-            </div>
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mb-14">
+            <button
+              onClick={() => handleOpenBooking("Water Park Day Pass")}
+              className="px-6 py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold text-sm shadow-lg shadow-[#0284C7]/30 flex items-center gap-2 transition-all hover:-translate-y-0.5"
+            >
+              <Ticket size={16} />
+              <span>Book Day Pass</span>
+            </button>
+            <button
+              onClick={() => handleOpenBooking("Water Park Info")}
+              className="px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm flex items-center gap-2 transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            >
+              <Info size={16} />
+              <span>View All Slides</span>
+            </button>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap gap-6 sm:gap-10 border-t border-white/10 pt-8">
+            {[
+              { icon: <Waves size={16} className="text-[#7DD3FC]" />, value: "21+", label: "Water Slides" },
+              { icon: <Clock size={16} className="text-[#FFA96B]" />, value: "10:30 AM", label: "Park Opening" },
+              { icon: <Droplets size={16} className="text-[#A3E635]" />, value: "100%", label: "Filtered Water" },
+              { icon: <ShieldCheck size={16} className="text-[#F472B6]" />, value: "Certified", label: "Lifeguard Supervision" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center shrink-0">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-xl font-extrabold text-white leading-none">{stat.value}</div>
+                  <div className="text-xs text-white/50 mt-0.5">{stat.label}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

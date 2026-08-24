@@ -38,41 +38,75 @@ export default function AdventureParkPage() {
       <SiteHeader onOpenBooking={handleOpenBooking} />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-[#047857] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-30 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center filter blur-xs" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#065F46]/90 via-[#047857]/90 to-[#047857]" />
+      <section className="relative pt-36 pb-24 bg-[#061A33] text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-15 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center" />
+        <div className="absolute top-0 right-1/3 w-[500px] h-[500px] rounded-full bg-[#047857]/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-[#10B981]/10 blur-[80px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061A33]/50 via-[#061A33]/80 to-[#061A33]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#A7F3D0] mb-4">
-            <Link href="/" className="hover:underline">Home</Link>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#A7F3D0]/70 mb-6">
+            <Link href="/" className="hover:text-[#A7F3D0] transition-colors">Home</Link>
             <ChevronRight size={12} />
-            <span>Adventure &amp; Activity Park</span>
+            <span className="text-white/50">Adventure &amp; Activity Park</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white mb-6">
-            Adventure &amp; Rope Obstacle Zone
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#047857]/40 bg-[#047857]/10 text-[#A7F3D0] text-xs font-bold uppercase tracking-widest">
+            <Compass size={12} className="text-[#FFA96B]" />
+            15+ Courses · Zipline · Wall Climb · Team Building
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-tight mb-6 max-w-4xl">
+            Adventure &amp;{" "}
+            <span className="italic bg-gradient-to-r from-[#A7F3D0] via-[#10B981] to-[#FFA96B] bg-clip-text text-transparent">
+              Rope Obstacle Zone
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-emerald-100 max-w-3xl leading-relaxed mb-8">
-            Challenge your adrenaline with outdoor rope courses, ziplining, commando nets, wall climbing, and team obstacle races supervised by trained instructors.
+
+          {/* Description */}
+          <p className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed mb-10">
+            Challenge your adrenaline with outdoor rope courses, ziplining, commando nets, wall climbing, and team obstacle races supervised by certified instructors.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center">
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">15+</div>
-              <div className="text-xs text-emerald-100">Adventure Courses</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">100%</div>
-              <div className="text-xs text-emerald-100">Safety Harness Protection</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">Certified</div>
-              <div className="text-xs text-emerald-100">Adventure Instructors</div>
-            </div>
-            <div>
-              <div className="text-2xl md:text-3xl font-bold text-[#FFA96B]">Group Friendly</div>
-              <div className="text-xs text-emerald-100">Team Building Events</div>
-            </div>
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mb-14">
+            <button
+              onClick={() => handleOpenBooking("Adventure Activity Pass")}
+              className="px-6 py-3.5 rounded-xl bg-[#047857] hover:bg-[#065F46] text-white font-bold text-sm shadow-lg shadow-[#047857]/30 flex items-center gap-2 transition-all hover:-translate-y-0.5"
+            >
+              <Zap size={16} />
+              <span>Book Adventure Pass</span>
+            </button>
+            <button
+              onClick={() => handleOpenBooking("Team Building Inquiry")}
+              className="px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm flex items-center gap-2 transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            >
+              <Users size={16} />
+              <span>Team Outing Inquiry</span>
+            </button>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap gap-6 sm:gap-10 border-t border-white/10 pt-8">
+            {[
+              { icon: <Compass size={16} className="text-[#A7F3D0]" />, value: "15+", label: "Adventure Courses" },
+              { icon: <ShieldCheck size={16} className="text-[#FFA96B]" />, value: "100%", label: "Safety Harness" },
+              { icon: <Trophy size={16} className="text-[#A3E635]" />, value: "Certified", label: "Instructors" },
+              { icon: <Users size={16} className="text-[#F472B6]" />, value: "Group", label: "Team Building" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center shrink-0">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-xl font-extrabold text-white leading-none">{stat.value}</div>
+                  <div className="text-xs text-white/50 mt-0.5">{stat.label}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -28,31 +28,76 @@ export default function SchoolPicnicGroupPage() {
       <SiteHeader onOpenBooking={handleOpenBooking} />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-[#D97706] text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-30 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center filter blur-xs" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#B45309]/90 via-[#D97706]/90 to-[#D97706]" />
+      <section className="relative pt-36 pb-24 bg-[#061A33] text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-15 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center" />
+        <div className="absolute top-0 right-1/3 w-[500px] h-[500px] rounded-full bg-[#D97706]/20 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-[#FFA96B]/10 blur-[80px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061A33]/50 via-[#061A33]/80 to-[#061A33]" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#FDE68A] mb-4">
-            <Link href="/" className="hover:underline">Home</Link>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#FFA96B]/70 mb-6">
+            <Link href="/" className="hover:text-[#FFA96B] transition-colors">Home</Link>
             <ChevronRight size={12} />
-            <span>School Picnic &amp; Group Packages</span>
+            <span className="text-white/50">School Picnic &amp; Group Packages</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white mb-6">
-            School Picnics &amp; Group Excursions
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[#D97706]/40 bg-[#D97706]/10 text-[#FDE68A] text-xs font-bold uppercase tracking-widest">
+            <GraduationCap size={14} className="text-[#FFA96B]" />
+            Schools · Colleges · Student Day Trips · Group Outings
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-tight mb-6 max-w-4xl">
+            School Picnics &amp;{" "}
+            <span className="italic bg-gradient-to-r from-[#FDE68A] via-[#FFA96B] to-[#01A5E1] bg-clip-text text-transparent">
+              Group Excursions
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-amber-100 max-w-3xl leading-relaxed mb-8">
-            Special discounted packages for educational institutions, colleges, and large group outings with 100% safety, dedicated guides, and wholesome food.
+
+          {/* Description */}
+          <p className="text-base md:text-lg text-slate-300 max-w-2xl leading-relaxed mb-10">
+            Special discounted packages for educational institutions, colleges, and large group outings with 100% safety, dedicated guides, and wholesome pure vegetarian buffet.
           </p>
 
-          <button
-            onClick={() => handleOpenBooking("School Picnic Inquiry")}
-            className="px-6 py-3.5 rounded-xl bg-[#FFA96B] hover:bg-[#ff964d] text-[#0A1E29] font-bold text-sm shadow-xl flex items-center gap-2 transition"
-          >
-            <GraduationCap size={18} />
-            <span>Inquire School / Group Rates</span>
-          </button>
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mb-14">
+            <button
+              onClick={() => handleOpenBooking("School Picnic Inquiry")}
+              className="px-6 py-3.5 rounded-xl bg-[#F68734] hover:bg-[#d9701e] text-white font-bold text-sm shadow-lg shadow-[#F68734]/30 flex items-center gap-2 transition-all hover:-translate-y-0.5 cursor-pointer"
+            >
+              <GraduationCap size={18} />
+              <span>Inquire School / Group Rates</span>
+            </button>
+            <button
+              onClick={() => handleOpenBooking("Download Group Itinerary")}
+              className="px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-sm flex items-center gap-2 transition-all hover:-translate-y-0.5 backdrop-blur-sm cursor-pointer"
+            >
+              <Users size={16} />
+              <span>Request Custom Package</span>
+            </button>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex flex-wrap gap-6 sm:gap-10 border-t border-white/10 pt-8">
+            {[
+              { icon: <GraduationCap size={16} className="text-[#FDE68A]" />, value: "1:15", label: "Free Teacher Pass" },
+              { icon: <ShieldCheck size={16} className="text-[#A3E635]" />, value: "100%", label: "Zero-Risk Safety" },
+              { icon: <Utensils size={16} className="text-[#FFA96B]" />, value: "Pure Veg", label: "Hygienic Buffet" },
+              { icon: <Sparkles size={16} className="text-[#01A5E1]" />, value: "9 Acres", label: "Secure Gated Campus" },
+            ].map((stat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-white/8 flex items-center justify-center shrink-0">
+                  {stat.icon}
+                </div>
+                <div>
+                  <div className="text-xl font-extrabold text-white leading-none">{stat.value}</div>
+                  <div className="text-xs text-white/50 mt-0.5">{stat.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

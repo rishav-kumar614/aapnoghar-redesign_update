@@ -321,172 +321,257 @@ export default function PresidentialSuitePage() {
 
               {/* 4 Categorized Amenity Pillars */}
               <div>
-                <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#0E295B]/10">
-                  <h3 className="text-xl font-black text-[#0E295B] font-display flex items-center gap-2.5">
-                    <Star size={20} className="text-[#F68734]" />
-                    <span>Comprehensive Suite Amenities</span>
-                  </h3>
-                  <span className="text-xs font-bold text-[#50657D] uppercase tracking-wider">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-[#0E295B]/10">
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-black text-[#0E295B] font-display flex items-center gap-2.5">
+                      <Star size={22} className="text-[#F68734] fill-[#F68734]" />
+                      <span>Comprehensive Suite Amenities</span>
+                    </h3>
+                    <p className="text-xs text-[#50657D] mt-0.5">Meticulously curated comforts for royalty, families & luxury travelers.</p>
+                  </div>
+                  <span className="self-start sm:self-center px-3 py-1 rounded-full bg-[#0E295B]/5 text-[#0E295B] text-xs font-extrabold uppercase tracking-wider border border-[#0E295B]/10">
                     24 Luxury Features
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Pillar 1: Living & Bedding */}
-                  <div className="p-5 rounded-3xl bg-[#FDFCF9] border border-[#0E295B]/10 hover:border-[#F68734]/30 transition-all">
-                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#0E295B]/5">
-                      <div className="w-9 h-9 rounded-xl bg-[#F68734]/15 text-[#F68734] flex items-center justify-center shrink-0">
-                        <BedDouble size={18} />
+                  <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-md hover:shadow-xl hover:border-[#F68734]/40 transition-all duration-300 group relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F68734] to-[#FFA96B]" />
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-2xl bg-[#F68734]/15 text-[#F68734] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <BedDouble size={20} />
                       </div>
-                      <h4 className="font-extrabold text-sm text-[#0E295B]">Living &amp; Master Suite</h4>
+                      <div>
+                        <h4 className="font-extrabold text-base text-[#0E295B]">Living &amp; Master Suite</h4>
+                        <span className="text-[11px] text-slate-400">Rest &amp; Entertainment</span>
+                      </div>
                     </div>
-                    <ul className="space-y-2 text-xs font-semibold text-[#50657D]">
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#F68734] shrink-0" /> King Size Master Bed &amp; Premium Bedding</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#F68734] shrink-0" /> Private Royal Living Room Lounge</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#F68734] shrink-0" /> Single Sofa-cum-Bed for Extra Guest</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#F68734] shrink-0" /> Executive Workstation &amp; Dining Table</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#F68734] shrink-0" /> Spacious Wardrobe &amp; In-Room Slippers</li>
+                    <ul className="space-y-2.5 text-xs font-semibold text-[#50657D]">
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#F68734] shrink-0" /> King Size Master Bed &amp; Premium Bedding</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#F68734] shrink-0" /> Private Royal Living Room Lounge</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#F68734] shrink-0" /> Single Sofa-cum-Bed for Extra Guest</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#F68734] shrink-0" /> Executive Workstation &amp; Dining Table</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#F68734] shrink-0" /> Spacious Wardrobe &amp; In-Room Slippers</li>
                     </ul>
                   </div>
 
                   {/* Pillar 2: Bath & Wellness */}
-                  <div className="p-5 rounded-3xl bg-[#FDFCF9] border border-[#0E295B]/10 hover:border-[#01A5E1]/30 transition-all">
-                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#0E295B]/5">
-                      <div className="w-9 h-9 rounded-xl bg-[#01A5E1]/15 text-[#01A5E1] flex items-center justify-center shrink-0">
-                        <Bath size={18} />
+                  <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-md hover:shadow-xl hover:border-[#01A5E1]/40 transition-all duration-300 group relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#01A5E1] to-[#89D9F8]" />
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+                      <div className="w-10 h-10 rounded-2xl bg-[#01A5E1]/15 text-[#01A5E1] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <Bath size={20} />
                       </div>
-                      <h4 className="font-extrabold text-sm text-[#0E295B]">Bath &amp; Wellness</h4>
+                      <div>
+                        <h4 className="font-extrabold text-base text-[#0E295B]">Bath &amp; Wellness</h4>
+                        <span className="text-[11px] text-slate-400">Personal Hygiene &amp; Rejuvenation</span>
+                      </div>
                     </div>
-                    <ul className="space-y-2 text-xs font-semibold text-[#50657D]">
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#01A5E1] shrink-0" /> Attached Master Bath with Bathtub</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#01A5E1] shrink-0" /> 24-Hr Hot &amp; Cold Running Water</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#01A5E1] shrink-0" /> Premium Organic Toiletries Kit</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#01A5E1] shrink-0" /> Hair Dryer &amp; Iron (On Request)</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#01A5E1] shrink-0" /> Plush Cotton Bath Towels &amp; Slippers</li>
+                    <ul className="space-y-2.5 text-xs font-semibold text-[#50657D]">
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#01A5E1] shrink-0" /> Attached Master Bath with Bathtub</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#01A5E1] shrink-0" /> 24-Hr Hot &amp; Cold Running Water</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#01A5E1] shrink-0" /> Premium Organic Toiletries Kit</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#01A5E1] shrink-0" /> Hair Dryer &amp; Iron (On Request)</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#01A5E1] shrink-0" /> Plush Cotton Bath Towels &amp; Slippers</li>
                     </ul>
                   </div>
 
                   {/* Pillar 3: Dining & Hospitality */}
-                  <div className="p-5 rounded-3xl bg-[#FDFCF9] border border-[#0E295B]/10 hover:border-[#EC3337]/30 transition-all">
-                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#0E295B]/5">
-                      <div className="w-9 h-9 rounded-xl bg-[#EC3337]/15 text-[#EC3337] flex items-center justify-center shrink-0">
-                        <Utensils size={18} />
+                  <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-md hover:shadow-xl hover:border-[#EC3337]/40 transition-all duration-300 group relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#EC3337] to-[#FFA96B]" />
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-slate-100 border-b">
+                      <div className="w-10 h-10 rounded-2xl bg-[#EC3337]/15 text-[#EC3337] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <Utensils size={20} />
                       </div>
-                      <h4 className="font-extrabold text-sm text-[#0E295B]">Dining &amp; Hospitality</h4>
+                      <div>
+                        <h4 className="font-extrabold text-base text-[#0E295B]">Dining &amp; Hospitality</h4>
+                        <span className="text-[11px] text-slate-400">In-Room Dining &amp; Refreshments</span>
+                      </div>
                     </div>
-                    <ul className="space-y-2 text-xs font-semibold text-[#50657D]">
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#EC3337] shrink-0" /> Complimentary Buffet Breakfast</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#EC3337] shrink-0" /> Morning Lawn Tea, Coffee &amp; Cookies</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#EC3337] shrink-0" /> In-Room Mini Refrigerator</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#EC3337] shrink-0" /> Dedicated 24-Hour Room Service</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#EC3337] shrink-0" /> Daily Newspaper (On Request)</li>
+                    <ul className="space-y-2.5 text-xs font-semibold text-[#50657D]">
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#EC3337] shrink-0" /> Complimentary Buffet Breakfast</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#EC3337] shrink-0" /> Morning Lawn Tea, Coffee &amp; Cookies</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#EC3337] shrink-0" /> In-Room Mini Refrigerator</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#EC3337] shrink-0" /> Dedicated 24-Hour Room Service</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#EC3337] shrink-0" /> Daily Newspaper (On Request)</li>
                     </ul>
                   </div>
 
                   {/* Pillar 4: Connectivity & Utilities */}
-                  <div className="p-5 rounded-3xl bg-[#FDFCF9] border border-[#0E295B]/10 hover:border-[#69B32D]/30 transition-all">
-                    <div className="flex items-center gap-3 mb-4 pb-3 border-b border-[#0E295B]/5">
-                      <div className="w-9 h-9 rounded-xl bg-[#69B32D]/15 text-[#69B32D] flex items-center justify-center shrink-0">
-                        <Wifi size={18} />
+                  <div className="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-md hover:shadow-xl hover:border-[#69B32D]/40 transition-all duration-300 group relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#69B32D] to-[#89D9F8]" />
+                    <div className="flex items-center gap-3 mb-4 pb-3 border-slate-100 border-b">
+                      <div className="w-10 h-10 rounded-2xl bg-[#69B32D]/15 text-[#69B32D] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <Wifi size={20} />
                       </div>
-                      <h4 className="font-extrabold text-sm text-[#0E295B]">Tech, Security &amp; Comfort</h4>
+                      <div>
+                        <h4 className="font-extrabold text-base text-[#0E295B]">Tech, Security &amp; Comfort</h4>
+                        <span className="text-[11px] text-slate-400">High-Speed Digital &amp; Climate</span>
+                      </div>
                     </div>
-                    <ul className="space-y-2 text-xs font-semibold text-[#50657D]">
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#69B32D] shrink-0" /> High-Speed Wi-Fi (Up to 4 Devices)</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#69B32D] shrink-0" /> LED TV with Satellite HD Channels</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#69B32D] shrink-0" /> Hot &amp; Cold Climate Air Conditioner</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#69B32D] shrink-0" /> In-Room Digital Safe Locker</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={13} className="text-[#69B32D] shrink-0" /> Intercom &amp; Wheelchair Accessible</li>
+                    <ul className="space-y-2.5 text-xs font-semibold text-[#50657D]">
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#69B32D] shrink-0" /> High-Speed Wi-Fi (Up to 4 Devices)</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#69B32D] shrink-0" /> LED TV with Satellite HD Channels</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#69B32D] shrink-0" /> Hot &amp; Cold Climate Air Conditioner</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#69B32D] shrink-0" /> In-Room Digital Safe Locker</li>
+                      <li className="flex items-center gap-2.5 transition-transform hover:translate-x-1"><CheckCircle2 size={15} className="text-[#69B32D] shrink-0" /> Intercom &amp; Wheelchair Accessible</li>
                     </ul>
                   </div>
                 </div>
               </div>
 
               {/* Resort Privileges Box */}
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-[#FCF3E9] to-[#FFFDF9] border border-[#F68734]/30 shadow-xs">
-                <h4 className="text-base font-black text-[#0E295B] mb-2 flex items-center gap-2">
-                  <Sparkles size={18} className="text-[#F68734]" />
+              <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-[#0E295B] via-[#0A1E29] to-[#061A33] text-white shadow-xl border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-[#F68734]/20 rounded-full blur-2xl pointer-events-none" />
+                
+                <h4 className="text-lg font-black text-white mb-1.5 flex items-center gap-2.5">
+                  <Sparkles size={20} className="text-[#FFA96B] animate-pulse" />
                   <span>Complimentary Resort Privileges Included with Suite Stay</span>
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-[#50657D] mt-3.5">
-                  <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white/70 border border-[#F68734]/15">
-                    <CheckCircle2 size={16} className="text-[#69B32D] shrink-0" />
+                <p className="text-xs text-slate-300 mb-4">Every suite reservation unlocks complimentary access to resort grounds &amp; special pass rates.</p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-bold text-white">
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition">
+                    <CheckCircle2 size={18} className="text-[#69B32D] shrink-0" />
                     <span>Free Open Gym &amp; Badminton Court Access</span>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white/70 border border-[#F68734]/15">
-                    <CheckCircle2 size={16} className="text-[#69B32D] shrink-0" />
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition">
+                    <CheckCircle2 size={18} className="text-[#69B32D] shrink-0" />
                     <span>Morning Tea &amp; Cookie Stall on Resort Lawns</span>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white/70 border border-[#F68734]/15">
-                    <CheckCircle2 size={16} className="text-[#69B32D] shrink-0" />
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition">
+                    <CheckCircle2 size={18} className="text-[#69B32D] shrink-0" />
                     <span>100% Pure Vegetarian Buffet Breakfast</span>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2 rounded-xl bg-white/70 border border-[#F68734]/15">
-                    <CheckCircle2 size={16} className="text-[#69B32D] shrink-0" />
-                    <span>Exclusive Discount on Water &amp; Amusement Park</span>
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition">
+                    <CheckCircle2 size={18} className="text-[#69B32D] shrink-0" />
+                    <span>Exclusive Discount on Water &amp; Amusement Passes</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Sticky Booking Card (4 Cols) */}
-            <div className="lg:col-span-4 bg-[#061A33] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/20 sticky top-28">
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/15">
-                <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider text-[#89D9F8]">Room Tariff</span>
-                  <div className="text-2xl font-black text-[#FFA96B] font-display">Premium Luxury</div>
+            {/* Right Sticky Column (4 Cols) - Packed with High-Converting Trust Cards */}
+            <div className="lg:col-span-4 space-y-6 sticky top-28">
+              {/* Card 1: Main Booking & Rate Card */}
+              <div className="bg-[#061A33] text-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-white/20">
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/15">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-[#89D9F8]">Room Tariff</span>
+                    <div className="text-2xl font-black text-[#FFA96B] font-display">Premium Luxury</div>
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-bold text-white border border-white/15">
+                    Best Rate Guaranteed
+                  </span>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-white/10 text-xs font-bold text-white border border-white/15">
-                  Best Rate Guaranteed
-                </span>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center justify-between text-xs text-white/80">
+                    <span className="flex items-center gap-1.5">
+                      <Clock size={13} className="text-[#FFA96B]" />
+                      <span>Check-in:</span>
+                    </span>
+                    <span className="font-bold text-white">12:00 PM (Noon)</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-white/80">
+                    <span className="flex items-center gap-1.5">
+                      <Clock size={13} className="text-[#89D9F8]" />
+                      <span>Check-out:</span>
+                    </span>
+                    <span className="font-bold text-white">10:30 AM</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-white/80">
+                    <span className="flex items-center gap-1.5">
+                      <Utensils size={13} className="text-[#69B32D]" />
+                      <span>Meals:</span>
+                    </span>
+                    <span className="font-bold text-white">100% Pure Veg</span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => openBooking("Presidential Suite Staycation")}
+                  className="w-full py-4 rounded-2xl bg-[#F68734] hover:bg-[#D84A22] text-white font-black text-sm shadow-xl hover:shadow-[0_0_30px_rgba(246,135,52,0.7)] transition-all flex items-center justify-center gap-2 mb-3"
+                >
+                  <span>Check Dates &amp; Book</span>
+                  <ArrowRight size={16} />
+                </button>
+
+                <a
+                  href="https://wa.me/917666779997?text=Hi%20AapnoGhar,%20I%20am%20interested%20in%20booking%20the%20Presidential%20Suite."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md mb-4"
+                >
+                  <span>Chat with Reservation Team</span>
+                </a>
+
+                <p className="text-[11px] text-white/50 text-center flex items-center justify-center gap-1.5">
+                  <ShieldCheck size={13} className="text-[#69B32D]" />
+                  <span>Zero convenience fee &bull; Direct resort confirmation</span>
+                </p>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between text-xs text-white/80">
-                  <span className="flex items-center gap-1.5">
-                    <Clock size={13} className="text-[#FFA96B]" />
-                    <span>Check-in:</span>
-                  </span>
-                  <span className="font-bold text-white">12:00 PM (Noon)</span>
+              {/* Card 2: Why Book Direct Benefits */}
+              <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md">
+                <h4 className="text-sm font-extrabold text-[#0E295B] uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <Sparkles size={16} className="text-[#F68734]" />
+                  <span>Why Book Direct With Us?</span>
+                </h4>
+                <ul className="space-y-2.5 text-xs font-semibold text-[#50657D]">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                    <span>Best Price Guarantee (No Third-Party Markup)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                    <span>Complimentary Hot Buffet Breakfast</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                    <span>Free Pass Upgrades for Water Park</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+                    <span>Flexible Check-in Assistance (On Request)</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Card 3: Guest Rating & Verified Review */}
+              <div className="bg-gradient-to-br from-[#FFF8F2] to-[#FFFBF7] rounded-3xl p-6 border border-[#F68734]/25 shadow-md">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-1 text-[#F68734]">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={15} className="fill-[#F68734]" />
+                    ))}
+                  </div>
+                  <span className="text-xs font-extrabold text-[#0E295B]">4.9 / 5.0 Rating</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-white/80">
-                  <span className="flex items-center gap-1.5">
-                    <Clock size={13} className="text-[#89D9F8]" />
-                    <span>Check-out:</span>
-                  </span>
-                  <span className="font-bold text-white">10:30 AM</span>
-                </div>
-                <div className="flex items-center justify-between text-xs text-white/80">
-                  <span className="flex items-center gap-1.5">
-                    <Utensils size={13} className="text-[#69B32D]" />
-                    <span>Meals:</span>
-                  </span>
-                  <span className="font-bold text-white">100% Pure Veg</span>
+                <p className="text-xs italic text-[#50657D] leading-relaxed mb-3">
+                  "The Presidential Suite surpassed our expectations. Vast private lounge, lush balcony views, and pure veg food was unbelievable."
+                </p>
+                <div className="text-[11px] font-bold text-[#0E295B]">
+                  — Major Rahul Sharma <span className="text-emerald-600 font-medium">(Verified Guest)</span>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => openBooking("Presidential Suite Staycation")}
-                className="w-full py-4 rounded-2xl bg-[#F68734] hover:bg-[#D84A22] text-white font-black text-sm shadow-xl hover:shadow-[0_0_30px_rgba(246,135,52,0.7)] transition-all flex items-center justify-center gap-2 mb-3"
-              >
-                <span>Check Dates &amp; Book</span>
-                <ArrowRight size={16} />
-              </button>
-
-              <a
-                href="https://wa.me/917666779997?text=Hi%20AapnoGhar,%20I%20am%20interested%20in%20booking%20the%20Presidential%20Suite."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] text-white font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md mb-4"
-              >
-                <span>Chat with Reservation Team</span>
-              </a>
-
-              <p className="text-[11px] text-white/50 text-center flex items-center justify-center gap-1.5">
-                <ShieldCheck size={13} className="text-[#69B32D]" />
-                <span>Zero convenience fee &bull; Direct resort confirmation</span>
-              </p>
+              {/* Card 4: Special Concierge Arrangements */}
+              <div className="bg-[#0E295B] text-white rounded-3xl p-6 border border-white/10 shadow-lg">
+                <h4 className="text-sm font-extrabold text-[#89D9F8] mb-1.5">Custom Suite Celebrations?</h4>
+                <p className="text-xs text-white/80 leading-relaxed mb-4">
+                  Planning a birthday, anniversary, or surprise decor in your suite? Our team handles flowers, cake &amp; private dining.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => openBooking("Special Suite Celebration Decor")}
+                  className="w-full py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold transition border border-white/20"
+                >
+                  Request Special Decor →
+                </button>
+              </div>
             </div>
           </div>
         </div>
