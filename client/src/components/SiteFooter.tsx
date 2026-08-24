@@ -146,34 +146,34 @@ export function SiteFooter() {
               </button>
             </div>
 
-            <div className="flex items-center gap-[8px] md:gap-[10px] p-[6px_10px] md:p-[8px_12px] border border-black/10 rounded-[10px] w-fit bg-black/5 backdrop-blur-[10px]">
+            <div className="flex items-center gap-2 px-2 py-1 border border-white/20 rounded-[10px] bg-white/5 backdrop-blur-md shadow-xs">
               <a
                 href="https://play.fabulousmedia.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="FabulousMedia"
-                className="flex items-center justify-center bg-[#fff] p-[4px] rounded-[6px] opacity-60 transition-all duration-300 ease-out hover:opacity-100 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(253,181,20,0.5)]"
+                aria-label="Fabulous Media"
+                className="w-[22px] h-[22px] flex items-center justify-center bg-[#E2E8F0] hover:bg-white rounded-[5px] transition-all duration-200 shadow-xs hover:scale-105"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/fabulousmedia.svg"
-                  alt="FabulousMedia"
-                  className="h-[10px] md:h-[12px] w-auto block"
+                  alt="Fabulous Media"
+                  className="h-3 w-3 object-contain block"
                 />
               </a>
 
-              <div className="w-[1px] h-[12px] bg-black/10"></div>
+              <div className="w-[1px] h-3 bg-white/30 rounded-full" />
 
               <a
                 href="https://gocommercially.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GoCommercially"
-                className="flex items-center justify-center bg-[#fff] p-[4px] rounded-[6px] opacity-60 transition-all duration-300 ease-out hover:opacity-100 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(253,181,20,0.5)]"
+                className="w-[22px] h-[22px] flex items-center justify-center bg-[#E2E8F0] hover:bg-white rounded-[5px] transition-all duration-200 shadow-xs hover:scale-105"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/gocommercially.svg"
                   alt="GoCommercially"
-                  className="h-[10px] md:h-[12px] w-auto block"
+                  className="h-2.5 w-auto max-w-[16px] object-contain block"
                 />
               </a>
             </div>
