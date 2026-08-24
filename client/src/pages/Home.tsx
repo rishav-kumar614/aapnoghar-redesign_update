@@ -293,122 +293,154 @@ export default function Home() {
         </section>
 
         {/* =========================================================================
-            PARK ZONES SECTION (Water Park + Amusement Park + Adventure Park)
+            PARK ZONES SECTION — Premium Dark Editorial
             ========================================================================= */}
-        <section className="py-24 bg-[#FDFCF9] relative overflow-hidden" id="park-zones">
-          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+        <section className="py-28 bg-[#061A33] relative overflow-hidden" id="park-zones">
+          {/* Dot grid background */}
+          <div
+            className="absolute inset-0 opacity-[0.04] pointer-events-none"
+            style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1.5px, transparent 0)", backgroundSize: "36px 36px" }}
+          />
+          {/* Ambient glows */}
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#01A5E1]/8 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[#16A34A]/6 blur-3xl pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
             {/* Section Header */}
-            <div className="text-center mb-14" data-reveal>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-[#0E295B]/8 text-[#0E295B] text-xs font-bold uppercase tracking-widest mb-4">Park Zones</span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0E295B] font-display tracking-tight leading-tight">
-                Three Worlds. One Destination.
-              </h2>
-              <p className="text-[#50657D] mt-4 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-                Water thrills, carnival joyrides & adventure rope courses — all under one roof at Delhi-NCR's premier resort destination.
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14" data-reveal>
+              <div>
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/60 text-xs font-bold uppercase tracking-widest mb-5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#01A5E1] animate-pulse" /> Park Zones
+                </span>
+                <h2 className="text-4xl sm:text-6xl font-black text-white font-display tracking-tight leading-none">
+                  Three Worlds.<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#01A5E1] via-[#FFA96B] to-[#16A34A]">One Destination.</span>
+                </h2>
+              </div>
+              <p className="text-white/45 max-w-xs text-sm leading-relaxed sm:text-right sm:pb-2">
+                Water thrills, carnival joyrides & adventure rope courses — all within one 9-acre resort.
               </p>
             </div>
 
-            {/* 3 Park Cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Water Park */}
-              <article className="group relative rounded-3xl overflow-hidden shadow-xl hover:-translate-y-1.5 transition-transform duration-300" data-reveal>
-                <div className="relative h-72">
-                  <img
-                    src="/images/hero_water_park.jpg"
-                    alt="Water Park at AapnoGhar"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2744]/95 via-[#0A2744]/40 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#01A5E1] text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
-                      <Waves size={11} /> Water Park
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-extrabold text-white font-display leading-snug">High-Speed Water Slides & Wave Pool</h3>
-                    <p className="text-white/75 text-xs mt-1.5 leading-relaxed">21+ thrill slides, rain dance floor, giant wave pool & kids splash zone</p>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {["21+ Slides", "Wave Pool", "Rain Dance"].map(t => (
-                        <span key={t} className="px-2 py-0.5 rounded-md bg-white/15 text-white/90 text-[10px] font-medium">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+            {/* 3 Park Cards — Full bleed editorial */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              {/* ── Water Park ── */}
+              <article className="group relative rounded-3xl overflow-hidden h-[480px] shadow-2xl cursor-pointer ring-1 ring-white/10 hover:ring-[#01A5E1]/40 transition-all duration-300" data-reveal>
+                <img
+                  src="/images/hero_water_park.jpg"
+                  alt="Water Park at AapnoGhar"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#002E55] via-[#002E55]/55 to-transparent" />
+                {/* Watermark number */}
+                <span className="absolute top-4 right-5 text-[100px] font-black text-white/8 leading-none select-none font-display">01</span>
+                {/* Badge */}
+                <div className="absolute top-5 left-5">
+                  <span className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#01A5E1] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-lg shadow-[#01A5E1]/40">
+                    <Waves size={12} /> Water Park
+                  </span>
                 </div>
-                <div className="bg-[#0A2744] px-6 py-4 flex items-center justify-between">
-                  <span className="text-[#89D9F8] text-xs font-bold">Open: 09:30 AM – 07:00 PM</span>
-                  <a href="/water-park" className="flex items-center gap-1.5 text-[#01A5E1] hover:text-white text-xs font-extrabold transition-colors">
-                    Explore <ArrowUpRight size={13} />
-                  </a>
+                {/* Bottom content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-2xl font-black text-white font-display leading-tight mb-2">High-Speed Slides & Giant Wave Pool</h3>
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">21+ thrill slides, rain dance floor & kids splash zone</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {["21+ Slides", "Wave Pool", "Rain Dance"].map(t => (
+                      <span key={t} className="px-2.5 py-1 rounded-lg bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold">{t}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/15">
+                    <div>
+                      <p className="text-[9px] text-white/35 uppercase tracking-widest font-bold mb-0.5">Timings</p>
+                      <p className="text-[#89D9F8] text-xs font-bold">09:30 AM – 07:00 PM</p>
+                    </div>
+                    <a
+                      href="/water-park"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#01A5E1] hover:bg-white hover:text-[#002E55] text-white text-xs font-extrabold transition-all duration-200 shadow-lg shadow-[#01A5E1]/30"
+                    >
+                      Explore <ArrowUpRight size={13} />
+                    </a>
+                  </div>
                 </div>
               </article>
 
-              {/* Amusement Park */}
-              <article className="group relative rounded-3xl overflow-hidden shadow-xl hover:-translate-y-1.5 transition-transform duration-300" data-reveal data-reveal-delay="2">
-                <div className="relative h-72">
-                  <img
-                    src="/images/amusement_park.jpg"
-                    alt="Amusement Park at AapnoGhar"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#361204]/95 via-[#361204]/40 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F68734] text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
-                      <Sparkles size={11} /> Amusement Park
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-extrabold text-white font-display leading-snug">Classic Joyrides & Carnival Fun</h3>
-                    <p className="text-white/75 text-xs mt-1.5 leading-relaxed">15+ timeless carnival rides for all ages — coasters, Ferris wheels & more</p>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {["15+ Rides", "All Ages", "Carnival"].map(t => (
-                        <span key={t} className="px-2 py-0.5 rounded-md bg-white/15 text-white/90 text-[10px] font-medium">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+              {/* ── Amusement Park ── */}
+              <article className="group relative rounded-3xl overflow-hidden h-[480px] shadow-2xl cursor-pointer ring-1 ring-white/10 hover:ring-[#F68734]/40 transition-all duration-300" data-reveal data-reveal-delay="2">
+                <img
+                  src="/images/amusement_park.jpg"
+                  alt="Amusement Park at AapnoGhar"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#5C1A00] via-[#5C1A00]/55 to-transparent" />
+                <span className="absolute top-4 right-5 text-[100px] font-black text-white/8 leading-none select-none font-display">02</span>
+                <div className="absolute top-5 left-5">
+                  <span className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#F68734] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-lg shadow-[#F68734]/40">
+                    <Sparkles size={12} /> Amusement Park
+                  </span>
                 </div>
-                <div className="bg-[#361204] px-6 py-4 flex items-center justify-between">
-                  <span className="text-[#FFC27A] text-xs font-bold">Open: 09:30 AM – 05:30 PM</span>
-                  <a href="/amusement-park" className="flex items-center gap-1.5 text-[#F68734] hover:text-white text-xs font-extrabold transition-colors">
-                    Explore <ArrowUpRight size={13} />
-                  </a>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-2xl font-black text-white font-display leading-tight mb-2">Classic Joyrides & Carnival Fun</h3>
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">15+ timeless carnival rides for all ages — coasters, Ferris wheels & more</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {["15+ Rides", "All Ages", "Carnival"].map(t => (
+                      <span key={t} className="px-2.5 py-1 rounded-lg bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold">{t}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/15">
+                    <div>
+                      <p className="text-[9px] text-white/35 uppercase tracking-widest font-bold mb-0.5">Timings</p>
+                      <p className="text-[#FFC27A] text-xs font-bold">09:30 AM – 05:30 PM</p>
+                    </div>
+                    <a
+                      href="/amusement-park"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#F68734] hover:bg-white hover:text-[#5C1A00] text-white text-xs font-extrabold transition-all duration-200 shadow-lg shadow-[#F68734]/30"
+                    >
+                      Explore <ArrowUpRight size={13} />
+                    </a>
+                  </div>
                 </div>
               </article>
 
-              {/* Adventure Park */}
-              <article className="group relative rounded-3xl overflow-hidden shadow-xl hover:-translate-y-1.5 transition-transform duration-300" data-reveal data-reveal-delay="3">
-                <div className="relative h-72">
-                  <img
-                    src="/images/amusement-park-aapno-ghar.jpg"
-                    alt="Adventure Park at AapnoGhar"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C2A1A]/95 via-[#0C2A1A]/40 to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#16A34A] text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
-                      <Compass size={11} /> Adventure Park
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-extrabold text-white font-display leading-snug">24+ Obstacle Rope Courses</h3>
-                    <p className="text-white/75 text-xs mt-1.5 leading-relaxed">Ziplines, Burma bridge, climbing nets & expert-led team building activities</p>
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {["24+ Activities", "Team Building", "Expert Led"].map(t => (
-                        <span key={t} className="px-2 py-0.5 rounded-md bg-white/15 text-white/90 text-[10px] font-medium">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+              {/* ── Adventure Park ── */}
+              <article className="group relative rounded-3xl overflow-hidden h-[480px] shadow-2xl cursor-pointer ring-1 ring-white/10 hover:ring-[#16A34A]/40 transition-all duration-300" data-reveal data-reveal-delay="3">
+                <img
+                  src="/images/amusement-park-aapno-ghar.jpg"
+                  alt="Adventure Park at AapnoGhar"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E18] via-[#0A2E18]/55 to-transparent" />
+                <span className="absolute top-4 right-5 text-[100px] font-black text-white/8 leading-none select-none font-display">03</span>
+                <div className="absolute top-5 left-5">
+                  <span className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#16A34A] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-lg shadow-[#16A34A]/40">
+                    <Compass size={12} /> Adventure Park
+                  </span>
                 </div>
-                <div className="bg-[#0C2A1A] px-6 py-4 flex items-center justify-between">
-                  <span className="text-[#86EFAC] text-xs font-bold">Expert-guided sessions daily</span>
-                  <a href="/adventure-park" className="flex items-center gap-1.5 text-[#16A34A] hover:text-white text-xs font-extrabold transition-colors">
-                    Explore <ArrowUpRight size={13} />
-                  </a>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-2xl font-black text-white font-display leading-tight mb-2">24+ Obstacle Rope Courses</h3>
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">Ziplines, Burma bridge, climbing nets & expert-led team building activities</p>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {["24+ Activities", "Team Building", "Expert Led"].map(t => (
+                      <span key={t} className="px-2.5 py-1 rounded-lg bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold">{t}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-white/15">
+                    <div>
+                      <p className="text-[9px] text-white/35 uppercase tracking-widest font-bold mb-0.5">Sessions</p>
+                      <p className="text-[#86EFAC] text-xs font-bold">Expert-guided daily</p>
+                    </div>
+                    <a
+                      href="/adventure-park"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#16A34A] hover:bg-white hover:text-[#0A2E18] text-white text-xs font-extrabold transition-all duration-200 shadow-lg shadow-[#16A34A]/30"
+                    >
+                      Explore <ArrowUpRight size={13} />
+                    </a>
+                  </div>
                 </div>
               </article>
             </div>
           </div>
         </section>
-
         {/* =========================================================================
             CORPORATE EVENTS SECTION
             ========================================================================= */}
