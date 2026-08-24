@@ -274,7 +274,7 @@ export default function AdminPage() {
         {/* Top bar */}
         <header className="p-6 sm:p-8 flex items-center justify-between relative z-10 max-w-7xl mx-auto w-full">
           <Link href="/" className="flex items-center gap-3">
-            <img src="/images/logo.png" alt="AapnoGhar" className="h-10 sm:h-12 w-auto brightness-200" />
+            <img src="/images/logo.png" alt="AapnoGhar" className="h-9 sm:h-10 w-auto object-contain drop-shadow-md" />
             <span className="text-white/80 font-bold text-xs uppercase tracking-widest hidden sm:inline">
               Management Portal
             </span>
@@ -384,7 +384,7 @@ export default function AdminPage() {
       {/* Top Navbar */}
       <header className="h-16 bg-[#0E295B] text-white px-6 sm:px-8 flex items-center justify-between shrink-0 shadow-md sticky top-0 z-40">
         <div className="flex items-center gap-4">
-          <img src="/images/logo.png" alt="AapnoGhar" className="h-9 w-auto brightness-200" />
+          <img src="/images/logo.png" alt="AapnoGhar" className="h-9 w-auto object-contain drop-shadow-md" />
           <div className="hidden sm:block">
             <span className="text-sm font-extrabold tracking-tight">CMS Admin Panel</span>
             <span className="ml-2 text-[10px] uppercase font-bold bg-[#F68734] text-white px-2 py-0.5 rounded">v2.4 Live</span>

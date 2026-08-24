@@ -98,8 +98,8 @@ export default function UserAuthPage() {
 
         {/* Logo */}
         <div className="relative z-10">
-          <Link href="/" className="flex items-center gap-3 group">
-            <img src="/images/logo.png" alt="AapnoGhar" className="h-12 w-auto brightness-200" />
+          <Link href="/" className="inline-flex items-center group">
+            <img src="/images/logo.png" alt="AapnoGhar" className="h-9 sm:h-10 w-auto object-contain drop-shadow-md" />
           </Link>
         </div>
 
