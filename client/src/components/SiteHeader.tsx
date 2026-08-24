@@ -326,15 +326,17 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
       >
         {/* Drawer Header */}
         <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#0A1E29]/80 backdrop-blur-md">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#FFA96B] to-[#F68734] flex items-center justify-center text-[#061A33] font-black text-base shadow">
-              AG
-            </div>
-            <div>
-              <span className="text-base font-serif font-bold text-white tracking-wide">AapnoGhar</span>
-              <span className="block text-[10px] uppercase tracking-widest text-[#FFA96B] font-extrabold">Resort &amp; Parks</span>
-            </div>
-          </div>
+          <button
+            type="button"
+            onClick={() => { setIsMenuOpen(false); setLocation("/"); }}
+            className="flex items-center gap-2.5 cursor-pointer text-left"
+          >
+            <img
+              src="/images/logo.png"
+              alt="AapnoGhar Resort"
+              className="h-10 w-auto max-w-[150px] object-contain drop-shadow-sm"
+            />
+          </button>
           <button
             type="button"
             onClick={() => setIsMenuOpen(false)}
