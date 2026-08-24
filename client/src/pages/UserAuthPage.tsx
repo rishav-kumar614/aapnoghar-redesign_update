@@ -91,15 +91,25 @@ export default function UserAuthPage() {
     <div className="min-h-screen bg-[#F4F6F9] flex flex-col lg:flex-row font-sans antialiased">
 
       {/* ── Left Panel: Branding & Perks ─────────────────────────────── */}
-      <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 bg-[#0E295B] flex-col justify-between p-10 xl:p-14 relative overflow-hidden">
-        {/* Decorative blobs */}
-        <div className="absolute -top-32 -right-32 w-80 h-80 bg-[#01A5E1]/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#F68734]/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="hidden lg:flex lg:w-5/12 xl:w-1/2 bg-[#061A33] flex-col justify-between p-10 xl:p-14 relative overflow-hidden">
+        {/* Background Resort Image & Overlays */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: "url('/images/hero_water_park.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#061A33]/90 via-[#061A33]/80 to-[#061A33]" />
+        <div className="absolute -top-32 -right-32 w-80 h-80 bg-[#01A5E1]/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#F68734]/15 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Logo */}
+        {/* Brand Logo - Exact Navbar Sizing */}
         <div className="relative z-10">
-          <Link href="/" className="inline-flex items-center group">
-            <img src="/images/logo.png" alt="AapnoGhar" className="h-9 sm:h-10 w-auto object-contain drop-shadow-md" />
+          <Link href="/" className="inline-block" aria-label="AapnoGhar Home">
+            <img
+              src="/images/logo.png"
+              alt="AapnoGhar Resort"
+              style={{ height: "48px", maxHeight: "48px", width: "auto", maxWidth: "220px", objectFit: "contain" }}
+              className="h-[48px] max-h-[48px] w-auto max-w-[220px] object-contain drop-shadow-md block"
+            />
           </Link>
         </div>
 
@@ -157,7 +167,12 @@ export default function UserAuthPage() {
         {/* Mobile Top Bar */}
         <div className="lg:hidden p-5 flex items-center justify-between bg-white border-b border-gray-100">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="AapnoGhar" className="h-9 w-auto" />
+            <img
+              src="/images/logo.png"
+              alt="AapnoGhar Resort"
+              style={{ height: "42px", maxHeight: "42px", width: "auto", objectFit: "contain" }}
+              className="h-[42px] max-h-[42px] w-auto object-contain block"
+            />
           </Link>
           <Link href="/" className="text-xs font-bold text-gray-500 flex items-center gap-1">
             <ChevronLeft size={14} /> Back

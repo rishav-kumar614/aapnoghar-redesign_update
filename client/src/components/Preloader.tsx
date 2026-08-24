@@ -7,8 +7,8 @@ export function Preloader() {
 
   useEffect(() => {
     const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    const linger = reducedMotion ? 0 : 460;
-    const exitDuration = reducedMotion ? 0 : 180;
+    const linger = reducedMotion ? 0 : 500;
+    const exitDuration = reducedMotion ? 0 : 300;
     const exitTimer = window.setTimeout(() => setPhase("leaving"), linger);
     const hideTimer = window.setTimeout(() => setPhase("hidden"), linger + exitDuration);
 
@@ -21,13 +21,33 @@ export function Preloader() {
   if (phase === "hidden") return null;
 
   return (
-    <div className={`preloader ${phase === "leaving" ? "preloader--leaving" : ""}`} role="status" aria-live="polite" aria-label="Loading AapnoGhar">
-      <div className="preloader__inner">
-        <div className="preloader__brand" aria-hidden="true">
-          <img src="/images/logo.png" alt="AapnoGhar" className="h-14 w-auto object-contain mb-2" />
+    <div
+      className={`fixed inset-0 z-[9999] bg-[#061A33] flex flex-col items-center justify-center transition-opacity duration-300 pointer-events-none select-none ${
+        phase === "leaving" ? "opacity-0" : "opacity-100"
+      }`}
+      role="status"
+      aria-live="polite"
+      aria-label="Loading AapnoGhar"
+    >
+      <div className="flex flex-col items-center text-center gap-4">
+        {/* Brand Logo strictly sized like navbar */}
+        <div className="relative">
+          <img
+            src="/images/logo.png"
+            alt="AapnoGhar Resort"
+            style={{ height: "48px", maxHeight: "48px", width: "auto", maxWidth: "220px", objectFit: "contain" }}
+            className="h-[48px] max-h-[48px] w-auto max-w-[220px] object-contain drop-shadow-lg"
+          />
         </div>
-        <div className="preloader__orbit" aria-hidden="true"><span /></div>
-        <p>Arriving at your good story.</p>
+
+        {/* Smooth Loader Ring */}
+        <div className="relative w-8 h-8 mt-2">
+          <div className="w-8 h-8 rounded-full border-2 border-white/10 border-t-[#FFA96B] animate-spin" />
+        </div>
+
+        <p className="text-white/60 text-xs font-semibold tracking-wider uppercase mt-1 font-sans">
+          Arriving at your good story...
+        </p>
       </div>
     </div>
   );
