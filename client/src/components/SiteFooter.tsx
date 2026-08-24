@@ -146,34 +146,34 @@ export function SiteFooter() {
               </button>
             </div>
 
-            <div className="flex items-center gap-1.5 p-1 border border-white/20 bg-white/5 backdrop-blur-md rounded-none">
+            <div className="flex items-center gap-[8px] md:gap-[10px] p-[6px_10px] md:p-[8px_12px] border border-black/10 rounded-[10px] w-fit bg-black/5 backdrop-blur-[10px]">
               <a
                 href="https://play.fabulousmedia.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Fabulous Media"
-                className="w-6 h-6 flex items-center justify-center bg-white rounded-none opacity-90 hover:opacity-100 transition-all shadow-xs"
+                aria-label="FabulousMedia"
+                className="flex items-center justify-center bg-[#fff] p-[4px] rounded-[6px] opacity-60 transition-all duration-300 ease-out hover:opacity-100 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(253,181,20,0.5)]"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/fabulousmedia.svg"
-                  alt="Fabulous Media"
-                  style={{ height: "14px", width: "14px", objectFit: "contain" }}
+                  alt="FabulousMedia"
+                  className="h-[10px] md:h-[12px] w-auto block"
                 />
               </a>
 
-              <span className="text-white/30 text-[10px]">•</span>
+              <div className="w-[1px] h-[12px] bg-black/10"></div>
 
               <a
                 href="https://gocommercially.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GoCommercially"
-                className="w-6 h-6 flex items-center justify-center bg-white rounded-none opacity-90 hover:opacity-100 transition-all shadow-xs"
+                className="flex items-center justify-center bg-[#fff] p-[4px] rounded-[6px] opacity-60 transition-all duration-300 ease-out hover:opacity-100 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(253,181,20,0.5)]"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/gocommercially.svg"
                   alt="GoCommercially"
-                  style={{ height: "14px", width: "14px", objectFit: "contain" }}
+                  className="h-[10px] md:h-[12px] w-auto block"
                 />
               </a>
             </div>
