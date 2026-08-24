@@ -70,20 +70,18 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Block page scroll when mobile drawer is open (works with Locomotive/Lenis)
-  // Allows scroll events that originate from inside the drawer itself
+  // Block page scroll when mobile drawer is open — directly stop/start Lenis
   useEffect(() => {
-    if (!isMenuOpen) return;
-    const preventPageScroll = (e: WheelEvent | TouchEvent) => {
-      const drawer = document.querySelector("[data-mobile-drawer]");
-      if (drawer && drawer.contains(e.target as Node)) return; // allow drawer scroll
-      e.preventDefault();
-    };
-    window.addEventListener("wheel", preventPageScroll, { passive: false });
-    window.addEventListener("touchmove", preventPageScroll, { passive: false });
+    if (isMenuOpen) {
+      // Stop Lenis smooth scroll engine so page cannot scroll
+      window.__ls?.stop?.();
+    } else {
+      // Resume Lenis when drawer closes
+      window.__ls?.start?.();
+    }
     return () => {
-      window.removeEventListener("wheel", preventPageScroll);
-      window.removeEventListener("touchmove", preventPageScroll);
+      // Always restore on unmount
+      window.__ls?.start?.();
     };
   }, [isMenuOpen]);
 

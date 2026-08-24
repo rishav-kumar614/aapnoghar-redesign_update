@@ -6,7 +6,17 @@ type ScrollTarget = HTMLElement | string;
 type LocomotiveController = {
   scrollTo: (target: ScrollTarget, options?: { offset?: number; duration?: number }) => void;
   destroy: () => void;
+  stop: () => void;
+  start: () => void;
 };
+
+// Global reference so SiteHeader can stop/start Lenis when mobile drawer opens/closes
+declare global {
+  interface Window {
+    __ls: LocomotiveController | null;
+  }
+}
+window.__ls = null;
 
 export function useLocomotiveScroll() {
   const controllerRef = useRef<LocomotiveController | null>(null);
@@ -30,10 +40,12 @@ export function useLocomotiveScroll() {
     }) as unknown as LocomotiveController;
 
     controllerRef.current = controller;
+    window.__ls = controller;
     document.documentElement.classList.add("locomotive-ready");
     return () => {
       controller.destroy();
       controllerRef.current = null;
+      window.__ls = null;
       document.documentElement.classList.remove("locomotive-ready");
     };
   }, []);
