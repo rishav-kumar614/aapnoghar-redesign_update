@@ -70,36 +70,20 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile drawer is open (works with Locomotive/Lenis scroll)
+  // Block page scroll when mobile drawer is open (works with Locomotive/Lenis)
+  // Allows scroll events that originate from inside the drawer itself
   useEffect(() => {
-    const html = document.documentElement;
-    const body = document.body;
-    if (isMenuOpen) {
-      // Capture current scroll position
-      const scrollY = window.scrollY;
-      html.style.overflow = "hidden";
-      body.style.overflow = "hidden";
-      body.style.position = "fixed";
-      body.style.top = `-${scrollY}px`;
-      body.style.width = "100%";
-    } else {
-      const scrollY = body.style.top;
-      html.style.overflow = "";
-      body.style.overflow = "";
-      body.style.position = "";
-      body.style.top = "";
-      body.style.width = "";
-      // Restore scroll position
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-      }
-    }
+    if (!isMenuOpen) return;
+    const preventPageScroll = (e: WheelEvent | TouchEvent) => {
+      const drawer = document.querySelector("[data-mobile-drawer]");
+      if (drawer && drawer.contains(e.target as Node)) return; // allow drawer scroll
+      e.preventDefault();
+    };
+    window.addEventListener("wheel", preventPageScroll, { passive: false });
+    window.addEventListener("touchmove", preventPageScroll, { passive: false });
     return () => {
-      html.style.overflow = "";
-      body.style.overflow = "";
-      body.style.position = "";
-      body.style.top = "";
-      body.style.width = "";
+      window.removeEventListener("wheel", preventPageScroll);
+      window.removeEventListener("touchmove", preventPageScroll);
     };
   }, [isMenuOpen]);
 
@@ -353,6 +337,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
 
       {/* Luxury Mobile Navigation Drawer */}
       <div
+        data-mobile-drawer
         className={`fixed top-0 right-0 bottom-0 w-[90vw] max-w-[380px] bg-[#061A33] text-white z-[60] shadow-2xl flex flex-col transition-transform duration-300 ease-out border-l border-white/10 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
