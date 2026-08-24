@@ -325,23 +325,24 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
         }`}
       >
         {/* Drawer Header */}
-        <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#0A1E29]/80 backdrop-blur-md">
+        <div className="px-4 py-3 h-16 border-b border-white/10 flex items-center justify-between bg-[#0A1E29]/90 backdrop-blur-md shrink-0">
           <button
             type="button"
             onClick={() => { setIsMenuOpen(false); setLocation("/"); }}
-            className="flex items-center gap-2.5 cursor-pointer text-left"
+            className="flex items-center gap-2 cursor-pointer text-left shrink-0"
           >
             <img
               src="/images/logo.png"
               alt="AapnoGhar Resort"
-              className="h-10 w-auto max-w-[150px] object-contain drop-shadow-sm"
+              style={{ height: "38px", maxHeight: "38px", width: "auto", objectFit: "contain" }}
+              className="h-[38px] w-auto max-h-[38px] object-contain block drop-shadow-sm"
             />
           </button>
           <button
             type="button"
             onClick={() => setIsMenuOpen(false)}
             aria-label="Close menu"
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition cursor-pointer shrink-0"
           >
             <X size={18} />
           </button>
