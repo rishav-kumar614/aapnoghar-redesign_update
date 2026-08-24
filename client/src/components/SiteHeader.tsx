@@ -92,6 +92,39 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
 
         {/* Desktop Navigation */}
         <nav className="desktop-nav" aria-label="Primary navigation">
+          {/* Home */}
+          <button
+            type="button"
+            onClick={() => setLocation("/")}
+            className={`flex items-center gap-1.5 ${location === "/" ? "nav-active" : ""}`}
+          >
+            Home
+          </button>
+
+          {/* Experiences Dropdown */}
+          <div className="nav-dropdown-wrapper">
+            <button
+              type="button"
+              onClick={() => setLocation("/water-park")}
+              className="flex items-center gap-1.5"
+            >
+              <span>Experiences</span>
+              <ChevronDown size={13} className="opacity-75 shrink-0" />
+            </button>
+            <div className="nav-dropdown-menu">
+              <div className="nav-dropdown-header">Park Zones</div>
+              <button type="button" onClick={() => setLocation("/water-park")}>
+                🌊 Water Park (21 Slides &amp; Wave Pool)
+              </button>
+              <button type="button" onClick={() => setLocation("/amusement-park")}>
+                🎢 Amusement Joyrides (20+ Rides)
+              </button>
+              <button type="button" onClick={() => setLocation("/adventure-park")}>
+                🧗 Adventure &amp; Activity Park
+              </button>
+            </div>
+          </div>
+
           {/* Stay Dropdown */}
           <div className="nav-dropdown-wrapper">
             <button
@@ -99,7 +132,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
               onClick={() => setLocation("/rooms")}
               className="flex items-center gap-1.5"
             >
-              <span>Stay &amp; Rooms</span>
+              <span>Stay</span>
               <ChevronDown size={13} className="opacity-75 shrink-0" />
             </button>
             <div className="nav-dropdown-menu">
@@ -135,33 +168,6 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
             </div>
           </div>
 
-          {/* Parks & Attractions */}
-          <div className="nav-dropdown-wrapper">
-            <button
-              type="button"
-              onClick={() => setLocation("/water-park")}
-              className="flex items-center gap-1.5"
-            >
-              <span>Parks &amp; Attractions</span>
-              <ChevronDown size={13} className="opacity-75 shrink-0" />
-            </button>
-            <div className="nav-dropdown-menu">
-              <div className="nav-dropdown-header">Park Zones</div>
-              <button type="button" onClick={() => setLocation("/water-park")}>
-                🌊 Water Park (21 Slides &amp; Wave Pool)
-              </button>
-              <button type="button" onClick={() => setLocation("/amusement-park")}>
-                🎢 Amusement Joyrides (20+ Rides)
-              </button>
-              <button type="button" onClick={() => setLocation("/adventure-park")}>
-                🧗 Adventure &amp; Rope Course Zone
-              </button>
-              <button type="button" onClick={() => setLocation("/abhipriti-restaurant")}>
-                🍽️ Abhipriti Restaurant &amp; Buffets
-              </button>
-            </div>
-          </div>
-
           {/* Weddings & Events Dropdown */}
           <div className="nav-dropdown-wrapper">
             <button
@@ -186,41 +192,50 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
             </div>
           </div>
 
-          {/* Offers & More Dropdown */}
-          <div className="nav-dropdown-wrapper">
-            <button
-              type="button"
-              onClick={() => setLocation("/packages-offers")}
-              className="flex items-center gap-1.5"
-            >
-              <span>Offers &amp; More</span>
-              <ChevronDown size={13} className="opacity-75 shrink-0" />
-            </button>
-            <div className="nav-dropdown-menu">
-              <div className="nav-dropdown-header">Explore AapnoGhar</div>
-              <button type="button" onClick={() => setLocation("/packages-offers")}>
-                🏷️ Seasonal Packages &amp; Offers
-              </button>
-              <button type="button" onClick={() => setLocation("/gallery")}>
-                🖼️ Media Photo &amp; Video Gallery
-              </button>
-              <button type="button" onClick={() => setLocation("/about-us")}>
-                ℹ️ About Our Heritage
-              </button>
-              <button type="button" onClick={() => setLocation("/contact-us")}>
-                📍 Contact Us &amp; Location Map
-              </button>
-              <button type="button" onClick={() => setLocation("/blog")}>
-                📝 Travel Blog &amp; Guides
-              </button>
-              <button type="button" onClick={() => setLocation("/faqs")}>
-                ❓ FAQs &amp; Park Rules
-              </button>
-              <button type="button" onClick={() => setLocation("/careers")}>
-                💼 Careers &amp; Job Openings
-              </button>
-            </div>
-          </div>
+          {/* Dining — Direct Link */}
+          <button
+            type="button"
+            onClick={() => setLocation("/abhipriti-restaurant")}
+            className="flex items-center gap-1.5"
+          >
+            Dining
+          </button>
+
+          {/* Packages — Direct Link */}
+          <button
+            type="button"
+            onClick={() => setLocation("/packages-offers")}
+            className="flex items-center gap-1.5"
+          >
+            Packages
+          </button>
+
+          {/* Gallery — Direct Link */}
+          <button
+            type="button"
+            onClick={() => setLocation("/gallery")}
+            className="flex items-center gap-1.5"
+          >
+            Gallery
+          </button>
+
+          {/* About — Direct Link */}
+          <button
+            type="button"
+            onClick={() => setLocation("/about-us")}
+            className="flex items-center gap-1.5"
+          >
+            About
+          </button>
+
+          {/* Contact — Direct Link */}
+          <button
+            type="button"
+            onClick={() => setLocation("/contact-us")}
+            className="flex items-center gap-1.5"
+          >
+            Contact
+          </button>
         </nav>
 
         {/* Header Right Actions */}
@@ -288,6 +303,35 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
           </div>
 
           <div className="drawer-accordion-list">
+
+            {/* Experiences Accordion */}
+            <div className="drawer-acc-item">
+              <button
+                type="button"
+                className="drawer-acc-header"
+                onClick={() => setOpenDrawerAcc(openDrawerAcc === "experiences" ? null : "experiences")}
+              >
+                <span>Experiences</span>
+                <ChevronDown
+                  size={18}
+                  className={`transition-transform ${openDrawerAcc === "experiences" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {openDrawerAcc === "experiences" && (
+                <div className="drawer-acc-body">
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/water-park"); }}>
+                    🌊 Water Park (21+ Slides)
+                  </button>
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/amusement-park"); }}>
+                    🎢 Amusement Joyrides
+                  </button>
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/adventure-park"); }}>
+                    🧗 Adventure &amp; Activity Park
+                  </button>
+                </div>
+              )}
+            </div>
+
             {/* Stay Accordion */}
             <div className="drawer-acc-item">
               <button
@@ -295,7 +339,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
                 className="drawer-acc-header"
                 onClick={() => setOpenDrawerAcc(openDrawerAcc === "stay" ? null : "stay")}
               >
-                <span>Stay & Accommodations</span>
+                <span>Stay &amp; Accommodations</span>
                 <ChevronDown
                   size={18}
                   className={`transition-transform ${openDrawerAcc === "stay" ? "rotate-180" : ""}`}
@@ -303,6 +347,12 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
               </button>
               {openDrawerAcc === "stay" && (
                 <div className="drawer-acc-body">
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/rooms"); }}>
+                    ✨ All Rooms &amp; Suites
+                  </button>
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/stay-packages"); }}>
+                    🎁 Staycation &amp; Daycation Packages
+                  </button>
                   <button
                     type="button"
                     onClick={() => {
@@ -312,7 +362,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
                       }
                     }}
                   >
-                    Luxury Presidential Suite for Staycation &amp; Daycation in Gurgaon
+                    Luxury Presidential Suite — Gurgaon
                   </button>
                   <button
                     type="button"
@@ -323,18 +373,16 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
                       }
                     }}
                   >
-                    Presidential Suite for Staycation &amp; Daycation in Delhi NCR
+                    Presidential Suite — Delhi NCR
                   </button>
                   <button
                     type="button"
                     onClick={() => {
                       setIsMenuOpen(false);
-                      if (location !== "/suite-room") {
-                        setLocation("/suite-room");
-                      }
+                      if (location !== "/suite-room") setLocation("/suite-room");
                     }}
                   >
-                    Suite Room
+                    Executive Suite Room
                   </button>
                   <button
                     type="button"
@@ -363,7 +411,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
                       }
                     }}
                   >
-                    Luxury Room with Shower Glass Partition
+                    Luxury Room (Shower Glass)
                   </button>
                   <button
                     type="button"
@@ -378,14 +426,14 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
               )}
             </div>
 
-            {/* Venues Accordion */}
+            {/* Weddings & Events Accordion */}
             <div className="drawer-acc-item">
               <button
                 type="button"
                 className="drawer-acc-header"
                 onClick={() => setOpenDrawerAcc(openDrawerAcc === "venues" ? null : "venues")}
               >
-                <span>Weddings & Events</span>
+                <span>Weddings &amp; Events</span>
                 <ChevronDown
                   size={18}
                   className={`transition-transform ${openDrawerAcc === "venues" ? "rotate-180" : ""}`}
@@ -393,45 +441,14 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
               </button>
               {openDrawerAcc === "venues" && (
                 <div className="drawer-acc-body">
-                  <button type="button" onClick={() => handleOpenBooking("Bhanwar Lawn")}>
-                    Bhanwar Party Lawn (50–300)
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/weddings-banquets"); }}>
+                    💒 Weddings &amp; Banquets
                   </button>
-                  <button type="button" onClick={() => handleOpenBooking("Chander Lawn")}>
-                    Chander Party Lawn (200–2,500)
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/corporate-events"); }}>
+                    💼 Corporate Events &amp; Offsites
                   </button>
-                  <button type="button" onClick={() => handleOpenBooking("Abhinandan Hall")}>
-                    Abhinandan Banquet Hall
-                  </button>
-                  <button type="button" onClick={() => handleOpenBooking("Swagatam Hall")}>
-                    Swagatam Banquet Hall
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Experiences Accordion */}
-            <div className="drawer-acc-item">
-              <button
-                type="button"
-                className="drawer-acc-header"
-                onClick={() => setOpenDrawerAcc(openDrawerAcc === "experiences" ? null : "experiences")}
-              >
-                <span>Park Experiences</span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${openDrawerAcc === "experiences" ? "rotate-180" : ""}`}
-                />
-              </button>
-              {openDrawerAcc === "experiences" && (
-                <div className="drawer-acc-body">
-                  <button type="button" onClick={() => handleOpenBooking("Water Park Day Pass")}>
-                    Water Park (21+ Slides)
-                  </button>
-                  <button type="button" onClick={() => handleOpenBooking("Amusement Park Pass")}>
-                    Amusement Joyrides
-                  </button>
-                  <button type="button" onClick={() => handleOpenBooking("Activity Park Pass")}>
-                    Activity & Rope Course
+                  <button type="button" onClick={() => { setIsMenuOpen(false); setLocation("/school-picnic-group-packages"); }}>
+                    🚌 School Picnics &amp; Group Packages
                   </button>
                 </div>
               )}
@@ -441,28 +458,67 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
             <button
               type="button"
               className="drawer-link-item"
-              onClick={() => handleNavClick("pricing")}
+              onClick={() => { setIsMenuOpen(false); setLocation("/abhipriti-restaurant"); }}
             >
-              <span>Passes & Pricing</span>
+              <span>🍽️ Abhipriti Restaurant</span>
             </button>
 
             <button
               type="button"
               className="drawer-link-item"
-              onClick={() => handleNavClick("estimator")}
+              onClick={() => { setIsMenuOpen(false); setLocation("/packages-offers"); }}
             >
-              <Calculator size={16} className="text-[#F68734]" />
-              <span>Rate Estimator</span>
+              <span>🏷️ Packages &amp; Offers</span>
             </button>
 
             <button
               type="button"
               className="drawer-link-item"
-              onClick={() => handleNavClick("video-tour")}
+              onClick={() => { setIsMenuOpen(false); setLocation("/gallery"); }}
             >
-              <Film size={16} className="text-[#01A5E1]" />
-              <span>Video Tour</span>
+              <span>🖼️ Gallery</span>
             </button>
+
+            <button
+              type="button"
+              className="drawer-link-item"
+              onClick={() => { setIsMenuOpen(false); setLocation("/about-us"); }}
+            >
+              <span>ℹ️ About Us</span>
+            </button>
+
+            <button
+              type="button"
+              className="drawer-link-item"
+              onClick={() => { setIsMenuOpen(false); setLocation("/contact-us"); }}
+            >
+              <span>📍 Contact Us</span>
+            </button>
+
+            <button
+              type="button"
+              className="drawer-link-item"
+              onClick={() => { setIsMenuOpen(false); setLocation("/blog"); }}
+            >
+              <span>📝 Blog &amp; Travel Guides</span>
+            </button>
+
+            <button
+              type="button"
+              className="drawer-link-item"
+              onClick={() => { setIsMenuOpen(false); setLocation("/faqs"); }}
+            >
+              <span>❓ FAQs &amp; Park Rules</span>
+            </button>
+
+            <button
+              type="button"
+              className="drawer-link-item"
+              onClick={() => { setIsMenuOpen(false); setLocation("/careers"); }}
+            >
+              <span>💼 Careers &amp; Job Openings</span>
+            </button>
+
           </div>
 
           <div className="drawer-footer">

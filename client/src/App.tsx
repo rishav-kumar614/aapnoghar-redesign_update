@@ -44,11 +44,14 @@ function Router() {
       <Route path={"/booking"} component={BookingPage} />
       <Route path={"/book-now"} component={BookingPage} />
       <Route path={"/rooms"} component={ResortRoomsPage} />
+      <Route path={"/stay"} component={ResortRoomsPage} />
       <Route path={"/stay-packages"} component={StayPackagesPage} />
       <Route path={"/water-park"} component={WaterParkPage} />
       <Route path={"/amusement-park"} component={AmusementParkPage} />
       <Route path={"/adventure-park"} component={AdventureParkPage} />
+      <Route path={"/activity-park"} component={AdventureParkPage} />
       <Route path={"/weddings-banquets"} component={WeddingsBanquetsPage} />
+      <Route path={"/weddings-banquet"} component={WeddingsBanquetsPage} />
       <Route path={"/corporate-events"} component={CorporateEventsPage} />
       <Route path={"/school-picnic-group-packages"} component={SchoolPicnicGroupPage} />
       <Route path={"/abhipriti-restaurant"} component={AbhipritiRestaurantPage} />
