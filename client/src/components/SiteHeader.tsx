@@ -70,15 +70,36 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile drawer is open
+  // Lock body scroll when mobile drawer is open (works with Locomotive/Lenis scroll)
   useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
+      // Capture current scroll position
+      const scrollY = window.scrollY;
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+      body.style.position = "fixed";
+      body.style.top = `-${scrollY}px`;
+      body.style.width = "100%";
     } else {
-      document.body.style.overflow = "";
+      const scrollY = body.style.top;
+      html.style.overflow = "";
+      body.style.overflow = "";
+      body.style.position = "";
+      body.style.top = "";
+      body.style.width = "";
+      // Restore scroll position
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     }
     return () => {
-      document.body.style.overflow = "";
+      html.style.overflow = "";
+      body.style.overflow = "";
+      body.style.position = "";
+      body.style.top = "";
+      body.style.width = "";
     };
   }, [isMenuOpen]);
 
