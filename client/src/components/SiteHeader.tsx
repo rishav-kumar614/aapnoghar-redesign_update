@@ -312,7 +312,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
       {/* Drawer Backdrop Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 transition-opacity"
+          className="fixed inset-0 bg-black/60 backdrop-blur-xs z-[55] transition-opacity"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
         />
@@ -320,7 +320,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
 
       {/* Luxury Mobile Navigation Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-[90vw] max-w-[380px] bg-[#061A33] text-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-out border-l border-white/10 ${
+        className={`fixed top-0 right-0 bottom-0 w-[90vw] max-w-[380px] bg-[#061A33] text-white z-[60] shadow-2xl flex flex-col transition-transform duration-300 ease-out border-l border-white/10 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
