@@ -37,19 +37,9 @@ import {
 import { useLocation } from "wouter";
 import { BookingModal } from "@/components/BookingModal";
 import { Preloader } from "@/components/Preloader";
-import { ResortMap } from "@/components/ResortMap";
-import { TicketEstimator } from "@/components/TicketEstimator";
 import { AIChatBox, Message } from "@/components/AIChatBox";
 import { MagneticCursor } from "@/components/MagneticCursor";
-import { AmbientParticles } from "@/components/AmbientParticles";
 import { GodlyResortHero } from "@/components/GodlyResortHero";
-import { FourPillarsHero } from "@/components/FourPillarsHero";
-import { RapidImageStack, ExperienceItem } from "@/components/RapidImageStack";
-import { JhulJhulKarKhao } from "@/components/JhulJhulKarKhao";
-import { PerspectiveRoomShowcase } from "@/components/PerspectiveRoomShowcase";
-import { HeritageMascotBand } from "@/components/HeritageMascotBand";
-import { VideoTourSection } from "@/components/VideoTourSection";
-import { VideoModal } from "@/components/VideoModal";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SEOHead, RESORT_SCHEMA } from "@/components/SEOHead";
@@ -60,7 +50,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const images = {
   hero: "/images/hero_water_park.jpg",
   amusement: "/images/amusement_park.jpg",
-  activity: "/images/amusement_park.jpg",
+  activity: "/images/amusement-park-aapno-ghar.jpg",
   presidential: "/images/room_presidential.jpg",
   suite: "/images/room_suite.jpg",
   luxury: "/images/room_luxury.jpg",
@@ -70,108 +60,6 @@ const images = {
   abhinandan: "/images/venue_abhinandan.jpg",
   swagatam: "/images/venue_swagatam.jpg",
 };
-
-const heroCards = [
-  {
-    tag: "Water Park",
-    title: "Water Park & Joyrides",
-    subtitle: "21 thrill slides, rain dance & wave pools",
-    image: images.hero,
-    intent: "Water Park day visit",
-    icon: Waves,
-  },
-  {
-    tag: "Resort Stays",
-    title: "Resort Rooms & Suites",
-    subtitle: "67 rooms with lawn balconies & dining",
-    image: images.presidential,
-    intent: "Stay enquiry",
-    icon: BedDouble,
-  },
-  {
-    tag: "Weddings & Events",
-    title: "Weddings & Celebrations",
-    subtitle: "Expansive party lawns up to 2,500 guests",
-    image: images.chander,
-    intent: "Wedding & event enquiry",
-    icon: Building2,
-  },
-  {
-    tag: "Activity Park",
-    title: "Activity & Corporate Outings",
-    subtitle: "24 obstacle activities & rope course",
-    image: images.activity,
-    intent: "Corporate / group enquiry",
-    icon: HeartHandshake,
-  },
-];
-
-const rapidExperiences: ExperienceItem[] = [
-  {
-    id: "water-park",
-    name: "Water Park",
-    category: "Aquatic Thrills",
-    tagline: "High-Speed Water Slides & Giant Wave Pool",
-    description:
-      "Dive into non-stop refreshment with exhilarating multi-lane body slides, kid's splash zone, rain dance, and Delhi-NCR's favorite family wave pool.",
-    image: images.hero,
-    badge: "21+ Thrill Slides & Pools",
-    highlights: ["Interactive Wave Pool", "Rain Dance Floor with DJ", "Kids Splash Water Play", "Multi-Lane Tube Slides"],
-    stats: [
-      { label: "Water Slides", value: "21+" },
-      { label: "Timings", value: "9:30 AM - 7:00 PM" },
-    ],
-    intent: "Water Park day visit",
-  },
-  {
-    id: "amusement-park",
-    name: "Amusement Park",
-    category: "Family Carnival",
-    tagline: "Classic Joyrides & Nostalgic Carnival Thrills",
-    description:
-      "Experience timeless fun with Caterpillar coaster, Ferris wheel, Flying dish, Breakdance, and musical gardens designed for all age groups.",
-    image: images.amusement,
-    badge: "All-Age Joyrides",
-    highlights: ["Caterpillar Coaster", "Classic Carousel & Swings", "Flying Dish & Columbus", "Musical Water Fountain"],
-    stats: [
-      { label: "Joyrides", value: "15+" },
-      { label: "Safety Rating", value: "100% Certified" },
-    ],
-    intent: "Amusement Park day visit",
-  },
-  {
-    id: "activity-park",
-    name: "Activity Park",
-    category: "Adventure & Team Building",
-    tagline: "24+ Obstacle Courses & Rope Adventures",
-    description:
-      "Challenge your agility with zip lines, commando net climbing, Burma bridge, beam balance, and curated group activities under expert guidance.",
-    image: images.activity,
-    badge: "24 Adventure Obstacles",
-    highlights: ["Zipline & Rope Course", "Commando Climbing Net", "Target Archery & Dart", "Tug of War & Group Games"],
-    stats: [
-      { label: "Obstacles", value: "24+" },
-      { label: "Instructor Led", value: "Yes" },
-    ],
-    intent: "Activity Park day visit",
-  },
-  {
-    id: "dine-in",
-    name: "Dine-in Feast",
-    category: "Royal Vegetarian Dining",
-    tagline: "Unlimited Buffet Meals & Refreshing Snacks",
-    description:
-      "Indulge in hearty, hygienic, and unlimited pure-vegetarian North Indian buffets including breakfast, grand lunch, and evening tea with snacks.",
-    image: images.luxury,
-    badge: "Unlimited Buffet Included",
-    highlights: ["Welcome Breakfast & Tea", "Multi-Course Lunch Buffet", "Evening Hi-Tea & Snacks", "100% Pure Vegetarian"],
-    stats: [
-      { label: "Meal Inclusions", value: "Breakfast + Lunch + Tea" },
-      { label: "Cuisine", value: "North Indian & Desi" },
-    ],
-    intent: "Dine-in enquiry",
-  },
-];
 
 const rooms = [
   {
@@ -183,84 +71,26 @@ const rooms = [
   },
   {
     name: "Suite",
-    rate: "₹7,200 / night + GST",
+    rate: "₹7,200 / night",
     image: images.suite,
     detail: "Extra living space, polished furnishings, and dedicated seating area to slow down and unwind together.",
     amenities: ["Lawn View", "Separate Lounge", "Work Desk", "24/7 Room Service"],
   },
   {
     name: "Luxury",
-    rate: "₹6,000 / night + GST",
+    rate: "₹6,000 / night",
     image: images.luxury,
     detail: "Warm-toned contemporary interiors made for easy family stays, restful weekends, and direct pool access.",
-    amenities: ["King Bed", "High-speed Wi-Fi", "Accommodates 2-3", "Modern En-suite Bath"],
+    amenities: ["King Bed", "High-speed Wi-Fi", "Accommodates 2–3", "Modern En-suite Bath"],
   },
   {
     name: "Deluxe",
-    rate: "₹4,600 / night + GST",
+    rate: "₹4,600 / night",
     image: images.deluxe,
     detail: "A comfortable, well-appointed base close to all the destination's energy and lush landscaped lawns.",
     amenities: ["Lawn Proximity", "Wi-Fi & Smart TV", "2 Adults", "Air Conditioned"],
   },
 ];
-
-const venues = [
-  {
-    name: "Bhanwar Lawn",
-    image: images.bhanwar,
-    type: "Open-Air Celebration Lawn",
-    capacity: "50–300 guests*",
-    desc: "Intimate manicured green lawn ideal for mehendi, haldi, birthday parties, and corporate cocktail evenings.",
-  },
-  {
-    name: "Chander Lawn",
-    image: images.chander,
-    type: "Grand Wedding Lawn",
-    capacity: "200–2,500 guests*",
-    desc: "Expansive royal event space capable of hosting lavish destination weddings, large exhibitions, and grand receptions.",
-  },
-  {
-    name: "Abhinandan Hall",
-    image: images.abhinandan,
-    type: "Air-Conditioned Banquet Hall",
-    capacity: "30–250 guests*",
-    desc: "Elegant climate-controlled indoor hall equipped with modern audio-visual systems for conferences, sangeet, and ceremonies.",
-  },
-  {
-    name: "Swagatam Hall",
-    image: images.swagatam,
-    type: "Private Function Hall",
-    capacity: "Up to 150 guests*",
-    desc: "Cozy indoor banquet suitable for pre-wedding functions, ring ceremonies, corporate meetings, and family milestones.",
-  },
-];
-
-const faqs = [
-  [
-    "What are the park timings and meal schedule?",
-    "The Water Park operates from 09:30 AM to 07:00 PM, and the Amusement Park runs from 09:30 AM to 05:30 PM. Full-day packages include welcome tea & snacks (09:30 AM – 11:30 AM), grand lunch buffet (01:00 PM – 02:30 PM), and evening hi-tea (04:30 PM – 06:00 PM).",
-  ],
-  [
-    "How does height-based pricing work?",
-    "Children below 33 inches enter complimentary (Free). Child tickets apply between 33 and 54 inches (₹1,299 Weekday / ₹1,499 Weekend), while adult pricing applies for heights above 54 inches (₹1,599 Weekday / ₹1,799 Weekend).",
-  ],
-  [
-    "Is stag entry permitted at the park?",
-    "No. Stag entry is strictly not permitted at the Water Park or Amusement Park. AapnoGhar is a dedicated family and corporate retreat created for secure, comfortable outings.",
-  ],
-  [
-    "Do resort room bookings include water park tickets?",
-    "Standard room bookings cover luxurious accommodation. To include unlimited water park, amusement rides, and meals, select our comprehensive 'Stay & Play / Family Stay' package during reservation.",
-  ],
-  [
-    "Is ample parking and EV charging available?",
-    "Yes, extensive secure on-site parking is available for cars, buses, and private vehicles along with round-the-clock security and easy highway ingress from NH-8.",
-  ],
-  [
-    "What is the booking and cancellation policy?",
-    "Online bookings can be made directly via our WhatsApp reservation desk or website. Rescheduling terms and cancellation policies depend on the date and group size.",
-  ],
-] as const;
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -268,24 +98,9 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [bookingIntent, setBookingIntent] = useState("Day visit");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeCard, setActiveCard] = useState(0);
-  const [isHeroHovered, setIsHeroHovered] = useState(false);
-  const [pricingTab, setPricingTab] = useState<"weekday" | "weekend">("weekday");
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-
-  // Drawer Accordion State
-  const [openDrawerAcc, setOpenDrawerAcc] = useState<string | null>(null);
-
-  // Auto-rotate hero experience pills every 5 seconds (pauses on hover)
-  useEffect(() => {
-    if (isHeroHovered) return;
-    const interval = setInterval(() => {
-      setActiveCard((prev) => (prev + 1) % heroCards.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isHeroHovered]);
+  const [isRibbonDismissed, setIsRibbonDismissed] = useState(false);
 
   // AI Concierge state
   const [isAiOpen, setIsAiOpen] = useState(false);
@@ -321,10 +136,6 @@ export default function Home() {
     setIsMenuOpen(false);
   };
 
-  const toggleDrawerAcc = (name: string) => {
-    setOpenDrawerAcc((prev) => (prev === name ? null : name));
-  };
-
   // Smart AI Response handler
   const handleSendMessage = (userContent: string) => {
     const updatedMessages: Message[] = [...aiMessages, { role: "user", content: userContent }];
@@ -336,47 +147,19 @@ export default function Home() {
       const lower = userContent.toLowerCase();
 
       if (lower.includes("day out") || lower.includes("plan") || lower.includes("itinerary") || lower.includes("family")) {
-        reply = `### 🌟 Custom Family Day Out Itinerary
-**09:30 AM – 10:00 AM | Arrival & Welcome Tea**  
-Check in at the main gate, pick up wristbands, and enjoy morning breakfast snacks.
-
-**10:00 AM – 01:00 PM | Water Park & Wave Pool**  
-Enjoy 21 thrill slides, giant wave pool, rain dance floor, and kid's splash zone.
-
-**01:00 PM – 02:30 PM | Grand Vegetarian Lunch Buffet**  
-Gather at Banyan Dining for a 100% pure-vegetarian royal feast.
-
-**02:30 PM – 05:00 PM | Amusement & Adventure Park**  
-Ride the Caterpillar coaster, Ferris wheel, and conquer 24 obstacle rope courses!
-
-**05:00 PM – 06:30 PM | Hi-Tea & Sunset Snacks**  
-Relax with hot tea, evening snacks, and souvenir photos before heading home.`;
+        reply = `### 🌟 Custom Family Day Out Itinerary\n**09:30 AM – 10:00 AM | Arrival & Welcome Tea**\nCheck in at the main gate, pick up wristbands, and enjoy morning breakfast snacks.\n\n**10:00 AM – 01:00 PM | Water Park & Wave Pool**\nEnjoy 21 thrill slides, giant wave pool, rain dance floor, and kid's splash zone.\n\n**01:00 PM – 02:30 PM | Grand Vegetarian Lunch Buffet**\nGather at Banyan Dining for a 100% pure-vegetarian royal feast.\n\n**02:30 PM – 05:00 PM | Amusement & Adventure Park**\nRide the Caterpillar coaster, Ferris wheel, and conquer 24 obstacle rope courses!\n\n**05:00 PM – 06:30 PM | Hi-Tea & Sunset Snacks**\nRelax with hot tea, evening snacks, and souvenir photos before heading home.`;
       } else if (lower.includes("timing") || lower.includes("hour") || lower.includes("stag")) {
-        reply = `### 🕒 Operating Hours & Policies
-- **Water Park:** 09:30 AM to 07:00 PM  
-- **Amusement Park:** 09:30 AM to 05:30 PM  
-- **Height Rules:** Below 33″ Free | 33″–54″ Child Ticket | Above 54″ Adult Ticket  
-- **Stag Policy:** Strictly no stag entry. AapnoGhar is a family and corporate sanctuary.`;
+        reply = `### 🕒 Operating Hours & Policies\n- **Water Park:** 09:30 AM to 07:00 PM\n- **Amusement Park:** 09:30 AM to 05:30 PM\n- **Height Rules:** Below 33″ Free | 33″–54″ Child Ticket | Above 54″ Adult Ticket\n- **Stag Policy:** Strictly no stag entry. AapnoGhar is a family and corporate sanctuary.`;
       } else if (lower.includes("stay") || lower.includes("room") || lower.includes("suite")) {
-        reply = `### 🏨 Luxury Accommodation Options
-1. **Presidential Suite** (Rate on Request): 1,200 sq.ft royal suite with private living room.
-2. **Suite Room** (₹7,200/night + GST): Separate living lounge, lawn terrace.
-3. **Luxury Room** (₹6,000/night + GST): Cozy warm interior, ideal for family staycations.
-4. **Deluxe Room** (₹4,600/night + GST): Modern comfort right by the green lawns.`;
+        reply = `### 🏨 Luxury Accommodation Options\n1. **Presidential Suite** (Rate on Request): 1,200 sq.ft royal suite with private living room.\n2. **Suite Room** (₹7,200/night + GST): Separate living lounge, lawn terrace.\n3. **Luxury Room** (₹6,000/night + GST): Cozy warm interior, ideal for family staycations.\n4. **Deluxe Room** (₹4,600/night + GST): Modern comfort right by the green lawns.`;
       } else {
-        reply = `### 🎟️ AapnoGhar Full-Day Picnic Passes
-- **Weekday Adult (>54"):** ₹1,599 | **Weekday Child (33"-54"):** ₹1,299  
-- **Weekend Adult (>54"):** ₹1,799 | **Weekend Child (33"-54"):** ₹1,499  
-- **Infants (<33"):** Complimentary  
-- **Inclusions:** Water Park, Amusement Joyrides, 24 Adventure Activities, Breakfast, Buffet Lunch & Hi-Tea Snacks!`;
+        reply = `### 🎟️ AapnoGhar Full-Day Picnic Passes\n- **Weekday Adult (>54"):** ₹1,599 | **Weekday Child (33"-54"):** ₹1,299\n- **Weekend Adult (>54"):** ₹1,799 | **Weekend Child (33"-54"):** ₹1,499\n- **Infants (<33"):** Complimentary\n- **Inclusions:** Water Park, Amusement Joyrides, 24 Adventure Activities, Breakfast, Buffet Lunch & Hi-Tea Snacks!`;
       }
 
       setAiMessages((prev) => [...prev, { role: "assistant", content: reply }]);
       setAiLoading(false);
     }, 850);
   };
-
-  const [isRibbonDismissed, setIsRibbonDismissed] = useState(false);
 
   return (
     <div className="site-shell relative selection:bg-[#01A5E1] selection:text-white">
@@ -423,8 +206,6 @@ Relax with hot tea, evening snacks, and souvenir photos before heading home.`;
                 Claim Offer →
               </button>
             </div>
-
-            {/* Dismiss Cross Button */}
             <button
               type="button"
               onClick={() => setIsRibbonDismissed(true)}
@@ -440,377 +221,244 @@ Relax with hot tea, evening snacks, and souvenir photos before heading home.`;
 
       <main id="main-content">
         {/* =========================================================================
-            AWARD-WINNING EDITORIAL RESORT HERO (Godly / Land-book Inspired)
+            HERO SECTION (Unchanged)
             ========================================================================= */}
         <GodlyResortHero
           onBook={openBooking}
-          onExplore={() => scrollTo("experiences")}
+          onExplore={() => scrollTo("resort-rooms")}
         />
 
         {/* =========================================================================
-            OUR 30-YEAR HERITAGE STORY & RESORT SANCTUARY
+            RESORT & ROOMS SECTION
             ========================================================================= */}
-        <HeritageMascotBand onExplore={() => scrollTo("experiences")} />
+        <section className="py-24 bg-[#061A33] relative overflow-hidden" id="resort-rooms">
+          {/* Background glows */}
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[#01A5E1]/6 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#F68734]/5 blur-3xl pointer-events-none" />
 
-        {/* =========================================================================
-            JHUL JHUL KAR KHAO - 4-POLAROID PICNIC MATRIX (Screenshot 3)
-            ========================================================================= */}
-        <JhulJhulKarKhao onBook={openBooking} />
-
-        {/* =========================================================================
-            RAPID IMAGE LAYERS: EXPERIENCES SECTION
-            ========================================================================= */}
-        <section className="section experiences bg-[#FDFCF9] py-24 border-b border-[#0E295B]/10" id="experiences">
-          <div className="max-w-[1560px] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12" data-reveal>
-              <div>
-                <span className="eyebrow eyebrow--teal">Choose Your Experience</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0E295B] tracking-tight font-display mt-2">
-                  Four signature pillars of joy.
-                </h2>
-              </div>
-              <p className="text-[#50657D] text-sm sm:text-base max-w-md">
-                From exhilarating wave pools and carnival joyrides to 24 adventure rope courses and unlimited vegetarian feasts.
-              </p>
-            </div>
-
-            {/* Kinetic Layered Card Deck Component */}
-            <div data-reveal>
-              <RapidImageStack items={rapidExperiences} onSelectIntent={openBooking} />
-            </div>
-          </div>
-        </section>
-
-
-
-        {/* Dynamic Rate Calculator Section */}
-        <section className="section estimator-section bg-[#FCF3E9]/50 py-14 border-b border-[#0E295B]/10" id="estimator">
-          <div className="max-w-[1560px] mx-auto px-6 sm:px-12 lg:px-16" data-reveal>
-            <TicketEstimator onBook={openBooking} />
-          </div>
-        </section>
-
-        {/* =========================================================================
-            CINEMATIC VIDEO TOUR & VIRTUAL WALKTHROUGH
-            ========================================================================= */}
-        <VideoTourSection onBook={openBooking} />
-
-        {/* =========================================================================
-            TRANSPARENT PRICING MATRIX
-            ========================================================================= */}
-        <section className="section pricing-section py-20" id="pricing">
-          <div className="content-wrap pricing-layout">
-            <div className="pricing-intro" data-reveal>
-              <span className="eyebrow eyebrow--coral">Transparent Pricing</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0E295B] font-display mt-1">
-                All-Inclusive Day Picnic Passes
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+            {/* Section Header */}
+            <div className="text-center mb-14" data-reveal>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-[#01A5E1]/15 text-[#01A5E1] text-xs font-bold uppercase tracking-widest mb-4">Resort & Accommodations</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white font-display tracking-tight leading-tight">
+                67 Luxury Rooms & Suites
               </h2>
-              <p className="text-[#50657D] text-base mt-3 leading-relaxed">
-                Enjoy unlimited access to the Water Park, Amusement Park, 24 Adventure activities, along with full-course breakfast, royal buffet lunch, and evening snacks!
-              </p>
-              <div className="pricing-note flex items-center gap-2 mt-4 text-[#0E295B] font-semibold text-sm">
-                <Clock3 size={18} className="text-[#01A5E1]" />
-                <span>Park Operating Hours: 09:30 AM to 07:00 PM</span>
-              </div>
-              <button
-                className="button button--navy mt-6"
-                type="button"
-                onClick={() => openBooking("Day visit")}
-                data-cursor-text="Reserve Pass"
-              >
-                Book Your Passes <ArrowUpRight size={17} />
-              </button>
-            </div>
-
-            <div className="pricing-panel shadow-xl" data-reveal="scale" data-reveal-delay="2">
-              <div className="pricing-panel__tabs">
-                <button
-                  type="button"
-                  onClick={() => setPricingTab("weekday")}
-                  className={pricingTab === "weekday" ? "is-active" : ""}
-                >
-                  Weekdays (Mon – Fri)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPricingTab("weekend")}
-                  className={pricingTab === "weekend" ? "is-active" : ""}
-                >
-                  Weekends & Holidays
-                </button>
-              </div>
-
-              <div className="pricing-cards-grid">
-                {/* Infants Card */}
-                <div className="pricing-tier-card">
-                  <div>
-                    <span className="pricing-tier-tag">Infants & Toddlers</span>
-                    <p className="pricing-tier-limit">Below 33 inches height</p>
-                  </div>
-                  <div>
-                    <strong className="pricing-tier-rate pricing-tier-rate--free">Complimentary</strong>
-                    <em className="pricing-tier-note">Free entry with family</em>
-                  </div>
-                </div>
-
-                {/* Kids Card */}
-                <div className="pricing-tier-card">
-                  <div>
-                    <span className="pricing-tier-tag">Children Pass</span>
-                    <p className="pricing-tier-limit">33 to 54 inches height</p>
-                  </div>
-                  <div>
-                    <strong className="pricing-tier-rate">
-                      {pricingTab === "weekday" ? "₹1,299" : "₹1,499"}
-                    </strong>
-                    <em className="pricing-tier-note">per child + taxes</em>
-                  </div>
-                </div>
-
-                {/* Adults Card (Featured) */}
-                <div className="pricing-tier-card pricing-tier-card--featured">
-                  <div>
-                    <span className="pricing-tier-tag" style={{ color: "var(--coral)" }}>Adults Pass</span>
-                    <p className="pricing-tier-limit">Above 54 inches height</p>
-                  </div>
-                  <div>
-                    <strong className="pricing-tier-rate pricing-tier-rate--coral">
-                      {pricingTab === "weekday" ? "₹1,599" : "₹1,799"}
-                    </strong>
-                    <em className="pricing-tier-note">per adult + taxes</em>
-                  </div>
-                </div>
-              </div>
-
-              <div className="inclusion-list">
-                <span>Every Day Pass Includes:</span>
-                <div>
-                  {[
-                    "Unlimited Water Park & Wave Pool",
-                    "All 15+ Amusement Park Joyrides",
-                    "24 Obstacle Adventure Activities",
-                    "Morning Welcome Snacks & Tea",
-                    "Grand Buffet Lunch (100% Pure Veg)",
-                    "Evening Hi-Tea & Hot Snacks",
-                  ].map((item) => (
-                    <p key={item}>
-                      <Check size={15} /> {item}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            ACCOMMODATION & LUXURY STAYS (3D Perspective & 360 Showcase - Screenshot 4 & 5)
-            ========================================================================= */}
-        <PerspectiveRoomShowcase onBook={openBooking} />
-
-        <section className="section stay-section bg-[#FDFCF9] py-16" id="stay-details">
-          <div className="content-wrap">
-            <div className="section-heading text-center max-w-2xl mx-auto mb-14" data-reveal>
-              <span className="eyebrow eyebrow--teal">Complete Room Inventory</span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0E295B] font-display mt-2">
-                Stay a little longer in peaceful comfort.
-              </h2>
-              <p className="text-[#50657D] text-base sm:text-lg mt-3">
-                67 well-appointed rooms and suites designed for slow mornings, quiet evenings, and easy access to resort grounds.
+              <p className="text-white/55 mt-4 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+                Presidential suites to cozy deluxe rooms — each with lawn balconies, resort-view windows, and in-room dining. Your perfect retreat awaits.
               </p>
             </div>
 
-            <div className="room-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {rooms.map((room, index) => (
+            {/* Room Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+              {rooms.map((room, idx) => (
                 <article
-                  className="room-card group bg-white rounded-3xl overflow-hidden border border-[#0E295B]/10 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col"
                   key={room.name}
+                  className="group rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 shadow-lg"
                   data-reveal
-                  data-reveal-delay={index + 1}
-                >
-                  <div className="room-card__image relative h-56 overflow-hidden">
-                    <img
-                      src={room.image}
-                      alt={`${room.name} room at AapnoGhar`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span className="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-[#0E295B]/90 text-white text-xs font-bold backdrop-blur-md">
-                      {room.rate}
-                    </span>
-                  </div>
-                  <div className="room-card__content p-6 flex flex-col flex-1 justify-between gap-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-[#0E295B] font-display">{room.name}</h3>
-                      <p className="text-xs text-[#50657D] mt-2 leading-relaxed">{room.detail}</p>
-                    </div>
-                    <div>
-                      <div className="amenity-row flex flex-wrap gap-1.5 mb-4">
-                        {room.amenities.map((amenity) => (
-                          <span
-                            key={amenity}
-                            className="px-2 py-0.5 rounded-md bg-[#0E295B]/5 text-[10px] font-semibold text-[#0E295B]"
-                          >
-                            {amenity}
-                          </span>
-                        ))}
-                      </div>
-                      <button
-                        type="button"
-                        className="text-link text-xs font-bold text-[#F68734] hover:text-[#D84A22] flex items-center gap-1"
-                        onClick={() => openBooking(`${room.name} stay enquiry`)}
-                        data-cursor-text="Check Room"
-                      >
-                        <span>Check availability</span> <ArrowUpRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* =========================================================================
-            WEDDINGS & CELEBRATIONS (4 EXPANSIVE BANQUET LAWNS & HALLS)
-            ========================================================================= */}
-        <section className="section celebration-section" id="celebrate">
-          <div className="content-wrap">
-            <div className="celebration-heading" data-reveal>
-              <div>
-                <span className="eyebrow">Weddings & Social Gatherings</span>
-                <h2>Spaces ready for life's greatest milestones.</h2>
-              </div>
-              <p>
-                From intimate open-air sangeet lawns to grand wedding banquets hosting up to 2,500 guests, make your celebration unforgettable.
-              </p>
-              <div>
-                <button
-                  className="button button--coral"
-                  type="button"
-                  onClick={() => openBooking("Wedding & event enquiry")}
-                  data-cursor-text="Plan Event"
-                >
-                  <CalendarDays size={18} /> Start an Event Enquiry
-                </button>
-              </div>
-            </div>
-
-            <div className="venue-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {venues.map((venue, index) => (
-                <article
-                  className={`venue-card venue-card--${index + 1} bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden border border-white/15 flex flex-col group hover:bg-white/15 transition-all duration-300`}
-                  key={venue.name}
-                  data-reveal
-                  data-reveal-delay={index + 1}
+                  data-reveal-delay={idx + 1}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={venue.image}
-                      alt={`${venue.name} event venue`}
+                      src={room.image}
+                      alt={`${room.name} at AapnoGhar Resort`}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#01A5E1]/90 text-white text-[11px] font-bold">
-                      {venue.capacity}
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#061A33]/90 text-[#FFA96B] text-[10px] font-extrabold tracking-wider backdrop-blur-sm">
+                      {room.rate}
                     </span>
                   </div>
-                  <div className="venue-card__content p-6 flex flex-col flex-1 justify-between gap-3">
-                    <div>
-                      <span className="text-[11px] font-bold text-[#F68734] uppercase tracking-wider">
-                        {venue.type}
-                      </span>
-                      <h3 className="text-xl font-bold text-white mt-1 font-display">{venue.name}</h3>
-                      <p className="text-xs text-white/70 mt-2 leading-relaxed">{venue.desc}</p>
+                  <div className="p-5">
+                    <h3 className="text-sm font-bold text-white">{room.name}</h3>
+                    <p className="text-white/50 text-xs mt-1.5 leading-relaxed line-clamp-2">{room.detail}</p>
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {room.amenities.slice(0, 2).map(a => (
+                        <span key={a} className="px-2 py-0.5 rounded-md bg-white/8 text-[10px] text-white/60 font-medium">{a}</span>
+                      ))}
                     </div>
-                    <button
-                      type="button"
-                      className="text-link text-link--light text-xs font-bold text-[#89D9F8] flex items-center gap-1 mt-2 hover:underline"
-                      onClick={() => openBooking(`${venue.name} event enquiry`)}
-                      data-cursor-text="Enquire Lawn"
-                    >
-                      <span>Enquire for this venue</span> <ArrowUpRight size={14} />
-                    </button>
                   </div>
                 </article>
               ))}
             </div>
+
+            {/* CTA */}
+            <div className="text-center">
+              <a
+                href="/rooms"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-[#FFA96B] to-[#F68734] text-[#061A33] font-extrabold text-sm hover:shadow-xl hover:shadow-[#F68734]/25 hover:-translate-y-0.5 transition-all duration-200"
+              >
+                Explore All Rooms & Suites <ArrowUpRight size={16} />
+              </a>
+            </div>
           </div>
         </section>
 
         {/* =========================================================================
-            TRUST & VERIFIED STATISTICS SECTION
+            PARK ZONES SECTION (Water Park + Amusement Park + Adventure Park)
             ========================================================================= */}
-        <section className="trust-section py-20 bg-white">
-          <div className="content-wrap">
-            <div className="trust-banner-card bg-[#FCF3E9]/80 border border-[#0E295B]/10 rounded-3xl p-8 sm:p-12" data-reveal>
-              <div className="trust-header-row flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10 pb-8 border-b border-[#0E295B]/10">
-                <div>
-                  <span className="eyebrow eyebrow--teal">Verified Hospitality Standards</span>
-                  <h2 className="text-2xl sm:text-4xl font-extrabold text-[#0E295B] font-display mt-1">
-                    Every Detail Crafted For Family Safety & Joy.
-                  </h2>
-                  <p className="text-[#50657D] text-sm sm:text-base mt-2 max-w-xl">
-                    Dedicated family atmosphere, certified water filtration, ISO ride safety guidelines, and 30+ years of trust.
-                  </p>
+        <section className="py-24 bg-[#FDFCF9] relative overflow-hidden" id="park-zones">
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+            {/* Section Header */}
+            <div className="text-center mb-14" data-reveal>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-[#0E295B]/8 text-[#0E295B] text-xs font-bold uppercase tracking-widest mb-4">Park Zones</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0E295B] font-display tracking-tight leading-tight">
+                Three Worlds. One Destination.
+              </h2>
+              <p className="text-[#50657D] mt-4 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+                Water thrills, carnival joyrides & adventure rope courses — all under one roof at Delhi-NCR's premier resort destination.
+              </p>
+            </div>
+
+            {/* 3 Park Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Water Park */}
+              <article className="group relative rounded-3xl overflow-hidden shadow-xl hover:-translate-y-1.5 transition-transform duration-300" data-reveal>
+                <div className="relative h-72">
+                  <img
+                    src="/images/hero_water_park.jpg"
+                    alt="Water Park at AapnoGhar"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A2744]/95 via-[#0A2744]/40 to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#01A5E1] text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
+                      <Waves size={11} /> Water Park
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-xl font-extrabold text-white font-display leading-snug">High-Speed Water Slides & Wave Pool</h3>
+                    <p className="text-white/75 text-xs mt-1.5 leading-relaxed">21+ thrill slides, rain dance floor, giant wave pool & kids splash zone</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["21+ Slides", "Wave Pool", "Rain Dance"].map(t => (
+                        <span key={t} className="px-2 py-0.5 rounded-md bg-white/15 text-white/90 text-[10px] font-medium">{t}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <a
-                  className="button button--navy shrink-0"
-                  href="https://www.instagram.com/aapnoghargurgaon/?hl=en"
-                  target="_blank"
-                  rel="noreferrer"
-                  data-cursor-text="Instagram"
-                >
-                  See Moments on Instagram <ArrowUpRight size={16} />
-                </a>
+                <div className="bg-[#0A2744] px-6 py-4 flex items-center justify-between">
+                  <span className="text-[#89D9F8] text-xs font-bold">Open: 09:30 AM – 07:00 PM</span>
+                  <a href="/water-park" className="flex items-center gap-1.5 text-[#01A5E1] hover:text-white text-xs font-extrabold transition-colors">
+                    Explore <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </article>
+
+              {/* Amusement Park */}
+              <article className="group relative rounded-3xl overflow-hidden shadow-xl hover:-translate-y-1.5 transition-transform duration-300" data-reveal data-reveal-delay="2">
+                <div className="relative h-72">
+                  <img
+                    src="/images/amusement_park.jpg"
+                    alt="Amusement Park at AapnoGhar"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#361204]/95 via-[#361204]/40 to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F68734] text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
+                      <Sparkles size={11} /> Amusement Park
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-xl font-extrabold text-white font-display leading-snug">Classic Joyrides & Carnival Fun</h3>
+                    <p className="text-white/75 text-xs mt-1.5 leading-relaxed">15+ timeless carnival rides for all ages — coasters, Ferris wheels & more</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["15+ Rides", "All Ages", "Carnival"].map(t => (
+                        <span key={t} className="px-2 py-0.5 rounded-md bg-white/15 text-white/90 text-[10px] font-medium">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-[#361204] px-6 py-4 flex items-center justify-between">
+                  <span className="text-[#FFC27A] text-xs font-bold">Open: 09:30 AM – 05:30 PM</span>
+                  <a href="/amusement-park" className="flex items-center gap-1.5 text-[#F68734] hover:text-white text-xs font-extrabold transition-colors">
+                    Explore <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </article>
+
+              {/* Adventure Park */}
+              <article className="group relative rounded-3xl overflow-hidden shadow-xl hover:-translate-y-1.5 transition-transform duration-300" data-reveal data-reveal-delay="3">
+                <div className="relative h-72">
+                  <img
+                    src="/images/amusement-park-aapno-ghar.jpg"
+                    alt="Adventure Park at AapnoGhar"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C2A1A]/95 via-[#0C2A1A]/40 to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#16A34A] text-white text-[10px] font-extrabold uppercase tracking-wider shadow">
+                      <Compass size={11} /> Adventure Park
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-xl font-extrabold text-white font-display leading-snug">24+ Obstacle Rope Courses</h3>
+                    <p className="text-white/75 text-xs mt-1.5 leading-relaxed">Ziplines, Burma bridge, climbing nets & expert-led team building activities</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {["24+ Activities", "Team Building", "Expert Led"].map(t => (
+                        <span key={t} className="px-2 py-0.5 rounded-md bg-white/15 text-white/90 text-[10px] font-medium">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-[#0C2A1A] px-6 py-4 flex items-center justify-between">
+                  <span className="text-[#86EFAC] text-xs font-bold">Expert-guided sessions daily</span>
+                  <a href="/adventure-park" className="flex items-center gap-1.5 text-[#16A34A] hover:text-white text-xs font-extrabold transition-colors">
+                    Explore <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            CORPORATE EVENTS SECTION
+            ========================================================================= */}
+        <section className="py-24 bg-[#0A1E29] relative overflow-hidden" id="corporate-events">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#01A5E1]/5 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#FFA96B]/5 blur-3xl pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left: Content */}
+              <div data-reveal>
+                <span className="inline-block px-4 py-1.5 rounded-full bg-[#01A5E1]/15 text-[#01A5E1] text-xs font-bold uppercase tracking-widest mb-5">Corporate Events</span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight leading-tight">
+                  Elevate Your Corporate Offsite
+                </h2>
+                <p className="text-white/60 mt-4 text-base leading-relaxed max-w-lg">
+                  From power-packed conferences to team-building outings — AapnoGhar offers premium event venues, world-class AV setups, and curated corporate packages on NH-8 Gurugram.
+                </p>
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  {[
+                    { label: "Climate-Controlled Halls", icon: "🏛️" },
+                    { label: "Expansive Event Lawns", icon: "🌿" },
+                    { label: "24+ Team-Building Activities", icon: "🤝" },
+                    { label: "Premium Catering Included", icon: "🥗" },
+                  ].map(f => (
+                    <div key={f.label} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/5 border border-white/8">
+                      <span className="text-lg leading-none">{f.icon}</span>
+                      <span className="text-white/75 text-xs font-semibold leading-snug">{f.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <a
+                    href="/corporate-events"
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#01A5E1] to-[#0E295B] text-white font-extrabold text-sm hover:shadow-xl hover:shadow-[#01A5E1]/20 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    Plan Your Corporate Event <ArrowUpRight size={16} />
+                  </a>
+                </div>
               </div>
-
-              {/* Verified Metrics Cards */}
-              <div className="trust-metrics-grid grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div className="trust-metric-card bg-white p-6 rounded-2xl border border-[#0E295B]/10 shadow-sm text-center">
-                  <span className="trust-metric-num text-3xl sm:text-4xl font-extrabold text-[#0E295B] block font-display">
-                    67
-                  </span>
-                  <span className="trust-metric-label font-bold text-xs sm:text-sm text-[#0E295B] mt-1 block">
-                    Luxury Rooms & Suites
-                  </span>
-                  <span className="trust-metric-desc text-[11px] text-[#50657D] mt-0.5 block">
-                    Lawn balconies & in-room dining
-                  </span>
-                </div>
-
-                <div className="trust-metric-card bg-white p-6 rounded-2xl border border-[#0E295B]/10 shadow-sm text-center">
-                  <span className="trust-metric-num text-3xl sm:text-4xl font-extrabold text-[#01A5E1] block font-display">
-                    21+
-                  </span>
-                  <span className="trust-metric-label font-bold text-xs sm:text-sm text-[#0E295B] mt-1 block">
-                    Water Slides & Joyrides
-                  </span>
-                  <span className="trust-metric-desc text-[11px] text-[#50657D] mt-0.5 block">
-                    Certified for kids & adults
-                  </span>
-                </div>
-
-                <div className="trust-metric-card bg-white p-6 rounded-2xl border border-[#0E295B]/10 shadow-sm text-center">
-                  <span className="trust-metric-num text-3xl sm:text-4xl font-extrabold text-[#F68734] block font-display">
-                    24+
-                  </span>
-                  <span className="trust-metric-label font-bold text-xs sm:text-sm text-[#0E295B] mt-1 block">
-                    Adventure Obstacles
-                  </span>
-                  <span className="trust-metric-desc text-[11px] text-[#50657D] mt-0.5 block">
-                    Rope courses & team building
-                  </span>
-                </div>
-
-                <div className="trust-metric-card bg-white p-6 rounded-2xl border border-[#0E295B]/10 shadow-sm text-center">
-                  <span className="trust-metric-num text-3xl sm:text-4xl font-extrabold text-[#0E295B] block font-display">
-                    30+
-                  </span>
-                  <span className="trust-metric-label font-bold text-xs sm:text-sm text-[#0E295B] mt-1 block">
-                    Years of Heritage
-                  </span>
-                  <span className="trust-metric-desc text-[11px] text-[#50657D] mt-0.5 block">
-                    Delhi-NCR's premier destination
-                  </span>
+              {/* Right: Image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-80 lg:h-[420px]" data-reveal data-reveal-delay="2">
+                <img
+                  src="/images/corporate-events-conferences.jpg"
+                  alt="Corporate Events at AapnoGhar"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1E29]/60 to-transparent" />
+                <div className="absolute bottom-5 left-5">
+                  <span className="px-3 py-1.5 rounded-full bg-[#01A5E1] text-white text-xs font-extrabold shadow">2,500+ Guest Capacity</span>
                 </div>
               </div>
             </div>
@@ -818,89 +466,197 @@ Relax with hot tea, evening snacks, and souvenir photos before heading home.`;
         </section>
 
         {/* =========================================================================
-            FAQ ACCORDION SECTION (2-Column Split Minimal Layout)
+            SCHOOL PICNIC & GROUP PACKAGES SECTION
             ========================================================================= */}
-        <section className="section faq-section bg-[#FDFCF9] py-16 sm:py-20 border-t border-[#0E295B]/10" id="faq">
-          <div className="max-w-[1560px] mx-auto px-6 sm:px-12 lg:px-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-              {/* Left Column: Heading & Support Desk Card */}
-              <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24">
-                <div>
-                  <span className="eyebrow eyebrow--teal">Visitor Guidelines</span>
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#0E295B] font-display mt-2 leading-tight">
-                    Frequently Asked Questions
-                  </h2>
-                  <p className="text-[#50657D] text-sm sm:text-base mt-3 leading-relaxed">
-                    Everything you need to know about day picnic timings, height-based tickets, unlimited vegetarian buffet feasts, and resort policies.
-                  </p>
-                </div>
-
-                {/* Instant Help Card */}
-                <div className="bg-[#FCF3E9] rounded-3xl p-6 border border-[#F68734]/20 flex flex-col gap-4 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-[#F68734] text-white flex items-center justify-center font-bold text-lg shadow-md">
-                      💬
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-black text-[#0E295B]">Have a specific query?</h4>
-                      <p className="text-xs text-[#50657D]">Our resort guest concierge is available 24/7</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2.5">
-                    <a
-                      href="https://wa.me/917666779999?text=Hi%20AapnoGhar,%20I%20have%20a%20question%20regarding%20my%20visit"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition-all"
-                    >
-                      <span>Chat on WhatsApp</span>
-                    </a>
-                    <a
-                      href="tel:+917666779999"
-                      className="px-4 py-2.5 rounded-xl bg-white border border-[#0E295B]/15 hover:border-[#0E295B]/30 text-[#0E295B] text-xs font-extrabold flex items-center gap-1.5 shadow-xs transition-all"
-                    >
-                      <span>Call +91 7666 779 999</span>
-                    </a>
-                  </div>
+        <section className="py-24 bg-[#FCF3E9] relative overflow-hidden" id="school-picnic">
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left: Image */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl h-80 lg:h-[420px]" data-reveal>
+                <img
+                  src="/images/full-day-picnic-package-1-aapno-ghar.jpg"
+                  alt="School Picnic Packages at AapnoGhar"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0E295B]/60 to-transparent" />
+                <div className="absolute bottom-5 left-5">
+                  <span className="px-3 py-1.5 rounded-full bg-[#F68734] text-white text-xs font-extrabold shadow">Groups of All Sizes Welcome</span>
                 </div>
               </div>
-
-              {/* Right Column: 6 Sleek Accordion Cards */}
-              <div className="lg:col-span-7 flex flex-col gap-3.5">
-                {faqs.map(([q, a], idx) => {
-                  const isOpen = openFaq === idx;
-                  return (
-                    <div
-                      key={idx}
-                      className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                        isOpen
-                          ? "bg-white border-[#01A5E1] shadow-md"
-                          : "bg-white border-[#0E295B]/10 hover:border-[#0E295B]/25"
-                      }`}
-                    >
-                      <button
-                        type="button"
-                        aria-expanded={isOpen ? "true" : "false"}
-                        onClick={() => setOpenFaq(isOpen ? null : idx)}
-                        className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-[#0E295B] text-sm sm:text-base hover:bg-[#FCF3E9]/30 transition-colors"
-                      >
-                        <span className="leading-snug">{q}</span>
-                        <ChevronDown
-                          size={18}
-                          className={`text-[#01A5E1] shrink-0 transition-transform duration-300 ${
-                            isOpen ? "rotate-180 text-[#F68734]" : ""
-                          }`}
-                        />
-                      </button>
-                      {isOpen && (
-                        <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-[#50657D] leading-relaxed border-t border-[#0E295B]/5 pt-3 animate-in fade-in duration-200">
-                          {a}
-                        </div>
-                      )}
+              {/* Right: Content */}
+              <div data-reveal data-reveal-delay="2">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-[#F68734]/15 text-[#D84A22] text-xs font-bold uppercase tracking-widest mb-5">School Picnic & Group Packages</span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0E295B] font-display tracking-tight leading-tight">
+                  Perfect Outing for Students & Groups
+                </h2>
+                <p className="text-[#50657D] mt-4 text-base leading-relaxed max-w-lg">
+                  Specially curated packages for schools, colleges, and institutional groups — with water park access, group buffet meals, and supervised adventure activities.
+                </p>
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  {[
+                    { label: "Group Discounts Available", icon: "🎟️" },
+                    { label: "Supervised Activities", icon: "🛡️" },
+                    { label: "Pure Veg Group Buffet", icon: "🥘" },
+                    { label: "School Bus Parking", icon: "🚌" },
+                  ].map(f => (
+                    <div key={f.label} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/70 border border-[#F68734]/15">
+                      <span className="text-lg leading-none">{f.icon}</span>
+                      <span className="text-[#0E295B] text-xs font-semibold leading-snug">{f.label}</span>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <a
+                    href="/school-picnic-group-packages"
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#F68734] to-[#D84A22] text-white font-extrabold text-sm hover:shadow-xl hover:shadow-[#F68734]/30 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    View Group Packages <ArrowUpRight size={16} />
+                  </a>
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            ABHIPRITI RESTAURANT SECTION
+            ========================================================================= */}
+        <section className="py-24 bg-[#061A33] relative overflow-hidden" id="restaurant">
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-[#F68734]/6 blur-3xl pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left: Content */}
+              <div data-reveal>
+                <span className="inline-block px-4 py-1.5 rounded-full bg-[#F68734]/20 text-[#FFA96B] text-xs font-bold uppercase tracking-widest mb-5">Abhipriti Restaurant</span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white font-display tracking-tight leading-tight">
+                  100% Pure Vegetarian Dining
+                </h2>
+                <p className="text-white/60 mt-4 text-base leading-relaxed max-w-lg">
+                  Relish unlimited North Indian buffet spreads crafted with the finest ingredients — from hearty breakfast to royal lunch and evening hi-tea. Pure, fresh, and sattvik.
+                </p>
+                <div className="mt-8 flex flex-col gap-3">
+                  {[
+                    { time: "07:30 AM – 10:30 AM", meal: "Welcome Breakfast & Chai", icon: "☕" },
+                    { time: "01:00 PM – 02:30 PM", meal: "Grand Lunch Buffet (Unlimited)", icon: "🍛" },
+                    { time: "04:30 PM – 06:30 PM", meal: "Evening Hi-Tea & Snacks", icon: "🍵" },
+                  ].map(m => (
+                    <div key={m.meal} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/8">
+                      <span className="text-2xl leading-none">{m.icon}</span>
+                      <div>
+                        <p className="text-white text-sm font-bold">{m.meal}</p>
+                        <p className="text-white/50 text-xs mt-0.5">{m.time}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8">
+                  <a
+                    href="/abhipriti-restaurant"
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#FFA96B] to-[#F68734] text-[#061A33] font-extrabold text-sm hover:shadow-xl hover:shadow-[#F68734]/30 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    Explore Our Restaurant <ArrowUpRight size={16} />
+                  </a>
+                </div>
+              </div>
+              {/* Right: Image mosaic */}
+              <div className="grid grid-cols-2 gap-4" data-reveal data-reveal-delay="2">
+                <div className="rounded-2xl overflow-hidden h-48 shadow-lg">
+                  <img src="/images/full-day-picnic-package-1-aapno-ghar.jpg" alt="Dining at AapnoGhar" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-2xl overflow-hidden h-48 shadow-lg">
+                  <img src="/images/full-day-picnic-package-3-aapno-ghar.jpg" alt="Buffet at AapnoGhar" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-2xl overflow-hidden h-48 shadow-lg col-span-2">
+                  <img src="/images/full-day-picnic-package-2-aapno-ghar.jpg" alt="Pure Veg Buffet" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            PACKAGES & OFFERS SECTION
+            ========================================================================= */}
+        <section className="py-24 bg-white relative overflow-hidden" id="packages">
+          <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+            {/* Section Header */}
+            <div className="text-center mb-14" data-reveal>
+              <span className="inline-block px-4 py-1.5 rounded-full bg-[#0E295B]/8 text-[#0E295B] text-xs font-bold uppercase tracking-widest mb-4">Packages & Offers</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0E295B] font-display tracking-tight leading-tight">
+                All-Inclusive Day Picnic Packages
+              </h2>
+              <p className="text-[#50657D] mt-4 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+                One price covers everything — water park, rides, adventure activities, and unlimited vegetarian buffet meals!
+              </p>
+            </div>
+
+            {/* Package Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {/* Weekday Package */}
+              <div className="rounded-3xl border border-[#0E295B]/10 bg-[#FDFCF9] p-7 shadow-md hover:shadow-xl transition-shadow" data-reveal>
+                <span className="inline-block px-3 py-1 rounded-full bg-[#01A5E1]/10 text-[#01A5E1] text-[10px] font-extrabold uppercase tracking-widest mb-4">Weekday Pass</span>
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-4xl font-extrabold text-[#0E295B] font-display">₹1,599</span>
+                  <span className="text-[#50657D] text-sm">/adult + taxes</span>
+                </div>
+                <p className="text-[#50657D] text-xs mb-5">Monday – Friday (height above 54")</p>
+                <ul className="space-y-2.5">
+                  {["Unlimited Water Park", "All Amusement Rides", "24 Adventure Activities", "Full-Day Meals Included"].map(f => (
+                    <li key={f} className="flex items-center gap-2.5 text-[#0E295B] text-xs font-medium">
+                      <span className="w-4 h-4 rounded-full bg-[#01A5E1]/15 text-[#01A5E1] flex items-center justify-center text-[10px] shrink-0">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Weekend Package - Featured */}
+              <div className="relative rounded-3xl bg-gradient-to-br from-[#0E295B] to-[#061A33] p-7 shadow-2xl hover:-translate-y-1 transition-transform duration-300 ring-2 ring-[#FFA96B]/30" data-reveal data-reveal-delay="2">
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#FFA96B] to-[#F68734] text-[#061A33] text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap shadow">Most Popular</span>
+                <span className="inline-block px-3 py-1 rounded-full bg-white/15 text-[#FFA96B] text-[10px] font-extrabold uppercase tracking-widest mb-4 mt-2">Weekend Pass</span>
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-4xl font-extrabold text-white font-display">₹1,799</span>
+                  <span className="text-white/60 text-sm">/adult + taxes</span>
+                </div>
+                <p className="text-white/50 text-xs mb-5">Saturday, Sunday & Holidays (above 54")</p>
+                <ul className="space-y-2.5">
+                  {["Unlimited Water Park", "All Amusement Rides", "24 Adventure Activities", "Full-Day Meals Included"].map(f => (
+                    <li key={f} className="flex items-center gap-2.5 text-white/85 text-xs font-medium">
+                      <span className="w-4 h-4 rounded-full bg-white/15 text-[#FFA96B] flex items-center justify-center text-[10px] shrink-0">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Child Package */}
+              <div className="rounded-3xl border border-[#0E295B]/10 bg-[#FDFCF9] p-7 shadow-md hover:shadow-xl transition-shadow" data-reveal data-reveal-delay="3">
+                <span className="inline-block px-3 py-1 rounded-full bg-[#F68734]/10 text-[#D84A22] text-[10px] font-extrabold uppercase tracking-widest mb-4">Child Pass</span>
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-4xl font-extrabold text-[#0E295B] font-display">₹1,299</span>
+                  <span className="text-[#50657D] text-sm">/child + taxes</span>
+                </div>
+                <p className="text-[#50657D] text-xs mb-5">Height 33" – 54" (below 33" is FREE!)</p>
+                <ul className="space-y-2.5">
+                  {["Kids Water Slides", "Amusement Joyrides", "Safe Adventure Zone", "Full-Day Meals Included"].map(f => (
+                    <li key={f} className="flex items-center gap-2.5 text-[#0E295B] text-xs font-medium">
+                      <span className="w-4 h-4 rounded-full bg-[#F68734]/15 text-[#D84A22] flex items-center justify-center text-[10px] shrink-0">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="text-center">
+              <a
+                href="/packages-offers"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-[#0E295B] to-[#061A33] text-white font-extrabold text-sm hover:shadow-xl hover:shadow-[#0E295B]/25 hover:-translate-y-0.5 transition-all duration-200"
+              >
+                View All Packages & Offers <ArrowUpRight size={16} />
+              </a>
             </div>
           </div>
         </section>
@@ -911,7 +667,7 @@ Relax with hot tea, evening snacks, and souvenir photos before heading home.`;
           ========================================================================= */}
       <SiteFooter />
 
-      {/* Floating AI Concierge Launcher — Desktop only (mobile uses StickyMobileActionBar) */}
+      {/* Floating AI Concierge Launcher — Desktop only */}
       <div className="hidden md:flex fixed bottom-6 right-6 z-50 flex-col items-end gap-3">
         <button
           type="button"
@@ -947,15 +703,6 @@ Relax with hot tea, evening snacks, and souvenir photos before heading home.`;
           </div>
         </div>
       )}
-
-      {/* Video Walkthrough Modal */}
-      <VideoModal
-        isOpen={isVideoModalOpen}
-        onClose={() => setIsVideoModalOpen(false)}
-        videoSrc="/videos/meet-and-celebrations.mp4"
-        poster="/images/chander-party-lawn.jpg"
-        title="AapnoGhar Resort & Water Park Official Video"
-      />
 
       {/* Booking & Enquiry Modal */}
       <BookingModal
