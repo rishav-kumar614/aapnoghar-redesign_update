@@ -365,7 +365,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
         </div>
 
         {/* Drawer Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        <div data-lenis-prevent className="flex-1 overflow-y-auto p-4 space-y-3">
           
           {/* Quick Home Link */}
           <button
