@@ -70,6 +70,18 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
+
   const handleNavClick = (sectionId: string) => {
     setIsMenuOpen(false);
     if (location === "/") {
