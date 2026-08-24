@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
+import { trackEvent, initAnalyticsScripts } from "@/lib/analytics";
 import {
   ChevronDown,
   Phone,
@@ -24,6 +25,11 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDrawerAcc, setOpenDrawerAcc] = useState<string | null>(null);
   const [agUser, setAgUser] = useState<{ name: string; email: string } | null>(null);
+
+  // Initialize Analytics & UTM Capture on mount
+  useEffect(() => {
+    initAnalyticsScripts();
+  }, []);
 
   // Read user session from localStorage
   useEffect(() => {
@@ -65,6 +71,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
 
   const handleOpenBooking = (intent: string) => {
     setIsMenuOpen(false);
+    trackEvent("whatsapp_click", { intent, location: "header_drawer" });
     if (onOpenBooking) {
       onOpenBooking(intent);
     } else {
@@ -86,7 +93,7 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
           <img
             src="/images/logo.png"
             alt="AapnoGhar Resort"
-            className="h-13 sm:h-15 md:h-16 lg:h-[68px] w-auto object-contain drop-shadow-sm transition-transform hover:scale-105"
+            className="h-[52px] sm:h-[58px] md:h-[62px] lg:h-[68px] max-w-[260px] w-auto object-contain drop-shadow-sm transition-transform hover:scale-105"
           />
         </Link>
 
@@ -240,7 +247,11 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
 
         {/* Header Right Actions */}
         <div className="header-actions">
-          <a className="phone-link" href="tel:+917666779997">
+          <a
+            className="phone-link"
+            href="tel:+917666779997"
+            onClick={() => trackEvent("phone_click", { number: "+917666779997", location: "header" })}
+          >
             <Phone size={15} /> <span>+91 7666 779 997</span>
           </a>
           {agUser ? (
@@ -270,7 +281,10 @@ export function SiteHeader({ onOpenBooking, onScrollTo }: SiteHeaderProps) {
           <button
             className="button button--coral button--header"
             type="button"
-            onClick={() => setLocation("/booking")}
+            onClick={() => {
+              trackEvent("book_now_click", { location: "header_cta" });
+              setLocation("/booking");
+            }}
           >
             <CalendarDays size={16} /> Book Now
           </button>
