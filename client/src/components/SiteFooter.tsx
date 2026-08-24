@@ -12,7 +12,11 @@ export function SiteFooter() {
 
           {/* Col 1: Brand & Bio */}
           <div>
-            <img src="/images/logo.png" alt="AapnoGhar" className="h-10 w-auto object-contain mb-4 brightness-200" />
+            <img
+              src="/images/logo.png"
+              alt="AapnoGhar"
+              className="h-14 w-auto object-contain mb-4 drop-shadow-sm"
+            />
             <p className="text-xs text-white/70 leading-relaxed">
               AapnoGhar Resort, Water Park &amp; Amusement Park offers 9 acres of boundless joy, luxury accommodations, and royal event lawns on NH-8 Gurugram.
             </p>
@@ -142,18 +146,18 @@ export function SiteFooter() {
               </button>
             </div>
 
-            <div className="flex items-center gap-2 p-1 border border-white/20 rounded-sm bg-white/5 backdrop-blur-md">
+            <div className="flex items-center gap-1.5 p-1 border border-white/20 bg-white/5 backdrop-blur-md rounded-none">
               <a
                 href="https://play.fabulousmedia.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Fabulous Media"
-                className="inline-flex items-center justify-center bg-white px-2 py-1 rounded-sm opacity-90 hover:opacity-100 transition-all shadow-xs"
+                className="w-6 h-6 flex items-center justify-center bg-white rounded-none opacity-90 hover:opacity-100 transition-all shadow-xs"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/fabulousmedia.svg"
                   alt="Fabulous Media"
-                  style={{ height: "13px", maxHeight: "13px", width: "auto", objectFit: "contain" }}
+                  style={{ height: "14px", width: "14px", objectFit: "contain" }}
                 />
               </a>
 
@@ -164,12 +168,12 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GoCommercially"
-                className="inline-flex items-center justify-center bg-white px-2 py-1 rounded-sm opacity-90 hover:opacity-100 transition-all shadow-xs"
+                className="w-6 h-6 flex items-center justify-center bg-white rounded-none opacity-90 hover:opacity-100 transition-all shadow-xs"
               >
                 <img
                   src="https://play.fabulousmedia.in/sitecredit/images/gocommercially.svg"
                   alt="GoCommercially"
-                  style={{ height: "13px", maxHeight: "13px", width: "auto", objectFit: "contain" }}
+                  style={{ height: "14px", width: "14px", objectFit: "contain" }}
                 />
               </a>
             </div>
